@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <install type="component" version="1.5">
 	
-	<name>Recomendador de peliculas</name>
+	<name>Recomendador</name>
 	<author>Antonio Viñas y Tristan</author>
 	<creationDate>Abril 2012</creationDate>
 	<copyright>(C) Antonio y Tristan</copyright>
