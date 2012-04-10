@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : libros.xml
+    Created on : 24 de marzo de 2012, 11:14
+    Author     : jenkin90
+    Description:
+        Purpose of the document follows.
+-->
+
+<install type="component" version="1.5">
+    <name>Libros</name>
+    <author>jenkin90</author>
+    <copyright>(C) jenkin90</copyright>
+    <license>GPL</license>
+    <version>0.03</version>
+    <descripcion>A ver si esto de los componentes se da bien</descripcion>
+    
+    <files folder="site">
+        <filename>libros.php</filename>
+        <filename>controller.php</filename>
+        <folder>models</folder>
+        <folder>views</folder>
+    </files>
+   
+    <install>
+        <sql>
+            <file charset="utf8" driver="mysql">install.sql</file>
+        </sql>
+    </install>
+    
+    <uninstall>
+        <sql>
+            <file charset="utf8" driver="mysql">uninstall.sql</file>
+        </sql>
+    </uninstall>
+
+    <administration>
+        <menu>Libros versión 0.03</menu>
+        <files folder="admin">
+            <filename>libros.php</filename>
+            <filename>controller.php</filename>
+            <folder>views</folder>
+            <filename>install.sql</filename>
+            <filename>uninstall.sql</filename>
+        </files>
+    </administration>
+</install>
