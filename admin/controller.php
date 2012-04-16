@@ -16,7 +16,7 @@ class FamososController extends JController {
 		$famosos = $modelo->obtenerTodosLosFamosos();
 		
 		$vista = $this->getView("famosos","html");
-		$vista->assignRef("libros",$libros);
+		$vista->assignRef("famosos",$famosos);
 		$vista->display();
 	}
 	
@@ -76,6 +76,11 @@ class FamososController extends JController {
 		$enlace = 'index.php?option=com_famosos';
         $this->setRedirect($enlace, $aviso);
 	}
+	
+	function add() {
+        $vista = $this->getView('famosos', 'html');
+        $vista->add();
+    }
 	
 }
 
