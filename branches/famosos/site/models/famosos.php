@@ -15,7 +15,7 @@ class FamososModelFamosos extends JModel {
 	
 	function obtenerTodosLosFamosos (){
 		$db = &JFactory::getDbo();
-		$query = "SELECT * FROM #__famosos";
+		$query = "SELECT * FROM #__famoso";
 		$db->setQuery($query);
 		return $db->loadAssocList();
 	}
