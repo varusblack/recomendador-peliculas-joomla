@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <install type="component" version="1.5">
 	
-	<name>Recomendador</name>
+	<name>Peliculas</name>
 	<author>Antonio Viñas y Tristan</author>
 	<creationDate>Abril 2012</creationDate>
 	<copyright>(C) Antonio y Tristan</copyright>
 	<license>GPL</license>
-	<version>0.001</version>
+	<version>0.00000000002</version>
 	<description>Componente de recomendación de peliculas</description>
 	
 	<files folder="site">
-		<filename>recomendador.php</filename>
+		<filename>peliculas.php</filename>
 		<filename>controller.php</filename>
 		<folder>controllers</folder>
 		<folder>views</folder>
@@ -25,9 +25,15 @@
 	</uninstall>
 	
 	<administration>
-		<menu>Recomendador</menu>
+		<menu link="option=com_peliculas">Peliculas</menu>
+                <submenu>
+                    <menu controller="categorias" view="categorias">Categorías</menu>
+                    <menu view="famosos">Famosos</menu>
+                    <menu view="peliculas">Peliculas</menu>
+                    <menu view="usuarios">Usuarios</menu>
+                </submenu>
 		<files folder="admin">
-			<filename>recomendador.php</filename>
+			<filename>peliculas.php</filename>
 			<filename>install.sql</filename>
 			<filename>uninstall.sql</filename>
 			<filename>controller.php</filename>
