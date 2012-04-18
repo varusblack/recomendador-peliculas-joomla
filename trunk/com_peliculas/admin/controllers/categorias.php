@@ -14,9 +14,17 @@ class PeliculasControllerCategorias extends JController {
 
     function display() {
         $modelo = $this->getModel('categorias');
-        $categorias = $modelo->obtenerTodasLasCategorias();
+        $categorias = $modelo->obtenerCategoriasLimites();
+        
 
         $vista = $this->getView('Categorias', 'html');
+        // Get data from the model
+	
+ 	$pagination =$modelo->getPagination();
+ 
+	// push data into the template
+
+	$vista->assignRef('pagination', $pagination);
         $vista->assignRef('categorias', $categorias);
         $vista->display();
     }
