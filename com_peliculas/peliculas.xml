@@ -6,7 +6,7 @@
 	<creationDate>Abril 2012</creationDate>
 	<copyright>(C) Antonio y Tristan</copyright>
 	<license>GPL</license>
-	<version>0.00000000002</version>
+	<version>0.00000000005</version>
 	<description>Componente de recomendación de peliculas</description>
 	
 	<files folder="site">
@@ -28,7 +28,7 @@
 		<menu link="option=com_peliculas">Peliculas</menu>
                 <submenu>
                     <menu controller="categorias" view="categorias">Categorías</menu>
-                    <menu view="famosos">Famosos</menu>
+                    <menu controller="famosos" view="famosos">Famosos</menu>
                     <menu view="peliculas">Peliculas</menu>
                     <menu view="usuarios">Usuarios</menu>
                 </submenu>
