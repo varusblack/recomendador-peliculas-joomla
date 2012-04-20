@@ -32,7 +32,7 @@ class PeliculasViewCategorias extends JView {
     
     function remove() {
         JToolBarHelper::title('Borrar categorias');
-        JToolBarHelper::save();
+        JToolBarHelper::save('processRemove');
         JToolBarHelper::cancel();
 
         parent::display('remove');
