@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS `#__famosos` (
   UNIQUE KEY `nombre` (`nombre`)
 ) ;
 
-CREATE TABLE IF NOT EXISTS `#_peliculas` (
+CREATE TABLE IF NOT EXISTS `#__peliculas` (
   `id` int(11) NOT NULL,
   `titulo` varchar(255) NOT NULL,
   `anno` varchar(20) NOT NULL,
@@ -24,3 +24,12 @@ CREATE TABLE IF NOT EXISTS `#_peliculas` (
   PRIMARY KEY (`id`),
   KEY `idDirector` (`idDirector`)
 );
+
+CREATE TABLE IF NOT EXISTS `#__categoriaspeliculas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idPelicula` int(11) NOT NULL,
+  `idCategoria` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idPelicula` (`idPelicula`,`idCategoria`),
+  KEY `idCategoria` (`idCategoria`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=7453 ;
