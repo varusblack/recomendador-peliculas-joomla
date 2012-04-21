@@ -36,7 +36,7 @@ class PeliculasControllerFilms extends JController{
 		$famosos = $modelo2->obtenerTodosLosFamosos();
 
         $vista = $this->getView("films","html");
-        $vista->assignRef("films", $film);
+        $vista->assignRef("film", $film);
 		$vista->assignRef("famosos",$famosos);
 		$vista->assignRef("director",$director);
         $vista->edit();
