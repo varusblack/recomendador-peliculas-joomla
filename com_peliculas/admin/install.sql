@@ -3,6 +3,9 @@ CREATE TABLE IF NOT EXISTS `#__categorias` (
   `categoria` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
   PRIMARY KEY (`id`)
 );
+INSERT INTO `#__categorias`(`categoria`) VALUES 
+(' '),
+('Gore');
 
 CREATE TABLE IF NOT EXISTS `#__famosos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -10,6 +13,11 @@ CREATE TABLE IF NOT EXISTS `#__famosos` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `nombre` (`nombre`)
 ) ;
+
+INSERT INTO `#__famosos`(`nombre`) VALUES 
+(' '),
+('Quentin Tarantino'),
+('Leonardo Dicaprio');
 
 CREATE TABLE IF NOT EXISTS `#__peliculas` (
   `id` int(11) NOT NULL,
@@ -33,3 +41,15 @@ CREATE TABLE IF NOT EXISTS `#__categoriaspeliculas` (
   KEY `idPelicula` (`idPelicula`,`idCategoria`),
   KEY `idCategoria` (`idCategoria`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=7453 ;
+
+INSERT INTO `#__categoriaspeliculas`(`idPelicula`,`idCategoria`) VALUES (3,1);
+
+CREATE TABLE IF NOT EXISTS `#__actorespelicula` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+  `idFamoso` int(11) NOT NULL,
+  `idPelicula` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `famosoPelicula` (`idFamoso`,`idPelicula`),
+  KEY `idFamoso` (`idFamoso`),
+  KEY `idPelicula` (`idPelicula`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23972 ;

@@ -73,4 +73,11 @@ class PeliculasModelPeliculasCategorias extends JModel {
 
         return $db->loadAssocList();
     }
+	
+	function obtenerCategoriasDePeliculas ($idPelicula) {
+		$db = &JFactory::getDbo();
+		$query = "SELECT #__categorias.id AS id, #__categorias.categoria AS categoria FROM #__categoriaspeliculas INNER JOIN #__categorias ON #__categoriaspeliculas.idCategoria=#__categorias.id WHERE #__categoriaspeliculas.idPelicula='{$idPelicula}'";
+		$db->setQuery($query);
+		return $db->loadAssocList();
+	}
 }

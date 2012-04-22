@@ -11,12 +11,9 @@
                     <input type="checkbox" name="toogle" value="" onclick="checkAll(<?php echo count($this->films); ?>);" />
                 </th>
                 <th>Título</th>
+                <th>Título en español</th>
                 <th>Año</th>
                 <th>Salida a la venta</th>
-                <th>Url IMDB</th>
-                <th>Título 2</th>
-                <th>Título en español</th>
-                <th>Url cartel</th>
                 <th>Director</th>
             </tr>
         </thead>
@@ -28,14 +25,13 @@
                 <td><?php echo $film["id"]; ?></td>
                 <td><?php echo JHtml::_('grid.id', $i, $film["id"]); ?></td>
                 <td>
-                    <?php echo "<a href='index.php?option=com_peliculas&controller=Films&task=edit&cid[]={$film['id']}'>{$film['titulo']}</a>"; ?> 
+                    <?php echo "<a href='index.php?option=com_peliculas&controller=Films&task=edit&cid[]={$film['id']}'>{$film["titulo"]}</a>"; ?> 
+                </td>
+                <td>
+                    <?php echo "<a href='index.php?option=com_peliculas&controller=Films&task=edit&cid[]={$film['id']}'>{$film["tituloEspanol"]}</a>"; ?> 
                 </td>
                 <td><?php echo $film["anno"] ; ?></td>
                 <td><?php echo $film["videoRelease"]; ?></td>
-                <td><?php echo $film["imdbUrl"]; ?></td>
-                <td><?php echo $film["titulo2"]; ?></td>
-                <td><?php echo $film["tituloEsp"]; ?></td>
-                <td><?php echo $film["urlCartel"]; ?></td>
                 
                 <!-- Bucle para poder sacar el nombre del dirtector -->
                 <?php

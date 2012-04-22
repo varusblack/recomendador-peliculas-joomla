@@ -72,6 +72,110 @@ defined('_JEXEC') or die('Restricted access');
         		</select>
         	</td>
         </tr>
+        <tr>
+        	<td width="100" align="right" class="key">
+        		<label for="idActor1">Actor 1:</label>
+        	</td>
+        	<td>
+        		<select name="idActor1" id="idActor1">
+        			<?php foreach ($this->famosos as $famoso){
+        				$idFamoso = $famoso["id"];
+        				echo "<option value='$idFamoso'>".$famoso["nombre"]. "</option>";
+        			} ?>
+        		</select>
+        	</td>
+        </tr>
+        <tr>
+        	<td width="100" align="right" class="key">
+        		<label for="idActor2">Actor 2:</label>
+        	</td>
+        	<td>
+        		<select name="idActor2" id="idActor2">
+        			<?php foreach ($this->famosos as $famoso){
+        				$idFamoso = $famoso["id"];
+        				echo "<option value='$idFamoso'>".$famoso["nombre"]. "</option>";
+        			} ?>
+        		</select>
+        	</td>
+        </tr>
+        <tr>
+        	<td width="100" align="right" class="key">
+        		<label for="idActor3">Actor 3:</label>
+        	</td>
+        	<td>
+        		<select name="idActor3" id="idActor3">
+        			<?php foreach ($this->famosos as $famoso){
+        				$idFamoso = $famoso["id"];
+        				echo "<option value='$idFamoso'>".$famoso["nombre"]. "</option>";
+        			} ?>
+        		</select>
+        	</td>
+        </tr>
+        <tr>
+        	<td width="100" align="right" class="key">
+        		<label for="idActor4">Actor 4:</label>
+        	</td>
+        	<td>
+        		<select name="idActor4" id="idActor4">
+        			<?php foreach ($this->famosos as $famoso){
+        				$idFamoso = $famoso["id"];
+        				echo "<option value='$idFamoso'>".$famoso["nombre"]. "</option>";
+        			} ?>
+        		</select>
+        	</td>
+        </tr>
+        <tr>
+        	<td width="100" align="right" class="key">
+        		<label for="idActor5">Actor 5:</label>
+        	</td>
+        	<td>
+        		<select name="idActor5" id="idActor5">
+        			<?php foreach ($this->famosos as $famoso){
+        				$idFamoso = $famoso["id"];
+        				echo "<option value='$idFamoso'>".$famoso["nombre"]. "</option>";
+        			} ?>
+        		</select>
+        	</td>
+        </tr>
+        <tr>
+        	<td width="100" align="right" class="key">
+        		<label for="idCategoria1">Categoría 1:</label>
+        	</td>
+        	<td>
+        		<select name="idCategoria1" id="idCategoria1">
+        			<?php foreach ($this->categorias as $categoria){
+        				$idCategoria = $categoria["id"];
+        				echo "<option value='$idCategoria'>".$categoria["categoria"]. "</option>";
+        			} ?>
+        		</select>
+        	</td>
+        </tr>
+        <tr>
+        	<td width="100" align="right" class="key">
+        		<label for="idCategoria2">Categoría 2:</label>
+        	</td>
+        	<td>
+        		<select name="idCategoria2" id="idCategoria2">
+        			<?php foreach ($this->categorias as $categoria){
+        				$idCategoria = $categoria["id"];
+        				echo "<option value='$idCategoria'>".$categoria["categoria"]. "</option>";
+        			} ?>
+        		</select>
+        	</td>
+        </tr>
+        <tr>
+        	<td width="100" align="right" class="key">
+        		<label for="idCategoria3">Categoría 3:</label>
+        	</td>
+        	<td>
+        		<select name="idCategoria3" id="idCategoria3">
+        			<?php foreach ($this->categorias as $categoria){
+        				$idCategoria = $categoria["id"];
+        				echo "<option value='$idCategoria'>".$categoria["categoria"]. "</option>";
+        			} ?>
+        		</select>
+        	</td>
+        </tr>
 
 
     </table>
