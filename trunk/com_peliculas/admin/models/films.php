@@ -11,6 +11,7 @@ class PeliculasModelFilms extends JModel {
 	
 	function __construct() {
         parent::__construct();
+		global $mainframe, $option;
         $mainframe = JFactory::getApplication();
         $limit = $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
         $limitstart = JRequest::getVar('limitstart', 0, '', 'int');
@@ -27,11 +28,9 @@ class PeliculasModelFilms extends JModel {
     }
 	
 	function obtenerPeliculasLimites() {
-		$start = $this->getState('limitStart');
+		$start = $this->getState('limitstart');
         $limit = $this->getState('limit');
-        if ($start == '') {
-            $start = 0;
-        }
+        
         $db = &JFactory::getDbo();
         $query = "SELECT * FROM #__peliculas LIMIT $start,$limit";
         $db->setQuery($query);
