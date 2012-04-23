@@ -27,6 +27,6 @@ defined('_JEXEC') or die('Restricted access');
     <input type="hidden" name="option" value="com_peliculas" />
     <input type="hidden" name="controller" value="films" />
     <input type="hidden" name="task" value="remove" />
-    <input type="hidden" name="cid" value="<?php JRequest::getVar('cid',0,'','array'); ?>" />
+    <input type="hidden" name="cid" value="<?php echo base64_encode(serialize($this->films)); ?>" />
     
 </form>
