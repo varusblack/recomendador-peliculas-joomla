@@ -60,9 +60,9 @@ class PeliculasModelFilms extends JModel {
         return $db->loadAssoc();
     }
 
-    function insertarPelicula($titulo, $anno, $videoRelease, $imdbUrl, $titulo2, $tituloEsp, $urlCartel, $idDirector) {
+    function insertarPelicula($titulo, $anno, $videoRelease, $tituloEsp) {
         $db = &JFactory::getDbo();
-        $query = "INSERT INTO #__peliculas SET titulo='{$titulo}',anno='{$anno}',videoRelease='{$videoRelease}',IMDBurl='{$imdbUrl}',titulo2='{$titulo2}',tituloEspanol='{$tituloEsp}',urlCartel='{$urlCartel}',idDirector='{$idDirector}'";
+        $query = "INSERT INTO #__peliculas SET titulo='{$titulo}',anno='{$anno}',videoRelease='{$videoRelease}',tituloEspanol='{$tituloEsp}'";
         $db->setQuery($query);
         $db->query();
         if ($db->getErrorNum()) {
@@ -72,9 +72,9 @@ class PeliculasModelFilms extends JModel {
         }
     }
 
-    function actualizarPelicula($idPelicula, $titulo, $anno, $videoRelease, $imdbUrl, $titulo2, $tituloEsp, $urlCartel, $idDirector) {
+    function actualizarPelicula($idPelicula, $titulo, $anno, $videoRelease, $tituloEsp) {
         $db = &JFactory::getDbo();
-        $query = "UPDATE #__peliculas SET titulo='{$titulo}',anno='{$anno}',videoRelease='{$videoRelease}',IMDBurl='{$imdbUrl}',titulo2='{$titulo2}',tituloEspanol='{$tituloEsp}',urlCartel='{$urlCartel}',idDirector='{$idDirector}' WHERE id='{$idPelicula}'";
+        $query = "UPDATE #__peliculas SET titulo='{$titulo}',anno='{$anno}',videoRelease='{$videoRelease}',tituloEspanol='{$tituloEsp}' WHERE id='{$idPelicula}'";
         $db->setQuery($query);
         $db->query();
         if ($db->getErrorNum()) {
@@ -95,6 +95,18 @@ class PeliculasModelFilms extends JModel {
             return true;
         }
     }
+	
+	function añadirDirector($idpelicula, $idDirector){
+		$db = &JFactory::getDbo();
+        $query = "UPDATE #__peliculas SET idDirector='{$idDirector}' WHERE id='{$idPelicula}'";
+        $db->setQuery($query);
+        $db->query();
+        if ($db->getErrorNum()) {
+            return false;
+        } else {
+            return true;
+        }
+	}
 
 }
 
