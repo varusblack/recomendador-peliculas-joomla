@@ -32,28 +32,6 @@ class PeliculasControllerFilms extends JController {
         $vista->edit();
     }
 
-    function remove() {
-        $modelo = $this->getModel("films");
-        $cid = JRequest::getVar("cid", "", "array");
-
-        $correcto = true;
-        foreach ($cid as $id) {
-            $resultado = $modelo->borrarPelicula($id);
-            if (!$resultado) {
-                $correcto = false;
-            }
-        }
-
-        if ($correcto) {
-            $aviso = "Se realizaron los cambios";
-        } else {
-            $aviso = "Error al actualizar";
-        }
-
-        $enlace = "index.php?option=com_peliculas&controller=films";
-        $this->setRedirect($enlace, $aviso);
-    }
-
     function save() {
         $id = JRequest::getVar("id");
         $titulo = JRequest::getVar("titulo");
@@ -91,10 +69,43 @@ class PeliculasControllerFilms extends JController {
         $vista = $this->getView('films', 'html');
         $vista->add();
     }
-	
-	function insertarDirector(){
-		
-	}
+    function remove() {
+        $cid = JRequest::getVar('cid', 0, '', 'array');
+        $modelo = $this->getModel('films');
+        $films = array();
+        foreach ($cid as $idFilm) {
+            $film = $modelo->obtenerPeliculaPorId($idFilm);
+            $films[] = $film;
+        }
+
+        $vista = $this->getView('Films', 'html');
+        $vista->assignRef('films', $films);
+        $vista->remove();
+    }
+
+    function processRemove() {
+        $elementsToDelete = JRequest::getVar('elementsToDelete');
+        $elementsToDelete = unserialize(base64_decode($elementsToDelete));
+        
+        $modeloFilms = $this->getModel('films');
+        $modeloPeliculasCategorias=$this->getModel('peliculasCategorias');
+        $modeloActoresPelicula=$this->getModel('modeloActoresPelicula');
+        
+        foreach ($elementsToDelete as $element) {
+            $modeloFilms->borrarPelicula($element["id"]);
+            $modeloPeliculasCategorias->deleteByPelicula($element["id"]);
+            $modeloActoresPelicula->borrarPorPelicula($element["id"]);
+        }
+        $correcto=true;
+        if ($correcto) {
+            $aviso = "Se borraron los elementos seleccionados";
+        } else {
+            $aviso = "No se borraron los elementos seleccionados";
+        }
+
+        $enlace = 'index.php?option=com_peliculas&controller=films';
+        $this->setRedirect($enlace, $aviso);
+    }
 
 }
 

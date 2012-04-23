@@ -33,26 +33,6 @@ class PeliculasControllerFamosos extends JController {
     }
 
     function remove() {
-//        $modelo = $this->getModel("famosos");
-//        $cid = JRequest::getVar("cid", 0, "array");
-//
-//        $correcto = true;
-//        foreach ($cid as $id) {
-//            $resultado = $modelo->borrarFamoso($id);
-//            if (!$resultado) {
-//                $correcto = false;
-//            }
-//        }
-//
-//        if ($correcto) {
-//            $aviso = "Se realizaron los cambios";
-//        } else {
-//            $aviso = "Error al actualizar";
-//        }
-//
-//        $enlace = "index.php?option=com_peliculas&controller=famosos";
-//        $this->setRedirect($enlace, $aviso);
-        
         
         $cid = JRequest::getVar('cid', 0, '', 'array');
         $modelo = $this->getModel('famosos');
