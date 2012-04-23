@@ -9,6 +9,7 @@ class PeliculasViewFilms extends JView{
 	function display($tpl = null){
 		JToolBarHelper::title('Películas');
         JToolBarHelper::addNew();
+		JToolBarHelper::custom('insertarDirector','','','Insertar director',false,false);
         JToolBarHelper::deleteList();
         JToolBarHelper::editList();
 
@@ -39,6 +40,13 @@ class PeliculasViewFilms extends JView{
         parent::display('remove');
     }
 	
+	function custom(){
+		JToolBarHelper::title('Insertar actores');
+        JToolBarHelper::save();
+        JToolBarHelper::cancel();
+
+        parent::display('remove');
+	}
 }
 
 
