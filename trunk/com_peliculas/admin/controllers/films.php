@@ -91,6 +91,10 @@ class PeliculasControllerFilms extends JController {
         $vista = $this->getView('films', 'html');
         $vista->add();
     }
+	
+	function insertarDirector(){
+		
+	}
 
 }
 
