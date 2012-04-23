@@ -14,7 +14,6 @@
                 <th>Título en español</th>
                 <th>Año</th>
                 <th>Salida a la venta</th>
-                <th>Director</th>
             </tr>
         </thead>
         <?php
@@ -32,18 +31,6 @@
                 </td>
                 <td><?php echo $film["anno"] ; ?></td>
                 <td><?php echo $film["videoRelease"]; ?></td>
-                
-                <!-- Bucle para poder sacar el nombre del dirtector -->
-                <?php
-                	foreach ($this->famosos as $famoso){
-                		if ($film["idDirector"] == $famoso["id"]){
-                			$nombreDirector = $famoso["nombre"];
-                			echo "<td> $nombreDirector  </td>";
-							break;
-                		}
-                	} 
-                ?>
-<!--                 <td><?php echo $this->famosos[""]; ?></td> -->
             </tr>
             <?php
             $i++;
