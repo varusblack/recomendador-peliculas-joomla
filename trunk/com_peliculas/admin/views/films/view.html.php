@@ -40,12 +40,12 @@ class PeliculasViewFilms extends JView{
         parent::display('remove');
     }
 	
-	function custom(){
-		JToolBarHelper::title('Insertar actores');
-        JToolBarHelper::save();
+	function insertarDirector(){
+		JToolBarHelper::title('Insertar director');
+        JToolBarHelper::save('grabarDirector');
         JToolBarHelper::cancel();
 
-        parent::display('remove');
+        parent::display('insertarDirector');
 	}
 }
 
