@@ -109,7 +109,6 @@ class PeliculasControllerFilms extends JController {
 	
 	function insertarDirector() {
 		$cid = JRequest::getVar("cid", 0, "", "array");
-		$nombreDirector = JRequest::getVar("nombreDirector");
 		$modelo = $this->getModel("films");
         $film = $modelo->obtenerPeliculaPorId($cid[0]);
 		
@@ -131,6 +130,37 @@ class PeliculasControllerFilms extends JController {
 		$correcto = $modelo->añadirDirector($idPelicula, $idDirector);
 
         if ($correcto) {
+            $aviso = "La actualización se ha realizado con exito ";
+        } else {
+            $aviso = "Error en la actualizacion ";
+        }
+        
+		$enlace = 'index.php?option=com_peliculas&controller=films';
+        $this->setRedirect($enlace, $aviso);
+	}
+	
+	function insertarActor() {
+		$cid = JRequest::getVar("cid", 0, "", "array");
+		$modelo = $this->getModel("films");
+        $film = $modelo->obtenerPeliculaPorId($cid[0]);
+		
+		$modeloFamosos = $this->getModel("famosos");
+		$famosos = $modeloFamosos->obtenerTodosLosFamosos();	
+			
+		$vista = $this->getView('films', 'html');
+		$vista->assignRef("famosos",$famosos);
+		$vista->insertarDirector();
+	}
+	
+	function grabarActor() {
+		$idPelicula = JRequest::getVar("id");
+		$idDirector = JRequest::getVar("idActor");
+		
+		$modelo = $this->getModel("actoresPelicula");
+		
+		$correcto = $modelo->insertar($idActor,$idPelicula);
+		
+		if ($correcto) {
             $aviso = "La actualización se ha realizado con exito ";
         } else {
             $aviso = "Error en la actualizacion ";
