@@ -9,8 +9,6 @@ class PeliculasViewFilms extends JView{
 	function display($tpl = null){
 		JToolBarHelper::title('Películas');
         JToolBarHelper::addNew();
-		JToolBarHelper::custom('insertarDirector','','','Insertar director',false,false);
-		JToolBarHelper::custom('insertarActor','','','Insertar actor',false,false);
         JToolBarHelper::deleteList();
         JToolBarHelper::editList();
 
@@ -19,6 +17,8 @@ class PeliculasViewFilms extends JView{
 	
 	function edit(){
 		JToolBarHelper::title('Editar datos de la película');
+		JToolBarHelper::custom('insertarDirector','','','Insertar director',false,false);
+		JToolBarHelper::custom('insertarActor','','','Insertar actor',false,false);
         JToolBarHelper::save();
         JToolBarHelper::cancel();
 

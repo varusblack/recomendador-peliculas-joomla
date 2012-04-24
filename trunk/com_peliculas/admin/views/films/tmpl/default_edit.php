@@ -36,6 +36,31 @@ defined('_JEXEC') or die('Restricted access');
         	</td>
         </tr>
         
+        <?php 
+        if(sizeof($this->director) == 2){
+		?>
+		<tr>
+        	<td width="100" align="right" class="key">Director:</td>
+        	<td>
+        		<?php echo $this->director["nombre"]; ?>
+        	</td>
+        </tr>
+		<?php
+        }
+		
+		if(sizeof($this->actores) > 0){
+			$contador = 1;
+			foreach ($this->actores as $actor) {
+				?>
+				<tr>
+		        	<td width="100" align="right" class="key"><?php echo "Actor $contador:"; ?></td>
+		        	<td><?php echo $actor["nombre"]; ?></td>
+		        </tr>
+				<?php
+				$contador = $contador + 1;
+			}
+		}
+		?>
 
     </table>
     <input type="hidden" name="option" value="com_peliculas" />

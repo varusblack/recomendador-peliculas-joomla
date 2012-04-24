@@ -95,8 +95,15 @@ class PeliculasModelFilms extends JModel {
             return true;
         }
     }
+	
+	function obtenerDirector($idPelicula) {
+		$db = &JFactory::getDbo();
+        $query = "SELECT #__famosos.id AS id, #__famosos.nombre AS nombre FROM #__peliculas INNER JOIN #__famosos ON #__peliculas.idDirector=#__famosos.id WHERE #__peliculas.id='{$idPelicula}'";
+        $db->setQuery($query);
+        return $db->loadAssoc();
+	}
 
-    function añadirDirector($idpelicula, $idDirector) {
+    function añadirDirector($idPelicula, $idDirector) {
         $db = &JFactory::getDbo();
         $query = "UPDATE #__peliculas SET idDirector='{$idDirector}' WHERE id='{$idPelicula}'";
         $db->setQuery($query);
@@ -119,7 +126,7 @@ class PeliculasModelFilms extends JModel {
             return true;
         }
     }
-
+	
 }
 
 ?>
