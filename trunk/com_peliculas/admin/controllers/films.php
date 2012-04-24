@@ -141,7 +141,7 @@ class PeliculasControllerFilms extends JController {
             $aviso = "Error en la actualizacion ";
         }
         
-		$enlace = 'index.php?option=com_peliculas&controller=films';
+		$enlace = 'index.php?option=com_peliculas&controller=films&task=edit&cid[]=0';
         $this->setRedirect($enlace, $aviso);
 	}
 	
@@ -155,7 +155,7 @@ class PeliculasControllerFilms extends JController {
 			
 		$vista = $this->getView('films', 'html');
 		$vista->assignRef("famosos",$famosos);
-		$vista->insertarDirector();
+		$vista->insertarActor();
 	}
 	
 	function grabarActor() {
@@ -171,7 +171,7 @@ class PeliculasControllerFilms extends JController {
             $aviso = "Error en la actualizacion ";
         }
         
-		$enlace = 'index.php?option=com_peliculas&controller=films';
+		$enlace = 'index.php?option=com_peliculas&controller=films&task=edit&cid[]=0';
         $this->setRedirect($enlace, $aviso);
 	}
 
