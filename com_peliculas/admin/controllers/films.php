@@ -26,9 +26,15 @@ class PeliculasControllerFilms extends JController {
         $cid = JRequest::getVar("cid", 0, "", "array");
         $modelo = $this->getModel("films");
         $film = $modelo->obtenerPeliculaPorId($cid[0]);
+		$director = $modelo->obtenerDirector($film["id"]);
+		
+		$modeloActoresPelicula = $this->getModel("actoresPelicula");
+		$actores = $modeloActoresPelicula->obtenerActoresDePelicula($film["id"]);
 
         $vista = $this->getView("films", "html");
         $vista->assignRef("film", $film);
+		$vista->assignRef("director",$director);
+		$vista->assignRef("actores",$actores);
         $vista->edit();
     }
 
@@ -154,10 +160,9 @@ class PeliculasControllerFilms extends JController {
 	
 	function grabarActor() {
 		$idPelicula = JRequest::getVar("id");
-		$idDirector = JRequest::getVar("idActor");
-		
+		$idActor = JRequest::getVar("idActor");
 		$modelo = $this->getModel("actoresPelicula");
-		
+
 		$correcto = $modelo->insertar($idActor,$idPelicula);
 		
 		if ($correcto) {
