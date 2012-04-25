@@ -52,10 +52,13 @@ class PeliculasControllerFilms extends JController {
         $modelo = $this->getModel("films");
         $modeloActoresPelicula = $this->getModel("actoresPelicula");
         $modeloPeliculasCategorias = $this->getModel("peliculasCategorias");
+		
+		$enlace;
 
         if ($id != "") {
-            $correcto = $modelo->actualizarPelicula($idPelicula, $titulo, $anno, $videoRelease, $tituloEsp);
-
+            $correcto = $modelo->actualizarPelicula($id, $titulo, $anno, $videoRelease, $tituloEsp);
+			$enlace = 'index.php?option=com_peliculas&controller=films&task=edit&cid[]='.$id;
+			
             if ($correcto) {
                 $aviso = "La actualización se ha realizado con exito ";
             } else {
@@ -63,15 +66,13 @@ class PeliculasControllerFilms extends JController {
             }
         } else {
             $correcto = $modelo->insertarPelicula($titulo, $anno, $videoRelease, $tituloEsp);
-
+			$enlace = 'index.php?option=com_peliculas&controller=films';
             if ($correcto) {
                 $aviso = "La insercion se ha realizado con exito";
             } else {
                 $aviso = "Error en la insercion";
             }
         }
-
-        $enlace = 'index.php?option=com_peliculas&controller=films';
         $this->setRedirect($enlace, $aviso);
     }
 
@@ -146,7 +147,7 @@ class PeliculasControllerFilms extends JController {
             $aviso = "Error en la actualizacion ";
         }
         
-		$enlace = 'index.php?option=com_peliculas&controller=films&task=edit&cid[]=0';
+		$enlace = 'index.php?option=com_peliculas&controller=films&task=edit&cid[]='.$idPelicula;
         $this->setRedirect($enlace, $aviso);
 	}
 	
@@ -176,7 +177,7 @@ class PeliculasControllerFilms extends JController {
             $aviso = "Error en la actualizacion ";
         }
         
-		$enlace = 'index.php?option=com_peliculas&controller=films&task=edit&cid[]=0';
+		$enlace = 'index.php?option=com_peliculas&controller=films&task=edit&cid[]='.$idPelicula;
         $this->setRedirect($enlace, $aviso);
 	}
 	
@@ -205,7 +206,7 @@ class PeliculasControllerFilms extends JController {
         } else {
             $aviso = "Error en la insercion ";
         }
-		$enlace = 'index.php?option=com_peliculas&controller=films&task=edit&cid[]=0';
+		$enlace = 'index.php?option=com_peliculas&controller=films&task=edit&cid[]='.$idPelicula;
         $this->setRedirect($enlace, $aviso);
 	}
 

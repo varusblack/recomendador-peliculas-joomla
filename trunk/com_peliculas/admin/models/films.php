@@ -65,6 +65,7 @@ class PeliculasModelFilms extends JModel {
         $query = "INSERT INTO #__peliculas SET titulo='{$titulo}',anno='{$anno}',videoRelease='{$videoRelease}',tituloEspanol='{$tituloEsp}'";
         $db->setQuery($query);
         $db->query();
+		$resultado = array();
         if ($db->getErrorNum()) {
             return false;
         } else {
