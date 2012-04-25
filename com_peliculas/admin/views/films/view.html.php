@@ -36,7 +36,7 @@ class PeliculasViewFilms extends JView{
 	
 	function remove() {
         JToolBarHelper::title('Borrar película');
-        JToolBarHelper::save();
+        JToolBarHelper::save('processRemove');
         JToolBarHelper::cancel();
 
         parent::display('remove');

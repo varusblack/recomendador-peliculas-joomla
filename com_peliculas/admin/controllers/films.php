@@ -100,7 +100,7 @@ class PeliculasControllerFilms extends JController {
         
         $modeloFilms = $this->getModel('films');
         $modeloPeliculasCategorias=$this->getModel('peliculasCategorias');
-        $modeloActoresPelicula=$this->getModel('modeloActoresPelicula');
+        $modeloActoresPelicula=$this->getModel('actoresPelicula');
         
         foreach ($elementsToDelete as $element) {
             $modeloFilms->borrarPelicula($element["id"]);

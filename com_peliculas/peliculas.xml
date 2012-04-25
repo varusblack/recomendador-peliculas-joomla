@@ -6,7 +6,7 @@
 	<creationDate>Abril 2012</creationDate>
 	<copyright>(C) Antonio y Tristan</copyright>
 	<license>GPL</license>
-	<version>0.007</version>
+	<version>0.25</version>
 	<description>Componente de recomendación de peliculas</description>
 	
 	<files folder="site">
