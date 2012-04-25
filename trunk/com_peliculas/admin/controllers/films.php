@@ -30,11 +30,15 @@ class PeliculasControllerFilms extends JController {
 		
 		$modeloActoresPelicula = $this->getModel("actoresPelicula");
 		$actores = $modeloActoresPelicula->obtenerActoresDePelicula($film["id"]);
+		
+		$modeloPeliculasCategorias = $this->getModel("peliculasCategorias");
+		$categorias = $modeloPeliculasCategorias->obtenerCategoriasDePeliculas($film["id"]);
 
         $vista = $this->getView("films", "html");
         $vista->assignRef("film", $film);
 		$vista->assignRef("director",$director);
 		$vista->assignRef("actores",$actores);
+		$vista->assignRef("categorias",$categorias);
         $vista->edit();
     }
 
@@ -75,6 +79,7 @@ class PeliculasControllerFilms extends JController {
         $vista = $this->getView('films', 'html');
         $vista->add();
     }
+	
     function remove() {
         $cid = JRequest::getVar('cid', 0, '', 'array');
         $modelo = $this->getModel('films');
@@ -171,6 +176,35 @@ class PeliculasControllerFilms extends JController {
             $aviso = "Error en la actualizacion ";
         }
         
+		$enlace = 'index.php?option=com_peliculas&controller=films&task=edit&cid[]=0';
+        $this->setRedirect($enlace, $aviso);
+	}
+	
+	function insertarCategoria() {
+		$cid = JRequest::getVar("cid", 0, "", "array");
+		$modelo = $this->getModel("films");
+        $film = $modelo->obtenerPeliculaPorId($cid[0]);
+		
+		$modeloCategoria = $this->getModel("categorias");
+		$categorias = $modeloCategoria->obtenerTodasLasCategorias();
+		
+		$vista = $this->getView("films","html");
+		$vista->assignRef("categorias",$categorias);
+		$vista->insertarCategoria();
+	}
+	
+	function grabarCategoria() {
+		$idPelicula = JRequest::getVar("id");
+		$idCategoria = JRequest::getVar("idCategoria");
+		
+		$modeloPeliculasCategorias = $this->getModel("peliculasCategorias");
+		
+		$correcto = $modeloPeliculasCategorias->add($idPelicula,$idCategoria);
+		if ($correcto) {
+            $aviso = "La inserción se ha realizado con exito ";
+        } else {
+            $aviso = "Error en la insercion ";
+        }
 		$enlace = 'index.php?option=com_peliculas&controller=films&task=edit&cid[]=0';
         $this->setRedirect($enlace, $aviso);
 	}

@@ -35,8 +35,19 @@ defined('_JEXEC') or die('Restricted access');
         		<input type="text" width="200" name="tituloEsp" id="tituloEsp" maxlength="300" value="<?php echo $this->film["tituloEspanol"]; ?>"/>
         	</td>
         </tr>
-        
         <?php 
+        if(sizeof($this->categorias) > 0) {
+        	$contador = 1;
+			foreach ($this->categorias as $categoria){?>
+				<tr>
+		        	<td width="100" align="right" class="key"><?php echo "Categoría $contador:"; ?></td>
+		        	<td><?php echo $categoria["categoria"]; ?></td>
+		        </tr>
+			<?php 
+				$contador = $contador + 1;
+			}
+        }
+        
         if(sizeof($this->director) == 2){
 		?>
 		<tr>

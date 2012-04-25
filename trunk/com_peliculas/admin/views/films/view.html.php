@@ -19,6 +19,7 @@ class PeliculasViewFilms extends JView{
 		JToolBarHelper::title('Editar datos de la película');
 		JToolBarHelper::custom('insertarDirector','','','Insertar director',false,false);
 		JToolBarHelper::custom('insertarActor','','','Insertar actor',false,false);
+		JToolBarHelper::custom('insertarCategoria','','','Insertar categoria',false,false);
         JToolBarHelper::save();
         JToolBarHelper::cancel();
 
@@ -55,6 +56,14 @@ class PeliculasViewFilms extends JView{
         JToolBarHelper::cancel();
 
         parent::display('insertarActor');
+	}
+
+	function insertarCategoria() {
+		JToolBarHelper::title('Insertar categoria');
+        JToolBarHelper::save('grabarCategoria');
+        JToolBarHelper::cancel();
+
+        parent::display('insertarCategoria');
 	}
 }
 
