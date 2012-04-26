@@ -116,9 +116,9 @@ class PeliculasModelFilms extends JModel {
         }
     }
     
-    function quitarDirector($id){
+    function quitarDirector($idPelicula){
         $db = &JFactory::getDbo();
-        $query = "UPDATE #__peliculas SET idDirector=NULL WHERE idDirector='{$id}'";
+        $query = "UPDATE #__peliculas SET idDirector=NULL WHERE id='{$idPelicula}'";
         $db->setQuery($query);
         $db->query();
         if ($db->getErrorNum()) {
