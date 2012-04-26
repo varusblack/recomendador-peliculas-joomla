@@ -120,14 +120,15 @@ class PeliculasControllerFilms extends JController {
     }
 	
 	function insertarDirector() {
-		$cid = JRequest::getVar("cid", 0, "", "array");
+		$id = JRequest::getVar("id");
 		$modelo = $this->getModel("films");
-        $film = $modelo->obtenerPeliculaPorId($cid[0]);
+        $film = $modelo->obtenerPeliculaPorId($id);
 		
 		$modeloFamosos = $this->getModel("famosos");
 		$famosos = $modeloFamosos->obtenerTodosLosFamosos();	
 			
 		$vista = $this->getView('films', 'html');
+		$vista->assignRef("film",$film);
 		$vista->assignRef("famosos",$famosos);
 		$vista->insertarDirector();
 		
@@ -152,14 +153,15 @@ class PeliculasControllerFilms extends JController {
 	}
 	
 	function insertarActor() {
-		$cid = JRequest::getVar("cid", 0, "", "array");
+		$id = JRequest::getVar("id");
 		$modelo = $this->getModel("films");
-        $film = $modelo->obtenerPeliculaPorId($cid[0]);
+        $film = $modelo->obtenerPeliculaPorId($id);
 		
 		$modeloFamosos = $this->getModel("famosos");
 		$famosos = $modeloFamosos->obtenerTodosLosFamosos();	
 			
 		$vista = $this->getView('films', 'html');
+		$vista->assignRef("film",$film);
 		$vista->assignRef("famosos",$famosos);
 		$vista->insertarActor();
 	}
@@ -182,14 +184,15 @@ class PeliculasControllerFilms extends JController {
 	}
 	
 	function insertarCategoria() {
-		$cid = JRequest::getVar("cid", 0, "", "array");
+		$id = JRequest::getVar("id");
 		$modelo = $this->getModel("films");
-        $film = $modelo->obtenerPeliculaPorId($cid[0]);
+        $film = $modelo->obtenerPeliculaPorId($id);
 		
 		$modeloCategoria = $this->getModel("categorias");
 		$categorias = $modeloCategoria->obtenerTodasLasCategorias();
 		
 		$vista = $this->getView("films","html");
+		$vista->assignRef("film",$film);
 		$vista->assignRef("categorias",$categorias);
 		$vista->insertarCategoria();
 	}
@@ -209,7 +212,63 @@ class PeliculasControllerFilms extends JController {
 		$enlace = 'index.php?option=com_peliculas&controller=films&task=edit&cid[]='.$idPelicula;
         $this->setRedirect($enlace, $aviso);
 	}
-
+	
+	function borrarCategoria() {
+		$cid = JRequest::getVar("cid", 0, "", "array");
+		$idObj = JRequest::getVar("idObj");
+		
+		$modelo = $this->getModel("films");
+        $film = $modelo->obtenerPeliculaPorId($cid[0]);
+		
+		$modeloPeliculasCategorias = $this->getModel("peliculasCategorias");
+		
+		$correcto = $modeloPeliculasCategorias->deleteByPeliculaCategoria($film["id"],$idObj);
+		
+		if ($correcto) {
+            $aviso = "La categoría se borró con éxito ";
+        } else {
+            $aviso = "Error en el borrado";
+        }
+		$enlace = 'index.php?option=com_peliculas&controller=films&task=edit&cid[]='.$film["id"];
+        $this->setRedirect($enlace, $aviso);
+		
+	}
+	
+	function borrarDirector() {
+		$cid = JRequest::getVar("cid", 0, "", "array");
+		$modelo = $this->getModel("films");
+        $film = $modelo->obtenerPeliculaPorId($cid[0]); 
+		
+		$correcto = $modelo->quitarDirector($film["id"]);
+		
+		if ($correcto) {
+            $aviso = "El director se borró con éxito ";
+        } else {
+            $aviso = "Error en el borrado";
+        }
+		$enlace = 'index.php?option=com_peliculas&controller=films&task=edit&cid[]='.$film["id"];
+        $this->setRedirect($enlace, $aviso);
+	}
+	
+	function borrarActor() {
+		$cid = JRequest::getVar("cid", 0, "", "array");
+		$idObj = JRequest::getVar("idObj");
+		
+		$modelo = $this->getModel("films");
+        $film = $modelo->obtenerPeliculaPorId($cid[0]);
+		
+		$modeloActoresPelicula = $this->getModel("actoresPelicula");
+		
+		$correcto = $modeloActoresPelicula->borrarPorPeliculaYFamoso($film["id"],$idObj) ;
+		
+		if ($correcto) {
+            $aviso = "El actor se borró con éxito ";
+        } else {
+            $aviso = "Error en el borrado";
+        }
+		$enlace = 'index.php?option=com_peliculas&controller=films&task=edit&cid[]='.$film["id"];
+        $this->setRedirect($enlace, $aviso);
+	}
 }
 
 ?>

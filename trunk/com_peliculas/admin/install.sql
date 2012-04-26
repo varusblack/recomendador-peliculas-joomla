@@ -13,6 +13,9 @@ CREATE TABLE IF NOT EXISTS `#__famosos` (
   UNIQUE KEY `nombre` (`nombre`)
 ) ;
 
+INSERT INTO `#__famosos`(`nombre`) VALUES 
+('Tarantino');
+
 CREATE TABLE IF NOT EXISTS `#__peliculas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `titulo` varchar(255) NOT NULL,
@@ -23,6 +26,9 @@ CREATE TABLE IF NOT EXISTS `#__peliculas` (
   PRIMARY KEY (`id`),
   KEY `idDirector` (`idDirector`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+INSERT INTO `#__peliculas`(`titulo`,`anno`,`videoRelease`,`tituloEspanol`) VALUES 
+('Killing tomatoes','1992','1992','Tomates asesinos');
 
 CREATE TABLE IF NOT EXISTS `#__categoriaspeliculas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

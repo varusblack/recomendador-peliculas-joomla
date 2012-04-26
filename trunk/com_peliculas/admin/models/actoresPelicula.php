@@ -51,6 +51,19 @@ class PeliculasModelActoresPelicula extends JModel {
         $db->setQuery($query);
         return $db->loadAssocList();
     }
+	
+	function borrarPorPeliculaYFamoso($idPelicula,$idFamoso) {
+		$db = &JFactory::getDbo();
+        $query = "DELETE FROM #__actorespelicula WHERE idFamoso='{$idFamoso}' AND idPelicula='{$idPelicula}'";
+        $db->setQuery($query);
+        $db->query();
+
+        if ($db->getErrorNum()) {
+            return false;
+        } else {
+            return true;
+        }
+	}
 
 }
 
