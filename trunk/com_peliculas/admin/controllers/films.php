@@ -50,8 +50,6 @@ class PeliculasControllerFilms extends JController {
         $tituloEsp = JRequest::getVar("tituloEsp");
 
         $modelo = $this->getModel("films");
-        $modeloActoresPelicula = $this->getModel("actoresPelicula");
-        $modeloPeliculasCategorias = $this->getModel("peliculasCategorias");
 		
 		$enlace;
 

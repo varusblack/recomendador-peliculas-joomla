@@ -48,3 +48,5 @@ CREATE TABLE IF NOT EXISTS `#__actorespelicula` (
   KEY `idFamoso` (`idFamoso`),
   KEY `idPelicula` (`idPelicula`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23972 ;
+
+ALTER TABLE  `#__users` ADD  `vector` FLOAT NOT NULL
