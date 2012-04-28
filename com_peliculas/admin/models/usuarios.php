@@ -21,7 +21,7 @@ class PeliculasModelUsuarios extends JModel {
 
     function obtenerTodasLosUsuarios() {
         $db = &JFactory::getDbo();
-        $query = "SELECT * FROM #__users";
+        $query = "SELECT * FROM #__users WHERE usertype='Registered'";
         $db->setQuery($query);
 
         return $db->loadAssocList();
@@ -32,7 +32,7 @@ class PeliculasModelUsuarios extends JModel {
         $limit = $this->getState('limit');
 
         $db = &JFactory::getDbo();
-        $query = "SELECT * FROM #__users LIMIT $start,$limit";
+        $query = "SELECT * FROM #__users WHERE usertype='Registered' LIMIT $start,$limit";
 
         $db->setQuery($query);
 
