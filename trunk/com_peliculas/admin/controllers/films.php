@@ -12,13 +12,20 @@ class PeliculasControllerFilms extends JController {
     }
 
     function display() {
+        global $mainframe,$option;
+        
         $modelo = $this->getModel("films");
         $films = $modelo->obtenerPeliculasLimites();
 
         $vista = $this->getView("films", "html");
         $pagination = $modelo->getPagination();
+        $filter_order=$mainframe->getUserStateFromRequest($option.'.peliculas.filter_order', 'filter_order', '', 'word' );
+        $filter_order_Dir=$mainframe->getUserStateFromRequest($option.'.peliculas.filter_order_Dir', 'filter_order_Dir', '', 'word' );
+        
         $vista->assignRef("pagination", $pagination);
         $vista->assignRef("films", $films);
+        $vista->assignRef("filter_order", $filter_order);
+        $vista->assignRef("filter_order_Dir", $filter_order_Dir);
         $vista->display();
     }
 

@@ -32,7 +32,7 @@ class PeliculasModelFilms extends JModel {
         $limit = $this->getState('limit');
 
         $db = &JFactory::getDbo();
-        $query = "SELECT * FROM #__peliculas LIMIT $start,$limit";
+        $query = "SELECT * FROM #__peliculas " . $this->_getOrderString() . " LIMIT $start,$limit";
         $db->setQuery($query);
         return $db->loadAssocList();
     }
@@ -65,7 +65,7 @@ class PeliculasModelFilms extends JModel {
         $query = "INSERT INTO #__peliculas SET titulo='{$titulo}',anno='{$anno}',videoRelease='{$videoRelease}',tituloEspanol='{$tituloEsp}'";
         $db->setQuery($query);
         $db->query();
-		$resultado = array();
+        $resultado = array();
         if ($db->getErrorNum()) {
             return false;
         } else {
@@ -96,13 +96,13 @@ class PeliculasModelFilms extends JModel {
             return true;
         }
     }
-	
-	function obtenerDirector($idPelicula) {
-		$db = &JFactory::getDbo();
+
+    function obtenerDirector($idPelicula) {
+        $db = &JFactory::getDbo();
         $query = "SELECT #__famosos.id AS id, #__famosos.nombre AS nombre FROM #__peliculas INNER JOIN #__famosos ON #__peliculas.idDirector=#__famosos.id WHERE #__peliculas.id='{$idPelicula}'";
         $db->setQuery($query);
         return $db->loadAssoc();
-	}
+    }
 
     function añadirDirector($idPelicula, $idDirector) {
         $db = &JFactory::getDbo();
@@ -115,8 +115,8 @@ class PeliculasModelFilms extends JModel {
             return true;
         }
     }
-    
-    function quitarDirector($idPelicula){
+
+    function quitarDirector($idPelicula) {
         $db = &JFactory::getDbo();
         $query = "UPDATE #__peliculas SET idDirector=NULL WHERE id='{$idPelicula}'";
         $db->setQuery($query);
@@ -127,7 +127,20 @@ class PeliculasModelFilms extends JModel {
             return true;
         }
     }
-	
+
+    function _getOrderString() {
+        global $mainframe, $option;
+        $filter_order = $mainframe->getUserStateFromRequest( $option.'.peliculas.filter_order','filter_order','','word');
+        $filter_order_Dir = $mainframe->getUserStateFromRequest( $option.'.peliculas.filter_order_Dir','filter_order_Dir', '', 'word' );
+        
+        if($filter_order!=''){
+            $orderby = ' ORDER BY ' . $filter_order . ' ' . $filter_order_Dir ;
+        }else{
+            $orderby='';
+        }
+        return $orderby;
+    }
+
 }
 
 ?>
