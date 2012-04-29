@@ -21,11 +21,15 @@ class PeliculasControllerFilms extends JController {
         $pagination = $modelo->getPagination();
         $filter_order=$mainframe->getUserStateFromRequest($option.'.peliculas.filter_order', 'filter_order', '', 'word' );
         $filter_order_Dir=$mainframe->getUserStateFromRequest($option.'.peliculas.filter_order_Dir', 'filter_order_Dir', '', 'word' );
+        $filter_state=$mainframe->getUserStateFromRequest($option.'.peliculas.filter_state', 'filter_state', '', 'word' );
+        $search=$mainframe->getUserStateFromRequest($option.'.peliculas.search', 'search', '', 'word' );
         
         $vista->assignRef("pagination", $pagination);
         $vista->assignRef("films", $films);
         $vista->assignRef("filter_order", $filter_order);
         $vista->assignRef("filter_order_Dir", $filter_order_Dir);
+        $vista->assignRef("filter_state", $filter_state);
+        $vista->assignRef("search", $search);
         $vista->display();
     }
 

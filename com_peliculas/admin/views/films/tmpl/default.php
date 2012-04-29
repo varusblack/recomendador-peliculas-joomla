@@ -3,6 +3,17 @@ defined('_JEXEC') or die('Restricted access');
 ?>
 
 <form action="index.php" method="post" name="adminForm">
+    <table class="adminform">
+        <tr>
+            <td width="100%">
+                Buscar: 
+                <input type="text" name="search" id="search" value="<?php echo $this->search; ?>" class="text_area" onChange="document.adminForm.submit();" />
+                <button onclick="this.form.submit();">Busca</button>
+                <button onclick="this.form.getElementById('search').value='';this.form.submit();"> Quitar filtro </button>
+            </td>
+            <td nowrap="nowrap"><?php echo $this->filter_state; ?></td>
+        </tr>
+    </table>
     <table class="adminlist">
         <thead>
             <tr>
@@ -52,4 +63,5 @@ defined('_JEXEC') or die('Restricted access');
     <input type="hidden" name="view" value="" />
     <input type="hidden" name="filter_order" value="<?php echo $this->filter_order; ?>" />
     <input type="hidden" name="filter_order_Dir" value="" />
+    <input type="hidden" name="filter_state" value="<?php echo $this->filter_state; ?>" />
 </form>

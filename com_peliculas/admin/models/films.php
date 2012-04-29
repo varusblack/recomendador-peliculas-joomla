@@ -32,7 +32,7 @@ class PeliculasModelFilms extends JModel {
         $limit = $this->getState('limit');
 
         $db = &JFactory::getDbo();
-        $query = "SELECT * FROM #__peliculas " . $this->_getOrderString() . " LIMIT $start,$limit";
+        $query = "SELECT * FROM #__peliculas " . $this->_getWhereString() . " " . $this->_getOrderString() . " LIMIT $start,$limit";
         $db->setQuery($query);
         return $db->loadAssocList();
     }
@@ -130,15 +130,42 @@ class PeliculasModelFilms extends JModel {
 
     function _getOrderString() {
         global $mainframe, $option;
-        $filter_order = $mainframe->getUserStateFromRequest( $option.'.peliculas.filter_order','filter_order','','word');
-        $filter_order_Dir = $mainframe->getUserStateFromRequest( $option.'.peliculas.filter_order_Dir','filter_order_Dir', '', 'word' );
-        
-        if($filter_order!=''){
-            $orderby = ' ORDER BY ' . $filter_order . ' ' . $filter_order_Dir ;
-        }else{
-            $orderby='';
+        $filter_order = $mainframe->getUserStateFromRequest($option . '.peliculas.filter_order', 'filter_order', '', 'word');
+        $filter_order_Dir = $mainframe->getUserStateFromRequest($option . '.peliculas.filter_order_Dir', 'filter_order_Dir', '', 'word');
+
+        if ($filter_order != '') {
+            $orderby = ' ORDER BY ' . $filter_order . ' ' . $filter_order_Dir;
+        } else {
+            $orderby = '';
         }
         return $orderby;
+    }
+
+    function _getWhereString() {
+        global $mainframe, $option;
+        $filter_state = $mainframe->getUserStateFromRequest($option . '.peliculas.filter_state', 'filter_state', '', 'word');
+        $search = $mainframe->getUserStateFromRequest($option . '.peliculas.search', 'search', '', 'string');
+        $search = $this->_db->getEscaped(trim(JString::strtolower($search)));
+        if ($filter_state) {
+            if ($filter_state == 'P') {
+                $where[] = 'g.published = 1';
+            } else if ($filter_state == 'U') {
+                $where[] = 'g.published = 0';
+            }
+        }
+
+        if ($search) {
+            $palabras = explode(" ", $search);
+            $cadena = " WHERE ";
+            foreach ($palabras as $palabra) {
+                if ($cadena != " WHERE ") {
+                    $cadena.=" AND ";
+                } 
+                $cadena.=" (titulo like '%$palabra%' or tituloEspanol like '%$palabra%') ";
+            }
+        }
+
+        return $cadena;
     }
 
 }
