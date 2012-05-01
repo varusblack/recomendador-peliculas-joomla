@@ -16,7 +16,7 @@ defined('_JEXEC') or die('Restricted access');
         <?php
         $i = 0;
         foreach ($this->usuarios as $usuario) {
-            $link = JRoute::_('index.php?option=com_peliculas&controller=usuarios&cid[]=' . $usuario["id"]);
+            $link = JRoute::_('index.php?option=com_users&view=user&task=edit&cid[]=' . $usuario["id"]);
             ?>
             <tr>
                 <td><?php echo $usuario["id"]; ?></td>

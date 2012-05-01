@@ -153,7 +153,7 @@ class PeliculasModelFilms extends JModel {
                 $where[] = 'g.published = 0';
             }
         }
-
+        $cadena='';
         if ($search) {
             $palabras = explode(" ", $search);
             $cadena = " WHERE ";
