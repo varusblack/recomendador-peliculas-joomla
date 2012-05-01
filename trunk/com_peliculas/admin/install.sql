@@ -27,7 +27,7 @@ INSERT IGNORE INTO `#__categorias` (`id`, `categoria`) VALUES
 CREATE TABLE IF NOT EXISTS `#__famosos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`id`)
 ) ;
 
 INSERT IGNORE INTO `#__famosos` (`id`, `nombre`) VALUES
@@ -950,7 +950,7 @@ INSERT IGNORE INTO `#__famosos` (`id`, `nombre`) VALUES
 (917, 'Piotr Machalica'),
 (918, 'Francis Coffinet'),
 (919, 'Barbara Dziekan'),
-(920, '<img src="http://ad.doubleclick.net/ad/imdb2.consumer.title/maindetails;tile=2;sz=728x90,1008x150,1008x200,1008x30,9x1;p=t;p=top;ct=com;g=ad;coo=ca;g=ac;g=sf;tt=tv;id=tt0118480;g=baa;k=c;coo=usa;ab=d;ord=208722161168?"  border="0" alt="advertisement" />'),
+
 (921, 'Amanda Tapping'),
 (922, 'Christopher Judge'),
 (923, 'Michael Shanks'),
@@ -2785,7 +2785,7 @@ INSERT IGNORE INTO `#__famosos` (`id`, `nombre`) VALUES
 (2752, 'Alex Hyde-White'),
 (2753, 'Paul Maxwell'),
 (2754, 'Isla Blair'),
-(2755, '<img src="http://ad.doubleclick.net/ad/imdb2.consumer.title/maindetails;tile=2;sz=728x90,1008x150,1008x200,1008x30,9x1;p=t;p=top;ct=com;id=tt0068098;g=co;tt=tv;g=brc;g=dr;k=c;coo=usa;g=war;ab=d;ord=977106788234?"  border="0" alt="advertisement" />'),
+
 (2756, 'Alan Alda'),
 (2757, 'Loretta Swit'),
 (2758, 'Jamie Farr'),
@@ -4223,7 +4223,7 @@ INSERT IGNORE INTO `#__famosos` (`id`, `nombre`) VALUES
 (4190, 'Suzanne Cryer'),
 (4191, 'Jason Cottle'),
 (4192, 'David Koechner'),
-(4193, ''),
+
 (4194, 'Gregory Hoblit'),
 (4195, 'Gabriel Casseus'),
 (4196, 'Michael J. Pagan'),
@@ -4589,7 +4589,7 @@ INSERT IGNORE INTO `#__famosos` (`id`, `nombre`) VALUES
 (4556, 'Joseph Kmet'),
 (4557, 'Alan Dargin'),
 (4558, 'Julia Cortez'),
-(4559, '<img src="http://ad.doubleclick.net/ad/imdb2.consumer.title/maindetails;tile=2;sz=728x90,1008x150,1008x200,1008x30,9x1;p=t;p=top;ct=com;g=fm;g=co;tt=tv;g=brc;id=tt0053502;k=c;coo=usa;g=an;ab=d;ord=371991199247?"  border="0" alt="advertisement" />'),
+
 (4560, 'Jean Vander Pyl'),
 (4561, 'Mel Blanc'),
 (4562, 'Bea Benaderet'),
@@ -5074,7 +5074,7 @@ INSERT IGNORE INTO `#__famosos` (`id`, `nombre`) VALUES
 (5041, 'Peter Diamond'),
 (5042, 'Billy Hartman'),
 (5043, 'Alistair Findlay'),
-(5044, '<img src="http://ad.doubleclick.net/ad/imdb2.consumer.title/maindetails;tile=2;sz=728x90,1008x150,1008x200,1008x30,9x1;p=t;p=top;ct=com;g=fm;g=mu;tt=f;id=tt0032455;g=f;k=c;coo=usa;g=an;ab=f;ord=878485119242?"  border="0" alt="advertisement" />'),
+
 (5045, 'Leopold Stokowski'),
 (5046, 'Deems Taylor'),
 (5047, 'Shannen Doherty'),
@@ -5220,7 +5220,7 @@ INSERT IGNORE INTO `#__famosos` (`id`, `nombre`) VALUES
 (5187, 'Karl Swenson'),
 (5188, 'Lonny Chapman'),
 (5189, 'Doodles Weaver'),
-(5190, '<img src="http://ad.doubleclick.net/ad/imdb2.consumer.title/maindetails;tile=2;sz=728x90,1008x150,1008x200,1008x30,9x1;p=t;p=top;ct=com;g=fm;id=tt0262151;tt=tv;coo=uk;g=an;ab=b;ord=640273242762?"  border="0" alt="advertisement" />'),
+
 (5191, 'Neil Morrissey'),
 (5192, 'Rob Rackstraw'),
 (5193, 'Kate Harbour'),
@@ -7054,7 +7054,7 @@ INSERT IGNORE INTO `#__famosos` (`id`, `nombre`) VALUES
 (7021, 'Richard Holden'),
 (7022, 'Sandy Baron'),
 (7023, 'Noelle Harling'),
-(7024, '<img src="http://ad.doubleclick.net/ad/imdb2.consumer.title/maindetails;tile=2;sz=728x90,1008x150,1008x200,1008x30,9x1;p=t;p=top;ct=com;id=tt0069658;g=dr;tt=tv;coo=usa;ab=c;ord=840911116490?"  border="0" alt="advertisement" />'),
+
 (7025, 'Kate Linder'),
 (7026, 'Doug Davidson'),
 (7027, 'Eric Braeden'),
@@ -7450,7 +7450,7 @@ INSERT IGNORE INTO `#__famosos` (`id`, `nombre`) VALUES
 (7417, 'Darryl Cox'),
 (7418, 'Jay Whiteaker'),
 (7419, 'Taylor Suzanna McBride'),
-(7420, '<img src="http://ad.doubleclick.net/ad/imdb2.consumer.title/maindetails;tile=2;sz=728x90,1008x150,1008x200,1008x30,9x1;p=t;p=top;ct=com;g=brc;g=co;tt=tv;coo=usa;k=c;id=tt0055689;g=war;ab=e;ord=233117969745?"  border="0" alt="advertisement" />'),
+
 (7421, 'Joe Flynn'),
 (7422, 'Carl Ballantine'),
 (7423, 'Gary Vinson'),
@@ -7460,7 +7460,7 @@ INSERT IGNORE INTO `#__famosos` (`id`, `nombre`) VALUES
 (7427, 'Yoshio Yoda'),
 (7428, 'Bob Hastings'),
 (7429, 'Gavin MacLeod'),
-(7430, '<img src="http://ad.doubleclick.net/ad/imdb2.consumer.title/maindetails;tile=2;sz=728x90,1008x150,1008x200,1008x30,9x1;p=t;p=top;ct=com;g=fm;g=brc;id=tt0050032;g=co;tt=tv;coo=usa;k=c;ab=a;ord=166482608804?"  border="0" alt="advertisement" />'),
+
 (7431, 'Barbara Billingsley'),
 (7432, 'Jerry Mathers'),
 (7433, 'Hugh Beaumont'),
@@ -8516,7 +8516,7 @@ INSERT IGNORE INTO `#__famosos` (`id`, `nombre`) VALUES
 (8483, 'Kina Cosper'),
 (8484, 'Dina D.'),
 (8485, 'Joe Dalu'),
-(8486, '<img src="http://ad.doubleclick.net/ad/imdb2.consumer.title/maindetails;tile=2;sz=728x90,1008x150,1008x200,1008x30,9x1;p=t;p=top;ct=com;g=brc;g=co;tt=tv;coo=usa;k=c;id=tt0042116;ab=b;ord=526000988941?"  border="0" alt="advertisement" />'),
+
 (8487, 'Jack Benny'),
 (8488, 'Don Wilson'),
 (8489, 'Eddie ''Rochester'' Anderson'),
@@ -8690,7 +8690,7 @@ INSERT IGNORE INTO `#__famosos` (`id`, `nombre`) VALUES
 (8657, 'Trina McGee'),
 (8658, 'Sage Stallone'),
 (8659, 'Jo Anderson'),
-(8660, '<img src="http://ad.doubleclick.net/ad/imdb2.consumer.title/maindetails;tile=2;sz=728x90,1008x150,1008x200,1008x30,9x1;p=t;p=top;ct=com;g=brc;id=tt0098878;g=dr;g=co;tt=tv;coo=usa;ab=c;ord=415195121702?"  border="0" alt="advertisement" />'),
+
 (8661, 'Barry Corbin'),
 (8662, 'John Cullum'),
 (8663, 'Darren E. Burrows'),
@@ -9074,7 +9074,7 @@ INSERT IGNORE INTO `#__famosos` (`id`, `nombre`) VALUES
 (9041, 'Angelina Torres'),
 (9042, 'Debby Shively'),
 (9043, 'Annie Combs'),
-(9044, '<img src="http://ad.doubleclick.net/ad/imdb2.consumer.title/maindetails;tile=2;sz=728x90,1008x150,1008x200,1008x30,9x1;p=t;p=top;ct=com;id=tt1821681;g=dr;tt=tv;coo=usa;k=c;ab=f;ord=513730126938?"  border="0" alt="advertisement" />'),
+
 (9045, 'David Mazouz'),
 (9046, 'Gugu Mbatha-Raw'),
 (9047, 'Roxana Brusso'),
@@ -9546,7 +9546,7 @@ INSERT IGNORE INTO `#__famosos` (`id`, `nombre`) VALUES
 (9513, 'Eric Michael Cole'),
 (9514, 'Jason Marsden'),
 (9515, 'Jordan Clarke'),
-(9516, '<img src="http://ad.doubleclick.net/ad/imdb2.consumer.title/maindetails;tile=2;sz=728x90,1008x150,1008x200,1008x30,9x1;p=t;p=top;ct=com;g=dr;tt=tv;id=tt1842530;coo=usa;g=cr;ab=a;ord=391867373643?"  border="0" alt="advertisement" />'),
+
 (9517, 'Poppy Montgomery'),
 (9518, 'Kevin Rankin'),
 (9519, 'Daya Vaidya'),
@@ -9978,7 +9978,7 @@ INSERT IGNORE INTO `#__famosos` (`id`, `nombre`) VALUES
 (9945, 'David Fredericks'),
 (9946, 'Ravinder Toor'),
 (9947, 'Andrew Airlie'),
-(9948, '<img src="http://ad.doubleclick.net/ad/imdb2.consumer.title/maindetails;tile=2;sz=728x90,1008x150,1008x200,1008x30,9x1;p=t;p=top;ct=com;g=ad;k=m;g=ac;g=co;tt=tv;g=brc;id=tt0057765;coo=usa;k=c;g=baa;ab=f;ord=615701892918?"  border="0" alt="advertisement" /'),
+
 (9949, 'Robert Mandel'),
 (9950, 'Ana Azcuy'),
 (9951, 'Sharron Corley'),
@@ -10404,7 +10404,7 @@ INSERT IGNORE INTO `#__famosos` (`id`, `nombre`) VALUES
 (10371, 'Nick Bakay'),
 (10372, 'Ernie Lee Banks'),
 (10373, 'Shelley Winters'),
-(10374, '<img src="http://ad.doubleclick.net/ad/imdb2.consumer.title/maindetails;tile=2;sz=728x90,1008x150,1008x200,1008x30,9x1;p=t;p=top;ct=com;g=fm;g=co;tt=tv;id=tt0055662;g=brc;k=p;k=c;coo=usa;ab=d;ord=595049488863?"  border="0" alt="advertisement" />'),
+
 (10375, 'Irene Ryan'),
 (10376, 'Donna Douglas'),
 (10377, 'Max Baer Jr.'),
@@ -11335,7 +11335,7 @@ INSERT IGNORE INTO `#__famosos` (`id`, `nombre`) VALUES
 (11302, 'George Costigan'),
 (11303, 'John Fortune'),
 (11304, 'Angela Curran'),
-(11305, '<img src="http://ad.doubleclick.net/ad/imdb2.consumer.title/maindetails;tile=2;sz=728x90,1008x150,1008x200,1008x30,9x1;p=t;p=top;ct=com;b=emmys;g=co;id=tt1442437;b=glbst;tt=tv;b=falltv;g=brc;k=t;coo=usa;ab=b;ord=484960599608?"  border="0" alt="advertiseme'),
+
 (11306, 'Sofía Vergara'),
 (11307, 'Jesse Tyler Ferguson'),
 (11308, 'Eric Stonestreet'),
@@ -11557,7 +11557,7 @@ INSERT IGNORE INTO `#__famosos` (`id`, `nombre`) VALUES
 (11524, 'Thubtem Jampa'),
 (11525, 'Surekha Sikri'),
 (11526, 'T.K. Lama'),
-(11527, '<img src="http://ad.doubleclick.net/ad/imdb2.consumer.title/maindetails;tile=2;sz=728x90,1008x150,1008x200,1008x30,9x1;p=t;p=top;ct=com;g=fm;id=tt0098800;g=co;tt=tv;g=brc;k=u;g=dr;coo=usa;k=c;k=t;ab=a;ord=19155986413?"  border="0" alt="advertisement" />'),
+
 (11528, 'Alfonso Ribeiro'),
 (11529, 'James Avery'),
 (11530, 'Karyn Parsons'),
@@ -12108,7 +12108,7 @@ INSERT IGNORE INTO `#__famosos` (`id`, `nombre`) VALUES
 (12075, 'Estelle Harris'),
 (12076, 'Fred Stoller'),
 (12077, 'Patrick J. Clifton'),
-(12078, '<img src="http://ad.doubleclick.net/ad/imdb2.consumer.title/maindetails;tile=2;sz=728x90,1008x150,1008x200,1008x30,9x1;p=t;p=top;ct=com;g=co;b=glbst;tt=tv;b=falltv;b=t25;b=t250a;g=brc;id=tt0898266;k=c;coo=usa;ab=d;ord=636250606544?"  border="0" alt="adver'),
+
 (12079, 'Jim Parsons'),
 (12080, 'Simon Helberg'),
 (12081, 'Kunal Nayyar'),
@@ -12204,7 +12204,7 @@ INSERT IGNORE INTO `#__famosos` (`id`, `nombre`) VALUES
 (12171, 'George Poulos'),
 (12172, 'Debbie Zaricor'),
 (12173, 'Mik Scriba'),
-(12174, '<img src="http://ad.doubleclick.net/ad/imdb2.consumer.title/maindetails;tile=2;sz=728x90,1008x150,1008x200,1008x30,9x1;p=t;p=top;ct=com;k=r;id=tt0203248;g=dr;tt=tv;k=c;coo=uk;g=cr;ab=c;ord=739757805170?"  border="0" alt="advertisement" />'),
+
 (12175, 'Victoria Alcock'),
 (12176, 'Kika Mirylees'),
 (12177, 'Helen Fraser'),
@@ -12387,7 +12387,7 @@ INSERT IGNORE INTO `#__famosos` (`id`, `nombre`) VALUES
 (12354, 'Daniel Dhubert'),
 (12355, 'Nathalie Galán'),
 (12356, 'Eric Gonzales'),
-(12357, '<img src="http://ad.doubleclick.net/ad/imdb2.consumer.title/maindetails;tile=2;sz=728x90,1008x150,1008x200,1008x30,9x1;p=t;p=top;ct=com;g=co;tt=f;id=tt0050658;g=brc;g=dr;g=ro;k=c;coo=usa;ab=c;ord=404518944017?"  border="0" alt="advertisement" />'),
+
 (12358, 'Van Doude'),
 (12359, 'Lise Bourdin'),
 (12360, 'Olga Valéry'),
@@ -12618,7 +12618,7 @@ INSERT IGNORE INTO `#__famosos` (`id`, `nombre`) VALUES
 (12585, 'Bill Hart'),
 (12586, 'Tom Runyon'),
 (12587, 'Whitney Jones'),
-(12588, '<img src="http://ad.doubleclick.net/ad/imdb2.consumer.title/maindetails;tile=2;sz=728x90,1008x150,1008x200,1008x30,9x1;p=t;p=top;ct=com;g=th;tt=tv;id=tt0106079;g=cr;g=dr;g=my;k=c;coo=usa;ab=a;ord=625193720489?"  border="0" alt="advertisement" />'),
+
 (12589, 'Gordon Clapp'),
 (12590, 'Bill Brochtrup'),
 (12591, 'James McDaniel'),
@@ -13167,7 +13167,7 @@ INSERT IGNORE INTO `#__famosos` (`id`, `nombre`) VALUES
 (13134, 'Cristián Campos'),
 (13135, 'José Manuel Salcedo'),
 (13136, 'Aldo Bernales'),
-(13137, '<img src="http://ad.doubleclick.net/ad/imdb2.consumer.title/maindetails;tile=2;sz=728x90,1008x150,1008x200,1008x30,9x1;p=t;p=top;ct=com;g=do;g=dr;tt=f;coo=fr;id=tt0110173;ab=c;ord=196597214594?"  border="0" alt="advertisement" />'),
+
 (13138, 'Geneviève Pasquier'),
 (13139, 'Denis Jadót'),
 (13140, 'Brigitte Bastien'),
@@ -13731,7 +13731,7 @@ INSERT IGNORE INTO `#__famosos` (`id`, `nombre`) VALUES
 (13698, 'Nélida López'),
 (13699, 'Magali Alvarado'),
 (13700, 'Jesse Borrego'),
-(13701, '<img src="http://ad.doubleclick.net/ad/imdb2.consumer.title/maindetails;tile=2;sz=728x90,1008x150,1008x200,1008x30,9x1;p=t;p=top;ct=com;g=th;g=h;b=glbst;tt=tv;b=falltv;b=t250a;g=dr;k=c;coo=usa;id=tt1520211;ab=e;ord=928300358161?"  border="0" alt="advertis'),
+
 (13702, 'Andrew Lincoln'),
 (13703, 'Jon Bernthal'),
 (13704, 'Sarah Wayne Callies'),
@@ -14653,7 +14653,7 @@ INSERT IGNORE INTO `#__famosos` (`id`, `nombre`) VALUES
 (14620, 'Joe Virzi'),
 (14621, 'Ming-liang Tsai'),
 (14622, 'Kang-sheng Lee'),
-(14623, '<img src="http://ad.doubleclick.net/ad/imdb2.consumer.title/maindetails;tile=2;sz=728x90,1008x150,1008x200,1008x30,9x1;p=t;p=top;ct=com;g=dr;tt=tv;coo=usa;id=tt0048845;ab=a;ord=274143546160?"  border="0" alt="advertisement" />'),
+
 (14624, 'Maura West'),
 (14625, 'Michael Park'),
 (14626, 'Terri Conn'),
@@ -14684,7 +14684,7 @@ INSERT IGNORE INTO `#__famosos` (`id`, `nombre`) VALUES
 (14651, 'Jimmy Keegan'),
 (14652, 'John Braden'),
 (14653, 'Randy Raney'),
-(14654, '<img src="http://ad.doubleclick.net/ad/imdb2.consumer.title/maindetails;tile=2;sz=728x90,1008x150,1008x200,1008x30,9x1;p=t;p=top;ct=com;g=h;g=co;tt=tv;id=tt1349938;g=brc;g=dr;g=f;coo=uk;k=v;ab=d;ord=281734045634?"  border="0" alt="advertisement" />'),
+
 (14655, 'Russell Tovey'),
 (14656, 'Lenora Crichlow'),
 (14657, 'Aidan Turner'),
@@ -15083,7 +15083,7 @@ INSERT IGNORE INTO `#__famosos` (`id`, `nombre`) VALUES
 (15050, 'Gabriel Latorre'),
 (15051, 'Fernando J. Melgosa'),
 (15052, 'Johnny Aranguren'),
-(15053, '<img src="http://ad.doubleclick.net/ad/imdb2.consumer.title/maindetails;tile=2;sz=728x90,1008x150,1008x200,1008x30,9x1;p=t;p=top;ct=com;g=brc;g=dr;coo=de;g=ro;tt=f;id=tt0024252;ab=a;ord=701570514861?"  border="0" alt="advertisement" />'),
+
 (15054, 'Magda Schneider'),
 (15055, 'Luise Ullrich'),
 (15056, 'Olga Tschechowa'),
@@ -15151,7 +15151,7 @@ INSERT IGNORE INTO `#__famosos` (`id`, `nombre`) VALUES
 (15118, 'Mostefa Djadjam'),
 (15119, 'Faisal Attia'),
 (15120, 'Guy Amram'),
-(15121, '<img src="http://ad.doubleclick.net/ad/imdb2.consumer.title/maindetails;tile=2;sz=728x90,1008x150,1008x200,1008x30,9x1;p=t;p=top;ct=com;id=tt0117561;g=co;tt=f;k=p;g=brc;coo=usa;g=f;g=my;k=c;k=t;ab=e;ord=126846549606?"  border="0" alt="advertisement" />'),
+
 (15122, 'Scott Allen'),
 (15123, 'Silas Cooper'),
 (15124, 'C.C. Courtney'),
@@ -15453,7 +15453,7 @@ INSERT IGNORE INTO `#__famosos` (`id`, `nombre`) VALUES
 (15420, 'Oliver Nägele'),
 (15421, 'Ute Maria Lerner'),
 (15422, 'Laura Medinger'),
-(15423, '<img src="http://ad.doubleclick.net/ad/imdb2.consumer.title/maindetails;tile=2;sz=728x90,1008x150,1008x200,1008x30,9x1;p=t;p=top;ct=com;b=emmys;b=glbst;tt=tv;b=falltv;g=cr;id=tt1442462;g=dr;g=my;coo=usa;ab=c;ord=16552493248?"  border="0" alt="advertisemen'),
+
 (15424, 'Matt Czuchry'),
 (15425, 'Chris Noth'),
 (15426, 'Graham Phillips'),

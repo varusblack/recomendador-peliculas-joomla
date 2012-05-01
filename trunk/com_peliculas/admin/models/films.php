@@ -13,7 +13,7 @@ class PeliculasModelFilms extends JModel {
         parent::__construct();
         global $mainframe, $option;
         $mainframe = JFactory::getApplication();
-        $limit = $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
+        $limit = $mainframe->getUserStateFromRequest($option.'.peliculas.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
         $limitstart = JRequest::getVar('limitstart', 0, '', 'int');
         $this->setState('limit', $limit);
         $this->setState('limitstart', $limitstart);
@@ -39,7 +39,7 @@ class PeliculasModelFilms extends JModel {
 
     function obtenerNumeroDePeliculas() {
         $db = &JFactory::getDbo();
-        $query = "SELECT count(*) as cuenta FROM #__peliculas";
+        $query = "SELECT count(*) as cuenta FROM #__peliculas ".$this->_getWhereString();
         $db->setQuery($query);
         $resultado = $db->loadAssocList();
 

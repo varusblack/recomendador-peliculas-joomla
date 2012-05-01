@@ -13,7 +13,7 @@ class PeliculasModelFamosos extends JModel {
         parent::__construct();
         global $mainframe, $option;
         $mainframe = JFactory::getApplication();
-        $limit = $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
+        $limit = $mainframe->getUserStateFromRequest($option.'.famosos.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
         $limitstart = JRequest::getVar('limitstart', 0, '', 'int');
         $this->setState('limit', $limit);
         $this->setState('limitstart', $limitstart);
@@ -21,7 +21,7 @@ class PeliculasModelFamosos extends JModel {
 
     function obtenerNumeroDeFamosos() {
         $db = &JFactory::getDbo();
-        $query = "SELECT count(*) as cuenta FROM #__famosos";
+        $query = "SELECT count(*) as cuenta FROM #__famosos ".$this->_getWhereString();
         $db->setQuery($query);
         $resultado = $db->loadAssocList();
 
@@ -98,8 +98,8 @@ class PeliculasModelFamosos extends JModel {
 	
 	function _getOrderString() {
         global $mainframe, $option;
-        $filter_order = $mainframe->getUserStateFromRequest($option . '.peliculas.filter_order', 'filter_order', '', 'word');
-        $filter_order_Dir = $mainframe->getUserStateFromRequest($option . '.peliculas.filter_order_Dir', 'filter_order_Dir', '', 'word');
+        $filter_order = $mainframe->getUserStateFromRequest($option . '.famosos.filter_order', 'filter_order', '', 'word');
+        $filter_order_Dir = $mainframe->getUserStateFromRequest($option . '.famosos.filter_order_Dir', 'filter_order_Dir', '', 'word');
 
         if ($filter_order != '') {
             $orderby = ' ORDER BY ' . $filter_order . ' ' . $filter_order_Dir;
@@ -111,8 +111,8 @@ class PeliculasModelFamosos extends JModel {
 
     function _getWhereString() {
         global $mainframe, $option;
-        $filter_state = $mainframe->getUserStateFromRequest($option . '.peliculas.filter_state', 'filter_state', '', 'word');
-        $search = $mainframe->getUserStateFromRequest($option . '.peliculas.search', 'search', '', 'string');
+        $filter_state = $mainframe->getUserStateFromRequest($option . '.famosos.filter_state', 'filter_state', '', 'word');
+        $search = $mainframe->getUserStateFromRequest($option . '.famosos.search', 'search', '', 'string');
         $search = $this->_db->getEscaped(trim(JString::strtolower($search)));
         if ($filter_state) {
             if ($filter_state == 'P') {
@@ -121,7 +121,7 @@ class PeliculasModelFamosos extends JModel {
                 $where[] = 'g.published = 0';
             }
         }
-
+        $cadena='';
         if ($search) {
             $palabras = explode(" ", $search);
             $cadena = " WHERE ";

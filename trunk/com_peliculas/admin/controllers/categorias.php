@@ -24,10 +24,10 @@ class PeliculasControllerCategorias extends JController {
 
         $pagination = $modelo->getPagination();
 		
-		$filter_order=$mainframe->getUserStateFromRequest($option.'.peliculas.filter_order', 'filter_order', '', 'word' );
-        $filter_order_Dir=$mainframe->getUserStateFromRequest($option.'.peliculas.filter_order_Dir', 'filter_order_Dir', '', 'word' );
-        $filter_state=$mainframe->getUserStateFromRequest($option.'.peliculas.filter_state', 'filter_state', '', 'word' );
-        $search=$mainframe->getUserStateFromRequest($option.'.peliculas.search', 'search', '', 'word' );
+		$filter_order=$mainframe->getUserStateFromRequest($option.'.categorias.filter_order', 'filter_order', '', 'word' );
+        $filter_order_Dir=$mainframe->getUserStateFromRequest($option.'.categorias.filter_order_Dir', 'filter_order_Dir', '', 'word' );
+        $filter_state=$mainframe->getUserStateFromRequest($option.'.categorias.filter_state', 'filter_state', '', 'word' );
+        $search=$mainframe->getUserStateFromRequest($option.'.categorias.search', 'search', '', 'word' );
 
         // push data into the template
 
