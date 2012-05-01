@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS `#__categorias` (
   `categoria` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
   PRIMARY KEY (`id`)
 );
-INSERT INTO `#__categorias` (`id`, `categoria`) VALUES
+INSERT IGNORE INTO `#__categorias` (`id`, `categoria`) VALUES
 (1, 'Acción'),
 (2, 'Aventura'),
 (3, 'Animación'),
@@ -28,10 +28,9 @@ CREATE TABLE IF NOT EXISTS `#__famosos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `nombre` (`nombre`)
 ) ;
 
-INSERT INTO `#__famosos` (`id`, `nombre`) VALUES
+INSERT IGNORE INTO `#__famosos` (`id`, `nombre`) VALUES
 (1, 'John Lasseter'),
 (2, 'Tom Hanks'),
 (3, 'Tim Allen'),
