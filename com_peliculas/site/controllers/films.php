@@ -16,8 +16,17 @@ class PeliculasControllerFilms extends JController {
 		$user =& JFactory::getUser();
 		$peliculasSinVotar = $modeloVotaciones->obtenerPeliculasAleatoriasNoVotadasPorUsuario($user->id);
 		$vista = $this->getView("films", "html");
-		$vista->assignRef("user",$user);
+		$vista->assignRef("peliculas",$peliculasSinVotar);
 		$vista->votar();
+	}
+	
+	function vervotadas(){
+		$modeloVotaciones = $this->getModel('votacionesPelicula');
+		$user =& JFactory::getUser();
+		$peliculasVotadas = $modeloVotaciones->obtenerPeliculasVotadasPorUsuario($user->id);
+		$vista = $this->getView("films", "html");
+		$vista->assignRef("peliculas",$peliculasVotadas);
+		$vista->vervotadas();
 	}
 	
 	
