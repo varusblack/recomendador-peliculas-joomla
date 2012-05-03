@@ -11,7 +11,7 @@ class PeliculasViewFilms extends JView {
 	}
 	
 	function votar(){
-		parent::display();
+		parent::display('votar');
 	}
 }
 
