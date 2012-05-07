@@ -16,8 +16,16 @@ defined('_JEXEC') or die('Restricted access');
 		<tr>
 			<td><?php echo $pelicula["titulo"]." (".$pelicula["tituloEspanol"].")"; ?></td>
 		</tr>
+		<?php
+		$idPelicula = $pelicula["id"];
+		$categorias = $this->categoriasPeliculas[$idPelicula];
+		$cadenaCategorias = '';
+		foreach($categorias as $cat){
+			$cadenaCategorias = $cadenaCategorias." ,".$cat["categoria"];
+		}
+		?>
 		<tr>
-			<td><?php echo $pelicula[""]; ?></td>
+			<td><?php echo $cadenaCategorias; ?></td>
 		</tr>
 		<tr>
 			<td><?php echo $pelicula["anno"]; ?></td>

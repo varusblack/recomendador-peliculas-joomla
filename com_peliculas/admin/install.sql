@@ -16000,3 +16000,13 @@ CREATE TABLE IF NOT EXISTS `#__actorespelicula` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23972 ;
 
 ALTER TABLE  `#__users` ADD  `vector` FLOAT NOT NULL
+
+
+CREATE TABLE IF NOT EXISTS `#__votos` (
+  `idUsuario` int(11) NOT NULL,
+  `idPelicula` int(11) NOT NULL,
+  `voto` decimal(10,2) NOT NULL,
+  `timestamp` int(11) NOT NULL,
+  KEY `idUsuario` (`idUsuario`),
+  KEY `idPelicula` (`idPelicula`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;

@@ -6,9 +6,12 @@ jimport('joomla.application.component.model');
 
 class PeliculasModelVotacionesPelicula extends JModel {
 	
+	
+	
 	function votarPelicula ($idUsuario, $idPelicula, $puntuacion) {
+		$timestamp = time();
 		$db = &JFactory::getDbo();
-		$query = "INSERT INTO #__votos SET idUsuario='{$idUsuario}', idPelicula='{$idPelicula}', voto='{$puntuacion}'";
+		$query = "INSERT INTO #__votos SET idUsuario='{$idUsuario}', idPelicula='{$idPelicula}', voto='{$puntuacion}', timestamp='{$timestamp}'";
 		$db->setQuery($query);
         $db->query();
 
@@ -20,8 +23,9 @@ class PeliculasModelVotacionesPelicula extends JModel {
 	}
 	
 	function actualizarVoto ($idUsuario, $idPelicula, $puntuacion){
+		$timestamp = time();
 		$db = &JFactory::getDbo();
-		$query = "UPDATE #__votos SET voto='{$puntuacion}' WHERE idUsuario='{$idUsuario}' AND idPelicula='{$idPelicula}'";
+		$query = "UPDATE #__votos SET voto='{$puntuacion}', timestamp='{$timestamp}' WHERE idUsuario='{$idUsuario}' AND idPelicula='{$idPelicula}'";
 		$db->setQuery($query);
         $db->query();
 
@@ -60,8 +64,8 @@ class PeliculasModelVotacionesPelicula extends JModel {
 	
 	function obtenerPeliculasVotadasPorUsuario ($idUsuario) {
 		$db = &JFactory::getDbo();
-// 		Devuelve: id,titulo,anno,videoRelease,tituloEspanol,director,puntuacion
-        $query = "SELECT #__peliculas.id AS id, #__peliculas.titulo AS titulo, #__peliculas.anno AS anno, #__peliculas.videoRelease AS videoRelease, #__peliculas.tituloEspanol AS tituloEspanol,#__famosos.nombre AS director, #__votos.voto AS puntuacion FROM #__votos INNER JOIN #__peliculas ON #__votos.idPelicula=#__peliculas.id INNER JOIN #__famosos ON #__peliculas.idDirector=#__famosos.id WHERE #__votos.idUsuario='{$idUsuario}'";
+// 		Devuelve: id,titulo,anno,videoRelease,tituloEspanol,director,puntuacion,timestamp
+        $query = "SELECT #__peliculas.id AS id, #__peliculas.titulo AS titulo, #__peliculas.anno AS anno, #__peliculas.videoRelease AS videoRelease, #__peliculas.tituloEspanol AS tituloEspanol,#__famosos.nombre AS director, #__votos.voto AS puntuacion, #votos.timestamp AS timestamp FROM #__votos INNER JOIN #__peliculas ON #__votos.idPelicula=#__peliculas.id INNER JOIN #__famosos ON #__peliculas.idDirector=#__famosos.id WHERE #__votos.idUsuario='{$idUsuario}'";
         $db->setQuery($query);
         return $db->loadAssocList();
 	}
