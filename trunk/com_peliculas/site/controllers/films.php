@@ -31,9 +31,17 @@ class PeliculasControllerFilms extends JController {
 		$vista->votar();
 	}
 	
-	function grabarVotos(){
+	function cambiarVoto(){
+		$idPelicula = JRequest::getVar('id');
+		$puntuacion = JRequest::getVar('puntuacion');
 		$user =& JFactory::getUser();
-		$idUser = $user->id;
+		$idUsuario = $user->id;
+		
+		$modeloVotaciones = $this->getModel('votacionesPelicula');
+		
+		$modeloVotaciones->actualizarVoto ($idUsuario, $idPelicula, $puntuacion);
+		
+		$this->verDetalles();
 		
 	}
 	
