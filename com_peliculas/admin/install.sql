@@ -15978,7 +15978,7 @@ CREATE TABLE IF NOT EXISTS `#__peliculas` (
   KEY `idDirector` (`idDirector`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-
+INSERT INTO `#__peliculas` (id,titulo,anno,videoRelease,tituloEspanol,idDirector) VALUES ('987654321','Killing Tomatoes','1984','','Tomates asesinos','1955');
 
 CREATE TABLE IF NOT EXISTS `#__categoriaspeliculas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -15988,6 +15988,10 @@ CREATE TABLE IF NOT EXISTS `#__categoriaspeliculas` (
   KEY `idPelicula` (`idPelicula`,`idCategoria`),
   KEY `idCategoria` (`idCategoria`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=7453 ;
+
+INSERT INTO `#__categoriaspeliculas` (`id`, `idPelicula`, `idCategoria`) VALUES
+(7453, 987654321, 5),
+(7454, 987654321, 7);
 
 CREATE TABLE IF NOT EXISTS `#__actorespelicula` (
 `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -15999,7 +16003,7 @@ CREATE TABLE IF NOT EXISTS `#__actorespelicula` (
   KEY `idPelicula` (`idPelicula`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23972 ;
 
-ALTER TABLE  `#__users` ADD  `vector` FLOAT NOT NULL
+ALTER TABLE  `#__users` ADD  `vector` FLOAT NOT NULL;
 
 
 CREATE TABLE IF NOT EXISTS `#__votos` (
@@ -16010,3 +16014,5 @@ CREATE TABLE IF NOT EXISTS `#__votos` (
   KEY `idUsuario` (`idUsuario`),
   KEY `idPelicula` (`idPelicula`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+INSERT INTO `#__votos` (idUsuario,idPelicula,voto,timestamp) VALUES ('63','987654321','4.00','881250949');

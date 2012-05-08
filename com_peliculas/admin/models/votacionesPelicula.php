@@ -65,7 +65,7 @@ class PeliculasModelVotacionesPelicula extends JModel {
 	function obtenerPeliculasVotadasPorUsuario ($idUsuario) {
 		$db = &JFactory::getDbo();
 // 		Devuelve: id,titulo,anno,videoRelease,tituloEspanol,director,puntuacion,timestamp
-        $query = "SELECT #__peliculas.id AS id, #__peliculas.titulo AS titulo, #__peliculas.anno AS anno, #__peliculas.videoRelease AS videoRelease, #__peliculas.tituloEspanol AS tituloEspanol,#__famosos.nombre AS director, #__votos.voto AS puntuacion, #votos.timestamp AS timestamp FROM #__votos INNER JOIN #__peliculas ON #__votos.idPelicula=#__peliculas.id INNER JOIN #__famosos ON #__peliculas.idDirector=#__famosos.id WHERE #__votos.idUsuario='{$idUsuario}'";
+        $query = "SELECT #__peliculas.id AS id, #__peliculas.titulo AS titulo, #__peliculas.anno AS anno, #__peliculas.videoRelease AS videoRelease, #__peliculas.tituloEspanol AS tituloEspanol,#__famosos.nombre AS director, #__votos.voto AS puntuacion, #__votos.timestamp AS timestamp FROM #__votos INNER JOIN #__peliculas ON #__votos.idPelicula=#__peliculas.id INNER JOIN #__famosos ON #__peliculas.idDirector=#__famosos.id WHERE #__votos.idUsuario='{$idUsuario}'";
         $db->setQuery($query);
         return $db->loadAssocList();
 	}

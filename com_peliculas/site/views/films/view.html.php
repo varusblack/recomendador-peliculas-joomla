@@ -17,6 +17,10 @@ class PeliculasViewFilms extends JView {
 	function vervotadas(){
 		parent::display('vervotadas');
 	}
+	
+	function verDetalles(){
+		parent::display('detalles');
+	}
 }
 
 ?>

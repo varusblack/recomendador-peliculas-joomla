@@ -57,7 +57,25 @@ class PeliculasControllerFilms extends JController {
 		$vista->vervotadas();
 	}
 	
-	
+	function verDetalles(){
+		$user =& JFactory::getUser();
+		$idPelicula = JRequest::getVar('id');
+		$modeloVotacionesPelicula = $this->getModel('votacionesPelicula');
+		$modeloActoresPelicula = $this->getModel('actoresPelicula');
+		$modeloPeliculasCategorias = $this->getModel('peliculasCategorias');
+		
+		$peliculaVotada = $modeloVotacionesPelicula->obtenerPeliculasVotadasPorUsuario($user->id);
+		$pelicula = $peliculaVotada[0];
+		$actores = $modeloActoresPelicula->obtenerActoresDePelicula($pelicula["id"]);
+		$categoriasPelicula = $modeloPeliculasCategorias->obtenerCategoriasDePeliculas($pelicula["id"]);
+		
+		$vista = $this->getView('films','html');
+		$vista->assignRef("pelicula",$pelicula);
+		$vista->assignRef("actores",$actores);
+		$vista->assignRef("categorias",$categoriasPelicula);
+		
+		$vista->verDetalles();
+	}
 }
 
 ?>
