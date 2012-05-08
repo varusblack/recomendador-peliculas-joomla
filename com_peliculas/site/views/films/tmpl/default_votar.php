@@ -2,7 +2,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 ?>
-<form action="index.php" method="post" name="votaciones">
+<form class="user" action="index.php" method="post" name="userform">
 <?php
 	$contador = 1;
 	foreach($this->peliculas as $pelicula){ ?>
@@ -70,13 +70,12 @@ defined('_JEXEC') or die('Restricted access');
 	</div> -->
 	
 	<div align="center">
-		<button type="submit"title="Votar"></button>
+		<button type="submit"title="Votar">Votar</button>
 	</div>
 
 	<input type="hidden" name="option" value="com_peliculas" />
     <input type="hidden" name="controller" value="films" />
     <input type="hidden" name="task" value="grabarVotos" />
-    <input type="hidden" name="view" value="" />
 	
 </form>
 
