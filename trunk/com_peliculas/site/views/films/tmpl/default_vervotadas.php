@@ -12,25 +12,19 @@ defined('_JEXEC') or die('Restricted access');
 	
 	<?php
 	foreach($this->peliculas as $pelicula){
+		$idPelicula = $pelicula["id"];
 	?>
 		<tr>
-			<td><?php echo $pelicula["titulo"]." (".$pelicula["tituloEspanol"].")"; ?></td>
-		</tr>
+			<td><?php echo "<a href='index.php?option=com_peliculas&controller=Films&task=verDetalles&id=$idPelicula'>".$pelicula["titulo"]." (".$pelicula["tituloEspanol"].")"."</a>"; ?></td>
 		<?php
-		$idPelicula = $pelicula["id"];
 		$categorias = $this->categoriasPeliculas[$idPelicula];
 		$cadenaCategorias = '';
 		foreach($categorias as $cat){
-			$cadenaCategorias = $cadenaCategorias." ,".$cat["categoria"];
+			$cadenaCategorias = $cadenaCategorias." ".$cat["categoria"];
 		}
 		?>
-		<tr>
 			<td><?php echo $cadenaCategorias; ?></td>
-		</tr>
-		<tr>
 			<td><?php echo $pelicula["anno"]; ?></td>
-		</tr>
-		<tr>
 			<td><?php echo $pelicula["puntuacion"]; ?></td>
 		</tr>
 	<?php
