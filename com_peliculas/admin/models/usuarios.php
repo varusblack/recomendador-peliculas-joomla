@@ -65,7 +65,14 @@ class PeliculasModelUsuarios extends JModel {
         return $db->loadAssoc();
     }
 
-    
+    function calculaLongitudVector() {
+        $db = &JFactory::getDbo();
+        $query = "UPDATE usuarios SET longitudVector = ( SELECT SQRT( SUM( voto * voto ) ) 
+                FROM votos
+                WHERE idUsuario = usuarios.id )";
+        $db->setQuery($query);
+        $db->query();
+    }
 
 }
 
