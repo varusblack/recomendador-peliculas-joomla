@@ -108,6 +108,8 @@ class PeliculasControllerFilms extends JController {
 		}
 		
 		$this->votar();
+                
+                
 	}
 }
 
