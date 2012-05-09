@@ -16,11 +16,13 @@ class PeliculasControllerFilms extends JController {
 		$modeloCategorias = $this->getModel('peliculasCategorias');
 		
 		$categoriasPeliculas = array();
+		$identificadores = array();
 		$user =& JFactory::getUser();
 		
 		$peliculasSinVotar = $modeloVotaciones->obtenerPeliculasAleatoriasNoVotadasPorUsuario($user->id);
 		foreach ($peliculasSinVotar as $peli) {
 			$idPelicula = $peli["id"];
+			$identificadores[] = $idPelicula;
 			$categs = $modeloCategorias->obtenerCategoriasDePeliculas($idPelicula);
 			$categoriasPeliculas[$idPelicula] = $categs;
 		}
@@ -28,6 +30,7 @@ class PeliculasControllerFilms extends JController {
 		$vista = $this->getView("films", "html");
 		$vista->assignRef("categoriasPeliculas",$categoriasPeliculas);
 		$vista->assignRef("peliculas",$peliculasSinVotar);
+		$vista->assignRef("identificadores",$identificadores);
 		$vista->votar();
 	}
 	
@@ -72,8 +75,7 @@ class PeliculasControllerFilms extends JController {
 		$modeloActoresPelicula = $this->getModel('actoresPelicula');
 		$modeloPeliculasCategorias = $this->getModel('peliculasCategorias');
 		
-		$peliculaVotada = $modeloVotacionesPelicula->obtenerPeliculasVotadasPorUsuario($user->id);
-		$pelicula = $peliculaVotada[0];
+		$pelicula = $modeloVotacionesPelicula->obtenerUnicaPeliculaVotadaPorUsuario ($user->id,$idPelicula);
 		$actores = $modeloActoresPelicula->obtenerActoresDePelicula($pelicula["id"]);
 		$categoriasPelicula = $modeloPeliculasCategorias->obtenerCategoriasDePeliculas($pelicula["id"]);
 		
@@ -83,6 +85,29 @@ class PeliculasControllerFilms extends JController {
 		$vista->assignRef("categorias",$categoriasPelicula);
 		
 		$vista->verDetalles();
+	}
+	
+	function votarMasivo(){
+		$user =& JFactory::getUser();
+		$idUsuario = $user->id;
+		$identificadores = JRequest::getVar("identificadores");
+		$identificadores = unserialize(base64_decode($identificadores));
+		$puntuaciones = array();
+		
+		$modeloVotaciones = $this->getModel('votacionesPelicula');
+		
+		foreach($identificadores as $identificador){
+			$puntuacion = JRequest::getVar('puntuacion'.$identificador);
+			$puntuaciones[$identificador] = $puntuacion;
+		}
+		
+		foreach ($puntuaciones as $identificador => $puntuacion) {
+			if(strcmp($puntuacion, "no") != 0){
+				$modeloVotaciones->votarPelicula ($idUsuario, $identificador, $puntuacion);
+			}
+		}
+		
+		$this->votar();
 	}
 }
 

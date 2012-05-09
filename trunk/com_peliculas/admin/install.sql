@@ -15979,7 +15979,10 @@ CREATE TABLE IF NOT EXISTS `#__peliculas` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 INSERT INTO `#__peliculas` (id,titulo,anno,videoRelease,tituloEspanol,idDirector) VALUES ('987654321','Killing Tomatoes','1984','','Tomates asesinos','1955'),
-('987654322','Hostel','2001','','Hostel');
+(987654322, 'Hostel', '2001', '', 'Hostel', NULL),
+(987654323, 'Hostel 2', '2004', '', 'Hostel 2', NULL),
+(987654324, 'Halloween', '1987', '', 'Halloween', NULL);
+
 
 CREATE TABLE IF NOT EXISTS `#__categoriaspeliculas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
