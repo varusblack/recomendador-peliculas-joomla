@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<install type="module" version="1.5">
+
+<name>Buscador</name>
+<author>Tristan & Antonio</author>
+<creationDate>Mayo 2012</creationDate>
+<license>GPL</license>
+<version>0.1</version>
+<description>Buscador de peliculas</description>
+
+<files>
+	<filename module="mod_buscador">mod_buscador.php</filename>
+	<filename>helper.php</filename>
+	<filename>index.html</filename>
+	<filename>tmpl/default.php</filename>
+	<filename>tmpl/index.html</filename>
+</files>
+
+</install>
