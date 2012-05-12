@@ -11,7 +11,6 @@ defined('_JEXEC') or die('Restricted access');
 		<span><?php echo  $this->pelicula["anno"]?></span>
 		
 		<span class="modifydate">Salida a la venta: </span>
-		<span><?php echo  $this->pelicula["videoRelease"]?></span>
 		
 		<?php 
         if(sizeof($this->categorias) > 0) {
