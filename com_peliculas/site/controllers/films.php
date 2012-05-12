@@ -108,8 +108,11 @@ class PeliculasControllerFilms extends JController {
 		}
 		
 		$this->votar();
-                
-                
+	}
+	
+	function busquedaRapida(){
+		$titulo = JRequest::getVar("tituloBuscado");
+		
 	}
 }
 

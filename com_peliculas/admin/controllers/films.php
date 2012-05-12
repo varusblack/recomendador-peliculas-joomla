@@ -57,7 +57,6 @@ class PeliculasControllerFilms extends JController {
         $id = JRequest::getVar("id");
         $titulo = JRequest::getVar("titulo");
         $anno = JRequest::getVar("anno");
-        $videoRelease = JRequest::getVar("videoRelease");
         $tituloEsp = JRequest::getVar("tituloEsp");
 
         $modelo = $this->getModel("films");
@@ -65,7 +64,7 @@ class PeliculasControllerFilms extends JController {
 		$enlace;
 
         if ($id != "") {
-            $correcto = $modelo->actualizarPelicula($id, $titulo, $anno, $videoRelease, $tituloEsp);
+            $correcto = $modelo->actualizarPelicula($id, $titulo, $anno, $tituloEsp);
 			$enlace = 'index.php?option=com_peliculas&controller=films&task=edit&cid[]='.$id;
 			
             if ($correcto) {
@@ -74,7 +73,7 @@ class PeliculasControllerFilms extends JController {
                 $aviso = "Error en la actualizacion ";
             }
         } else {
-            $correcto = $modelo->insertarPelicula($titulo, $anno, $videoRelease, $tituloEsp);
+            $correcto = $modelo->insertarPelicula($titulo, $anno, $tituloEsp);
 			$enlace = 'index.php?option=com_peliculas&controller=films';
             if ($correcto) {
                 $aviso = "La insercion se ha realizado con exito";

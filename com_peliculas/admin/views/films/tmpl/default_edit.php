@@ -21,14 +21,6 @@ defined('_JEXEC') or die('Restricted access');
         </tr>
         <tr>
         	<td width="100" align="right" class="key">
-        		<label for="videoRelease">Salida a la venta:</label>
-        	</td>
-        	<td>
-        		<input type="text" width="100" name="videoRelease" id="videoRelease" maxlength="300" value="<?php echo $this->film["videoRelease"]; ?>"/>
-        	</td>
-        </tr>
-        <tr>
-        	<td width="100" align="right" class="key">
         		<label for="tituloEsp">Título en español:</label>
         	</td>
         	<td>

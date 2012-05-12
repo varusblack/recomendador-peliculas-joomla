@@ -25,7 +25,6 @@ defined('_JEXEC') or die('Restricted access');
                 <th class="title"><?php echo JHTML::_('grid.sort', 'Título en Español', 'tituloEspanol', $this->filter_order_Dir, $this->filter_order); ?></th>
 
                 <th class="title"><?php echo JHTML::_('grid.sort', 'Año', 'anno', $this->filter_order_Dir, $this->filter_order); ?></th>
-                <th class="title"><?php echo JHTML::_('grid.sort', 'Salida a la venta', 'videoRelease', $this->filter_order_Dir, $this->filter_order); ?></th>
             </tr>
         </thead>
         <?php
@@ -42,7 +41,6 @@ defined('_JEXEC') or die('Restricted access');
                     <?php echo "<a href='index.php?option=com_peliculas&controller=Films&task=edit&cid[]={$film['id']}'>{$film["tituloEspanol"]}</a>"; ?> 
                 </td>
                 <td><?php echo $film["anno"]; ?></td>
-                <td><?php echo $film["videoRelease"]; ?></td>
             </tr>
             <?php
             $i++;

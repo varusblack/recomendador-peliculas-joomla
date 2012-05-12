@@ -25,9 +25,6 @@ defined('_JEXEC') or die('Restricted access');
 				<span class="modifydate">Año: </span>
 				<span><?php echo $pelicula["anno"]; ?></span>
 				
-				<span class="modifydate">Salida a la venta: </span>
-				<span><?php echo $pelicula["videoRelease"]; ?></span>
-				
 				<span class="modifydate">Director: </span>
 				<span><?php echo $pelicula["director"]; ?></span>
 				
