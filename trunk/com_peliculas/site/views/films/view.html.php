@@ -21,6 +21,10 @@ class PeliculasViewFilms extends JView {
 	function verDetalles(){
 		parent::display('detalles');
 	}
+	
+	function resultadosBusqueda(){
+		parent::display('resultados');
+	}
 }
 
 ?>
