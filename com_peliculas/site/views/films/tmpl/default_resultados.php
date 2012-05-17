@@ -11,27 +11,27 @@ defined('_JEXEC') or die('Restricted access');
 	</tr>
 	
 	<?php
-	foreach($this->peliculas as $pelicula){
-		$idPelicula = $pelicula["id"];
-	?>
-		<tr>
-			<td><?php echo "<a href='index.php?option=com_peliculas&controller=Films&task=verDetalles&id=$idPelicula'>".$pelicula["titulo"]." (".$pelicula["tituloEspanol"].")"."</a>"; ?></td>
-		<?php
-		$categorias = $this->categoriasPeliculas[$idPelicula];
-		$cadenaCategorias = '';
-		foreach($categorias as $cat){
-			$cadenaCategorias = $cadenaCategorias." ".$cat["categoria"];
-		}
+	if(count($this->peliculas) < 1){
+		foreach($this->peliculas as $pelicula){
+			$idPelicula = $pelicula["id"];
 		?>
-			<td><?php echo $cadenaCategorias; ?></td>
-			<td><?php echo $pelicula["anno"]; ?></td>
-			<td><?php echo $pelicula["puntuacion"]; ?></td>
-		</tr>
-	<?php
-	}
-	?>
-	
-	
-	
+			<tr>
+				<td><?php echo "<a href='index.php?option=com_peliculas&controller=Films&task=verDetalles&id=$idPelicula'>".$pelicula["titulo"]." (".$pelicula["tituloEspanol"].")"."</a>"; ?></td>
+			<?php
+			$categorias = $this->categoriasPeliculas[$idPelicula];
+			$cadenaCategorias = '';
+			foreach($categorias as $cat){
+				$cadenaCategorias = $cadenaCategorias." ".$cat["categoria"];
+			}
+			?>
+				<td><?php echo $cadenaCategorias; ?></td>
+				<td><?php echo $pelicula["anno"]; ?></td>
+				<td><?php echo $pelicula["puntuacion"]; ?></td>
+			</tr>
+		<?php
+		}
+	}else{
+		echo "No se han encontrado películas";	
+	}?>
 	
 </table>

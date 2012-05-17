@@ -109,10 +109,48 @@ class PeliculasController extends JController {
 
         $this->votar();
     }
+	
 
     function busquedaRapida() {
         $titulo = JRequest::getVar("tituloBuscado");
+		
+		$campos = array();
+		$campos["tituloEspanol"] = $titulo;
+		
+		$modeloFilms = $this->getModel("films");
+		$peliculas = $modeloFilms->obtenerPeliculasPorCampos ($campos);
+		$vista = $this->getView("films","html");
+		$vista->assignRef("peliculas",$peliculas);
+		$vista->resultadosBusqueda();
+		
     }
+	
+	function prepararBusquedaAvanzada() {
+		$modeloCategoria = $this->getModel("categorias");
+		$categorias = $modeloCategoria->obtenerTodasLasCategorias();
+		
+		$vista = $this->getView('');
+	}
+
+	function busquedaAvanzada() {
+		$titulo = JRequest::getVar("titulo");
+		$tituloEspanol = JRequest::getVar("tituloEspanol");
+		$anno = JRequest::getVar("anno");
+		$nombreDirector = JRequest::getVar("nombreDirector");
+		$idCategoria = JRequest::getVar("categoria");
+		$nombreActor1 = JRequest::getVar("nombreActor1");
+		$nombreActor2 = JRequest::getVar("nombreActor2");
+		$nombreActor3 = JRequest::getVar("nombreActor3");
+		
+		$campos = array();
+		//COMPROBAR SI LOS CAMPOS SON NULOS
+		
+		$modeloFilms = $this->getModel("films");
+		$peliculas = $modeloFilms->obtenerPeliculasPorCampos ($campos);
+		$vista = $this->getView("films","html");
+		$vista->assignRef("peliculas",$peliculas);
+		
+	}
 
 }
 
