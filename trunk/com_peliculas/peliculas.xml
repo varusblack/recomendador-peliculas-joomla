@@ -12,7 +12,6 @@
 	<files folder="site">
 		<filename>peliculas.php</filename>
 		<filename>controller.php</filename>
-		<folder>controllers</folder>
 		<folder>views</folder>
 	</files>
 	
