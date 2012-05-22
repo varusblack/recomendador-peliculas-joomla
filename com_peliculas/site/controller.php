@@ -3,7 +3,6 @@
 defined('_JEXEC') or die('Restricted access');
 
 jimport('joomla.application.component.controller');
-echo "Cargando controlador";
 
 class PeliculasController extends JController {
 
@@ -117,19 +116,16 @@ class PeliculasController extends JController {
 		$campos = array();
 		$campos["tituloEspanol"] = $titulo;
 		
-		$modeloFilms = $this->getModel("films");
-		$peliculas = $modeloFilms->obtenerPeliculasPorCampos ($campos);
-		$vista = $this->getView("films","html");
-		$vista->assignRef("peliculas",$peliculas);
-		$vista->resultadosBusqueda();
-		
+		$this->ejecutarBusqueda($campos);
     }
 	
 	function prepararBusquedaAvanzada() {
 		$modeloCategoria = $this->getModel("categorias");
 		$categorias = $modeloCategoria->obtenerTodasLasCategorias();
 		
-		$vista = $this->getView('');
+		$vista = $this->getView('films','html');
+		$vista->assignRef("categorias",$categorias);
+		$vista->busquedaAvanzada();
 	}
 
 	function busquedaAvanzada() {
@@ -143,13 +139,65 @@ class PeliculasController extends JController {
 		$nombreActor3 = JRequest::getVar("nombreActor3");
 		
 		$campos = array();
-		//COMPROBAR SI LOS CAMPOS SON NULOS
 		
-		$modeloFilms = $this->getModel("films");
-		$peliculas = $modeloFilms->obtenerPeliculasPorCampos ($campos);
-		$vista = $this->getView("films","html");
-		$vista->assignRef("peliculas",$peliculas);
+		if(strlen($titulo) < 1){
+			$campos["titulo"] = $titulo;
+		}
 		
+		if(strlen($tituloEspanol) < 1){
+			$campos["tituloEspanol"] = $tituloEspanol;
+		}
+		
+		if(strlen($anno) < 1){
+			$campos["anno"] = $anno;
+		}
+		
+		if(strlen($nombreDirector) < 1){
+			$campos["nombreDirector"] = $nombreDirector;
+		}
+		
+		if(strlen($idCategoria) < 1){
+			$campos["idCategoria"] = $idCategoria;
+		}
+		
+		if(strlen($nombreActor1) < 1){
+			$campos["nombreActor1"] = $nombreActor1;
+		}
+		
+		if(strlen($nombreActor2) < 1){
+			$campos["nombreActor2"] = $nombreActor2;
+		}
+		
+		if(strlen($nombreActor3) < 1){
+			$campos["nombreActor3"] = $nombreActor3;
+		}
+		
+		$this->ejecutarBusqueda($campos);
+	}
+
+	function ejecutarBusqueda($campos){
+		if(count($campos) > 0){
+			$peliculas = array();
+			
+			$modeloFilms = $this->getModel("films");
+			$identificadoresPeliculas = $modeloFilms->obtenerPeliculasPorCampos ($campos);
+			
+			foreach($identificadoresPeliculas as $ids){
+				foreach($ids as $id){
+					$pelicula = $modeloFilms->obtenerPeliculaPorId($id);
+					$peliculas[] = $pelicula;
+				}
+			}
+			
+			$vista = $this->getView("films","html");
+			$vista->assignRef("peliculas",$peliculas);
+			$vista->resultadosBusqueda();
+		}else{
+			$peliculas = array();
+			$vista = $this->getView("films","html");
+			$vista->assignRef("peliculas",$peliculas);
+			$vista->resultadosBusqueda();
+		}
 	}
 
 }

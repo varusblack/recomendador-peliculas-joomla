@@ -15,7 +15,7 @@ defined('_JEXEC') or die('Restricted access');
 		$idPelicula = $pelicula["id"];
 	?>
 		<tr>
-			<td><?php echo "<a href='index.php?option=com_peliculas&controller=Films&task=verDetalles&id=$idPelicula'>".$pelicula["titulo"]." (".$pelicula["tituloEspanol"].")"."</a>"; ?></td>
+			<td><?php echo "<a href='index.php?option=com_peliculas&task=verDetalles&id=$idPelicula'>".$pelicula["titulo"]." (".$pelicula["tituloEspanol"].")"."</a>"; ?></td>
 		<?php
 		$categorias = $this->categoriasPeliculas[$idPelicula];
 		$cadenaCategorias = '';

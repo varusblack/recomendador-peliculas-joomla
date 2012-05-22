@@ -67,8 +67,7 @@ defined('_JEXEC') or die('Restricted access');
 	
     <input type="hidden" name="id" value="<?php echo $this->pelicula["id"]; ?>" />
 	<input type="hidden" name="option" value="com_peliculas" />
-    <input type="hidden" name="controller" value="films" />
     <input type="hidden" name="task" value="cambiarVoto" />	
 </form>
 
-<button type="button" onclick="location.href='index.php?option=com_peliculas&controller=films&task=vervotadas'">Atrás</button>
+<button type="button" onclick="location.href='index.php?option=com_peliculas&task=vervotadas'">Atrás</button>

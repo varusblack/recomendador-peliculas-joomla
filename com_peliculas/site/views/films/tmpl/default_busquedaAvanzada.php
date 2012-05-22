@@ -1,34 +1,59 @@
-<form class="" name="userform" method="post" action="index.php">
+<form class="form-validate" name="userform" method="post" action="index.php">
 	
-	<label for="tituloEspanol">Título en español: </label>
-	<input type="text" id="tituloEspanol" name="tituloEspanol"/>
+	<div class="clear">
+		<label for="tituloEspanol">Título en español: </label>
+		<input type="text" id="tituloEspanol" name="tituloEspanol"/>
+	</div>
 	
-	<label for="titulo">Título original: </label>
-	<input type="text" id="titulo" name="titulo"/>
+	<div class="clear">
+		<label for="titulo">Título original: </label>
+		<input type="text" id="titulo" name="titulo"/>
+	</div>
 	
-	<label for="anno">Año: </label>
-	<input type="text" id="anno" name="anno"/>
+	<div class="clear">
+		<label for="anno">Año: </label>
+		<input type="text" id="anno" name="anno"/>
+	</div>
 	
-	<label for="nombreDirector">Nombre del director: </label>
-	<input type="text" id="nombreDirector" name="nombreDirector"/>
+	<div class="clear">
+		<label for="nombreDirector">Nombre del director: </label>
+		<input type="text" id="nombreDirector" name="nombreDirector"/>
+	</div>
 	
-	<label for="categoria">Categoría: </label>
-	<select name="idCategoria" id="idCategoria">
-	<?php
-		foreach($this->categorias as $categoria){
-			$idCategoria = $categoria["id"];
-			echo "<option value='$idCategoria'>".$categoria["categoria"]."</option>";
-		}
-	?>
-	</select>
+	<div class="clear">
+		<label for="categoria">Categoría: </label>
+		<select name="idCategoria" id="idCategoria">
+			<option value="" selected> - </option>
+		<?php
+			foreach($this->categorias as $categoria){
+				$idCategoria = $categoria["id"];
+				echo "<option value='$idCategoria'>".$categoria["categoria"]."</option>";
+			}
+		?>
+		</select>
+	</div>
 	
-	<label for="nombreActor1">Nombre actor: </label>
-	<input type="text" id="nombreActor1" name="nombreActor1"/>
+	<div class="clear">
+		<label for="nombreActor1">Nombre actor: </label>
+		<input type="text" id="nombreActor1" name="nombreActor1"/>
+	</div>
+
+	<div class="clear">
+		<label for="nombreActor2">Nombre actor: </label>
+		<input type="text" id="nombreActor2" name="nombreActor2"/>
+	</div>	
 	
-	<label for="nombreActor2">Nombre actor: </label>
-	<input type="text" id="nombreActor2" name="nombreActor2"/>
+	<div class="clear">
+		<label for="nombreActor3">Nombre actor: </label>
+		<input type="text" id="nombreActor3" name="nombreActor3"/>
+	</div>
 	
-	<label for="nombreActor3">Nombre actor: </label>
-	<input type="text" id="nombreActor3" name="nombreActor3"/>
+	<div class="clear left">
+		<button type="submit" value="Buscar">Buscar</button>
+	</div>
+	
+	
+	<input type="hidden" name="option" value="com_peliculas" />
+    <input type="hidden" name="task" value="busquedaAvanzada" />	
 	
 </form>
