@@ -53,7 +53,6 @@ defined('_JEXEC') or die('Restricted access');
 	
 
 	<input type="hidden" name="option" value="com_peliculas" />
-    <input type="hidden" name="controller" value="films" />
     <input type="hidden" name="task" value="votarMasivo" />
     <input type="hidden" name="identificadores" value="<?php echo base64_encode(serialize($this->identificadores)); ?>" />
 	
