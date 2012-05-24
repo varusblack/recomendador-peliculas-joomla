@@ -209,9 +209,9 @@ class PeliculasModelFilms extends JModel {
 		if(isset($campos["nombreDirector"])){
 			$nombreDirector = $campos["nombreDirector"];
 			if($otraCondicion){
-				$query = $query." AND "."#__f1.nombre LIKE '%$nombreDirector%'";
+				$query = $query." AND "."f1.nombre LIKE '%$nombreDirector%'";
 			}else{
-				$query = $query."#__f1.nombre LIKE '%$nombreDirector%'";
+				$query = $query."f1.nombre LIKE '%$nombreDirector%'";
 				$otraCondicion = true;
 			}
 		}
@@ -229,9 +229,9 @@ class PeliculasModelFilms extends JModel {
 		if(isset($campos["nombreActor1"])){
 			$nombreActor1 = $campos["nombreActor1"];
 			if($otraCondicion){
-				$query = $query." AND "."#__f2.nombre LIKE '%$nombreActor1%'";
+				$query = $query." AND "."f2.nombre LIKE '%$nombreActor1%'";
 			}else{
-				$query = $query."#__f2.nombre LIKE '%$nombreActor1%'";
+				$query = $query."f2.nombre LIKE '%$nombreActor1%'";
 				$otraCondicion = true;
 			}
 			$otroActor = true;
@@ -241,12 +241,12 @@ class PeliculasModelFilms extends JModel {
 			$nombreActor2 = $campos["nombreActor2"];
 			if($otraCondicion){
 				if($otroActor){
-					$query = $query." OR "."#__f2.nombre LIKE '%$nombreActor2%'";
+					$query = $query." OR "."f2.nombre LIKE '%$nombreActor2%'";
 				}else{
-					$query = $query." AND "."#__f2.nombre LIKE '%$nombreActor2%'";
+					$query = $query." AND "."f2.nombre LIKE '%$nombreActor2%'";
 				}
 			}else{
-				$query = $query."#__f2.nombre LIKE '%$nombreActor2%'";
+				$query = $query."f2.nombre LIKE '%$nombreActor2%'";
 				$otraCondicion = true;
 			}
 			$otroActor = true;
@@ -256,12 +256,12 @@ class PeliculasModelFilms extends JModel {
 			$nombreActor3 = $campos["nombreActor3"];
 			if($otraCondicion){
 				if($otroActor){
-					$query = $query." OR "."#__f2.nombre LIKE '%$nombreActor3%'";
+					$query = $query." OR "."f2.nombre LIKE '%$nombreActor3%'";
 				}else{
-					$query = $query." AND "."#__f2.nombre LIKE '%$nombreActor3%'";
+					$query = $query." AND "."f2.nombre LIKE '%$nombreActor3%'";
 				}
 			}else{
-				$query = $query."#__f2.nombre LIKE '{%$nombreActor3%}'";
+				$query = $query."f2.nombre LIKE '{%$nombreActor3%}'";
 				$otraCondicion = true;
 			}
 		}
@@ -269,19 +269,6 @@ class PeliculasModelFilms extends JModel {
 		$db->setQuery($query);
         return $db->loadAssocList();
 		
-		// $consultaBestia = "SELECT DISTINCT * FROM #__peliculas 
-		// INNER JOIN #__famosos f1 ON #__peliculas.idDirector=f1.id 
-		// INNER JOIN #__categoriaspeliculas ON #__peliculas.id=#__categoriaspeliculas.idPelicula 
-		// INNER JOIN #__actorespelicula ON #__peliculas.id=#__actorespeliculas.idPelicula 
-		// INNER JOIN #__famosos f2 ON #__actorespeliculas.idFamoso=f2.id WHERE
-		// #__peliculas.titulo LIKE '{%$titulo%}' AND 
-		// #__peliculas.tituloEspanol LIKE '{%$tituloEspanol%}' AND 
-		// #__peliculas.anno LIKE '{%$anno%}' AND 
-		// #__f1.nombre LIKE '{%$nombreDirector%}' AND 
-		// #__categoriaspeliculas.idCategoria='{$idCategoria}' AND 
-		// #__f2.nombre LIKE '{%$nombreActor1%}' OR 
-		// #__f2.nombre LIKE '{%$nombreActor2%}' OR
-		// #__f2.nombre LIKE '{%$nombreActor3%}'";
 		
 	}
 	

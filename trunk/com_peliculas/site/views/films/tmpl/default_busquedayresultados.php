@@ -23,7 +23,7 @@
 	<div class="clear">
 		<label for="categoria">Categoría: </label>
 		<select name="idCategoria" id="idCategoria">
-			<option value="" selected> - </option>
+			<option value="0" selected> - </option>
 		<?php
 			foreach($this->categorias as $categoria){
 				$idCategoria = $categoria["id"];
@@ -57,3 +57,35 @@
     <input type="hidden" name="task" value="busquedaAvanzada" />	
 	
 </form>
+
+
+<div class="clear">
+
+	<?php 
+	if (isset($this->peliculas)){
+	?>
+	
+	<table cols="2">
+		<tr>
+			<th>Título (título en español)</th>
+			<th>Año</th>
+		</tr>
+		
+		<?php
+		if(count($this->peliculas) > 0){
+			foreach($this->peliculas as $pelicula){
+				$idPelicula = $pelicula["id"];
+			?>
+				<tr>
+					<td><?php echo "<a href='index.php?option=com_peliculas&task=verDetalles&id=$idPelicula'>".$pelicula["titulo"]." (".$pelicula["tituloEspanol"].")"."</a>"; ?></td>
+					<td><?php echo $pelicula["anno"]; ?></td>
+				</tr>
+			<?php
+			}
+		}else{
+			echo "No se han encontrado películas";	
+		}?>
+	</table>
+	<?php	
+	} ?>	
+</div>
