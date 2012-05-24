@@ -70,16 +70,22 @@ class PeliculasController extends JController {
     function verDetalles() {
         $user = & JFactory::getUser();
         $idPelicula = JRequest::getVar('id');
+		$modeloPelicula = $this->getModel('films');
         $modeloVotacionesPelicula = $this->getModel('votacionesPelicula');
         $modeloActoresPelicula = $this->getModel('actoresPelicula');
         $modeloPeliculasCategorias = $this->getModel('peliculasCategorias');
 
-        $pelicula = $modeloVotacionesPelicula->obtenerUnicaPeliculaVotadaPorUsuario($user->id, $idPelicula);
+		$pelicula = $modeloPelicula->obtenerPeliculaPorId($idPelicula);
+        $otrosDatosPelicula = $modeloVotacionesPelicula->obtenerUnicaPeliculaVotadaPorUsuario($user->id, $idPelicula);
         $actores = $modeloActoresPelicula->obtenerActoresDePelicula($pelicula["id"]);
         $categoriasPelicula = $modeloPeliculasCategorias->obtenerCategoriasDePeliculas($pelicula["id"]);
 
         $vista = $this->getView('films', 'html');
-        $vista->assignRef("pelicula", $pelicula);
+        
+        if(count($otrosDatosPelicula) > 0){
+        	$vista->assignRef("otrosdatos",$otrosDatosPelicula);
+        }
+		$vista->assignRef("pelicula", $pelicula);
         $vista->assignRef("actores", $actores);
         $vista->assignRef("categorias", $categoriasPelicula);
 
@@ -114,7 +120,10 @@ class PeliculasController extends JController {
         $titulo = JRequest::getVar("tituloBuscado");
 		
 		$campos = array();
-		$campos["tituloEspanol"] = $titulo;
+		
+		if(strlen($titulo) > 1){
+			$campos["tituloEspanol"] = $titulo;
+		}
 		
 		$this->ejecutarBusqueda($campos);
     }
@@ -125,7 +134,7 @@ class PeliculasController extends JController {
 		
 		$vista = $this->getView('films','html');
 		$vista->assignRef("categorias",$categorias);
-		$vista->busquedaAvanzada();
+		$vista->busquedaYResultados();
 	}
 
 	function busquedaAvanzada() {
@@ -133,42 +142,42 @@ class PeliculasController extends JController {
 		$tituloEspanol = JRequest::getVar("tituloEspanol");
 		$anno = JRequest::getVar("anno");
 		$nombreDirector = JRequest::getVar("nombreDirector");
-		$idCategoria = JRequest::getVar("categoria");
+		$idCategoria = JRequest::getVar("idCategoria");
 		$nombreActor1 = JRequest::getVar("nombreActor1");
 		$nombreActor2 = JRequest::getVar("nombreActor2");
 		$nombreActor3 = JRequest::getVar("nombreActor3");
 		
 		$campos = array();
 		
-		if(strlen($titulo) < 1){
+		if(strlen($titulo) > 1){
 			$campos["titulo"] = $titulo;
 		}
 		
-		if(strlen($tituloEspanol) < 1){
+		if(strlen($tituloEspanol) > 1){
 			$campos["tituloEspanol"] = $tituloEspanol;
 		}
 		
-		if(strlen($anno) < 1){
+		if(strlen($anno) > 1){
 			$campos["anno"] = $anno;
 		}
 		
-		if(strlen($nombreDirector) < 1){
+		if(strlen($nombreDirector) > 1){
 			$campos["nombreDirector"] = $nombreDirector;
 		}
 		
-		if(strlen($idCategoria) < 1){
+		if(strlen($idCategoria) != 0){
 			$campos["idCategoria"] = $idCategoria;
 		}
 		
-		if(strlen($nombreActor1) < 1){
+		if(strlen($nombreActor1) > 1){
 			$campos["nombreActor1"] = $nombreActor1;
 		}
 		
-		if(strlen($nombreActor2) < 1){
+		if(strlen($nombreActor2) > 1){
 			$campos["nombreActor2"] = $nombreActor2;
 		}
 		
-		if(strlen($nombreActor3) < 1){
+		if(strlen($nombreActor3) > 1){
 			$campos["nombreActor3"] = $nombreActor3;
 		}
 		
@@ -176,30 +185,34 @@ class PeliculasController extends JController {
 	}
 
 	function ejecutarBusqueda($campos){
+		$peliculas = array();
+		
+		$modeloCategoria = $this->getModel("categorias");
+		
+		$categorias = $modeloCategoria->obtenerTodasLasCategorias();
+		
+		$vista = $this->getView('films','html');
+		$vista->assignRef("categorias",$categorias);
+		
 		if(count($campos) > 0){
-			$peliculas = array();
-			
 			$modeloFilms = $this->getModel("films");
 			$identificadoresPeliculas = $modeloFilms->obtenerPeliculasPorCampos ($campos);
 			
-			foreach($identificadoresPeliculas as $ids){
-				foreach($ids as $id){
-					$pelicula = $modeloFilms->obtenerPeliculaPorId($id);
-					$peliculas[] = $pelicula;
+			if(count($identificadoresPeliculas) > 0){
+				foreach($identificadoresPeliculas as $ids){
+					foreach($ids as $id){
+						$pelicula = $modeloFilms->obtenerPeliculaPorId($id);
+						$peliculas[] = $pelicula;
+					}
 				}
+				
 			}
-			
-			$vista = $this->getView("films","html");
-			$vista->assignRef("peliculas",$peliculas);
-			$vista->resultadosBusqueda();
-		}else{
-			$peliculas = array();
-			$vista = $this->getView("films","html");
-			$vista->assignRef("peliculas",$peliculas);
-			$vista->resultadosBusqueda();
 		}
+		$vista->assignRef("peliculas",$peliculas);
+		$vista->busquedaYResultados();
 	}
 
 }
+
 
 ?>
