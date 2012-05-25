@@ -172,7 +172,6 @@ class PeliculasModelFilms extends JModel {
 	function obtenerPeliculasPorCampos ($campos){
 		$db = &JFactory::getDbo();
 		$otraCondicion = false;
-		$otroActor = false;
 		
 		$query = "SELECT DISTINCT #__peliculas.id AS id FROM #__peliculas
 							INNER JOIN #__famosos f1 ON #__peliculas.idDirector=f1.id 
@@ -189,80 +188,76 @@ class PeliculasModelFilms extends JModel {
 		if(isset($campos["tituloEspanol"])){
 			$tituloEspanol = $campos["tituloEspanol"];
 			if($otraCondicion){
-				$query = $query." AND "."#__peliculas.tituloEspanol LIKE '%$tituloEspanol%'";
-			}else{
-				$query = $query."#__peliculas.tituloEspanol LIKE '%$tituloEspanol%'";
-				$otraCondicion = true;
+				$query = $query." AND ";
 			}
+			$query = $query."#__peliculas.tituloEspanol LIKE '%$tituloEspanol%'";
+			$otraCondicion = true;
 		}
 		
 		if(isset($campos["anno"])){
 			$anno = $campos["anno"];
 			if($otraCondicion){
-				$query = $query." AND "."#__peliculas.anno LIKE '%$anno%'";
-			}else{
-				$query = $query."#__peliculas.anno LIKE '%$anno%'";
-				$otraCondicion = true;
+				$query = $query." AND ";
 			}
+			$query = $query."#__peliculas.anno LIKE '%$anno%'";
+			$otraCondicion = true;
 		}
 		
 		if(isset($campos["nombreDirector"])){
 			$nombreDirector = $campos["nombreDirector"];
 			if($otraCondicion){
-				$query = $query." AND "."f1.nombre LIKE '%$nombreDirector%'";
-			}else{
-				$query = $query."f1.nombre LIKE '%$nombreDirector%'";
-				$otraCondicion = true;
+				$query = $query." AND ";
 			}
+			$query = $query."f1.nombre LIKE '%$nombreDirector%'";
+			$otraCondicion = true;
 		}
 		
 		if(isset($campos["idCategoria"])){
 			$idCategoria = $campos["idCategoria"];
 			if($otraCondicion){
-				$query = $query." AND "."#__categoriaspeliculas.idCategoria='$idCategoria'";
-			}else{
-				$query = $query."#__categoriaspeliculas.idCategoria='$idCategoria'";
-				$otraCondicion = true;
+				$query = $query." AND ";
 			}
+			$query = $query."#__categoriaspeliculas.idCategoria='$idCategoria'";
+			$otraCondicion = true;
 		}
 		
+		$actores = array();
 		if(isset($campos["nombreActor1"])){
-			$nombreActor1 = $campos["nombreActor1"];
-			if($otraCondicion){
-				$query = $query." AND "."f2.nombre LIKE '%$nombreActor1%'";
-			}else{
-				$query = $query."f2.nombre LIKE '%$nombreActor1%'";
-				$otraCondicion = true;
-			}
-			$otroActor = true;
+			$actores[]=$campos["nombreActor1"];
 		}
-		
 		if(isset($campos["nombreActor2"])){
-			$nombreActor2 = $campos["nombreActor2"];
-			if($otraCondicion){
-				if($otroActor){
-					$query = $query." OR "."f2.nombre LIKE '%$nombreActor2%'";
-				}else{
-					$query = $query." AND "."f2.nombre LIKE '%$nombreActor2%'";
-				}
-			}else{
-				$query = $query."f2.nombre LIKE '%$nombreActor2%'";
-				$otraCondicion = true;
-			}
-			$otroActor = true;
+			$actores[]=$campos["nombreActor2"];
+		}
+		if(isset($campos["nombreActor3"])){
+			$actores[]=$campos["nombreActor3"];
 		}
 		
-		if(isset($campos["nombreActor3"])){
-			$nombreActor3 = $campos["nombreActor3"];
+		
+		if(count($actores)>0){
 			if($otraCondicion){
-				if($otroActor){
-					$query = $query." OR "."f2.nombre LIKE '%$nombreActor3%'";
-				}else{
-					$query = $query." AND "."f2.nombre LIKE '%$nombreActor3%'";
-				}
-			}else{
-				$query = $query."f2.nombre LIKE '{%$nombreActor3%}'";
-				$otraCondicion = true;
+				$query = $query." AND ";
+			}
+			if(count($actores) == 1){
+				$actor1 = $actores[0];
+				$query = $query."f2.nombre LIKE '%$actor1%'";
+			}elseif(count($actores) == 2){
+				$actor1 = $actores[0];
+				$actor2 = $actores[1];
+				
+				$query = $query."f2.nombre LIKE '%$actor1%' AND #__peliculas.id IN (	SELECT idPelicula FROM #__actorespelicula 
+							INNER JOIN #__famosos ON #__actorespelicula.idFamoso=#__famosos.id 
+							WHERE #__famosos.nombre LIKE '%$actor2%')";
+			}elseif(count($actores) == 3){
+				$actor1 = $actores[0];
+				$actor2 = $actores[1];
+				$actor3 = $actores[2];
+				
+				$query = $query."f2.nombre LIKE '%$actor1%' AND #__peliculas.id IN (	SELECT idPelicula FROM #__actorespelicula 
+							INNER JOIN #__famosos ON #__actorespelicula.idFamoso=#__famosos.id 
+							WHERE #__famosos.nombre LIKE '%$actor2%' AND idPelicula IN (
+								SELECT idPelicula FROM #__actorespelicula 
+								INNER JOIN #__famosos ON #__actorespelicula.idFamoso=#__famosos.id 
+								WHERE #__famosos.nombre LIKE '%$actor3%'))";
 			}
 		}
 		

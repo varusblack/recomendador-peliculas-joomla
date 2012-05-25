@@ -165,7 +165,7 @@ class PeliculasController extends JController {
 			$campos["nombreDirector"] = $nombreDirector;
 		}
 		
-		if(strlen($idCategoria) != 0){
+		if($idCategoria != 0){
 			$campos["idCategoria"] = $idCategoria;
 		}
 		
