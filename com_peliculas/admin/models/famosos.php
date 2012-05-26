@@ -48,7 +48,7 @@ class PeliculasModelFamosos extends JModel {
 
     function obtenerTodosLosFamosos() {
         $db = &JFactory::getDbo();
-        $query = "SELECT * FROM #__famosos";
+        $query = "SELECT * FROM #__famosos ORDER BY nombre ASC";
         $db->setQuery($query);
         return $db->loadAssocList();
     }

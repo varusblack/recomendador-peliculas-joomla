@@ -18,15 +18,15 @@ class PeliculasModelFilms extends JModel {
         $this->setState('limit', $limit);
         $this->setState('limitstart', $limitstart);
     }
-
-    function getPagination() {
+//parametro $this->obtenerNumeroDePeliculas() intercambiable por count(arrayConResultados)
+    function getPagination($resultados) {
         if (empty($this->_pagination)) {
             jimport('joomla.html.pagination');
-            $this->_pagination = new JPagination($this->obtenerNumeroDePeliculas(), $this->getState('limitstart'), $this->getState('limit'));
+            $this->_pagination = new JPagination(count($resultados), $this->getState('limitstart'), $this->getState('limit'));
         }
         return $this->_pagination;
     }
-
+//hacer que la query sea una cadena a la que se le añadan los limites
     function obtenerPeliculasLimites() {
         $start = $this->getState('limitstart');
         $limit = $this->getState('limit');
@@ -37,18 +37,16 @@ class PeliculasModelFilms extends JModel {
         return $db->loadAssocList();
     }
 
-    function obtenerNumeroDePeliculas() {
+    function obtenerTodasLasPeliculas($limites=NULL) {
         $db = &JFactory::getDbo();
-        $query = "SELECT count(*) as cuenta FROM #__peliculas ".$this->_getWhereString();
-        $db->setQuery($query);
-        $resultado = $db->loadAssocList();
-
-        return $resultado[0]["cuenta"];
-    }
-
-    function obtenerTodasLasPeliculas() {
-        $db = &JFactory::getDbo();
-        $query = "SELECT * FROM #__peliculas";
+		$query = "SELECT * FROM #__peliculas";
+		
+		if($limites !=NULL){
+			$start = $this->getState('limitstart');
+       		$limit = $this->getState('limit');
+			$query = $query." ".$this->_getWhereString() . " " . $this->_getOrderString() . " LIMIT $start,$limit";
+		}
+        
         $db->setQuery($query);
         return $db->loadAssocList();
     }
@@ -169,11 +167,13 @@ class PeliculasModelFilms extends JModel {
     }
 
 	//Devuelve SOLAMENTE los IDs de las peliculas que cumplan las condiciones
-	function obtenerPeliculasPorCampos ($campos){
+	function obtenerPeliculasPorCampos ($campos,$limites=NULL){
 		$db = &JFactory::getDbo();
 		$otraCondicion = false;
 		
-		$query = "SELECT DISTINCT #__peliculas.id AS id FROM #__peliculas
+		$query = "SELECT DISTINCT #__peliculas.id AS id, #__peliculas.titulo AS titulo,
+					#__peliculas.tituloEspanol AS tituloEspanol, #__peliculas.anno AS anno,
+					#__peliculas.idDirector AS idDirector FROM #__peliculas
 							INNER JOIN #__famosos f1 ON #__peliculas.idDirector=f1.id 
 							INNER JOIN #__categoriaspeliculas ON #__peliculas.id=#__categoriaspeliculas.idPelicula 
 							INNER JOIN #__actorespelicula ON #__peliculas.id=#__actorespelicula.idPelicula 
@@ -261,6 +261,11 @@ class PeliculasModelFilms extends JModel {
 			}
 		}
 		
+		if($limites != NULL){
+			$start = $this->getState('limitstart');
+        	$limit = $this->getState('limit');
+			$query = $query." ".$this->_getWhereString() . " " . $this->_getOrderString() . " LIMIT $start,$limit";
+		}
 		$db->setQuery($query);
         return $db->loadAssocList();
 		

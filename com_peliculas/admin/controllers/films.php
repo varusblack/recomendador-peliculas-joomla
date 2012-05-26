@@ -15,10 +15,12 @@ class PeliculasControllerFilms extends JController {
         global $mainframe,$option;
         
         $modelo = $this->getModel("films");
-        $films = $modelo->obtenerPeliculasLimites();
+        $films = $modelo->obtenerTodasLasPeliculas(true);
 
         $vista = $this->getView("films", "html");
-        $pagination = $modelo->getPagination();
+		$todasLaspeliculas = $modelo->obtenerTodasLasPeliculas();
+		
+        $pagination = $modelo->getPagination($todasLaspeliculas);
         $filter_order=$mainframe->getUserStateFromRequest($option.'.peliculas.filter_order', 'filter_order', '', 'word' );
         $filter_order_Dir=$mainframe->getUserStateFromRequest($option.'.peliculas.filter_order_Dir', 'filter_order_Dir', '', 'word' );
         $filter_state=$mainframe->getUserStateFromRequest($option.'.peliculas.filter_state', 'filter_state', '', 'word' );

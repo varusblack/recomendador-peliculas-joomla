@@ -58,34 +58,45 @@
 	
 </form>
 
-
-<div class="clear">
-
-	<?php 
-	if (isset($this->peliculas)){
-	?>
+<form name="userform" method="post" action="index.php">
+	<div class="clear">
 	
-	<table cols="2">
-		<tr>
-			<th>Título (título en español)</th>
-			<th>Año</th>
-		</tr>
+		<?php 
+		if (isset($this->peliculas)){
+		?>
 		
-		<?php
-		if(count($this->peliculas) > 0){
-			foreach($this->peliculas as $pelicula){
-				$idPelicula = $pelicula["id"];
-			?>
+		<table cols="2">
+			<thead>
 				<tr>
-					<td><?php echo "<a href='index.php?option=com_peliculas&task=verDetalles&id=$idPelicula'>".$pelicula["titulo"]." (".$pelicula["tituloEspanol"].")"."</a>"; ?></td>
-					<td><?php echo $pelicula["anno"]; ?></td>
+					<th class="title"><?php echo JHTML::_('grid.sort', 'Título (título en español)', 'titulo', $this->filter_order_Dir, $this->filter_order); ?></th>
+					<th class="title"><?php echo JHTML::_('grid.sort', 'Año (título en español)', 'anno', $this->filter_order_Dir, $this->filter_order); ?></th>
 				</tr>
+			</thead>
+			
+			
 			<?php
-			}
-		}else{
-			echo "No se han encontrado películas";	
-		}?>
-	</table>
-	<?php	
-	} ?>	
-</div>
+			if(count($this->peliculas) > 0){
+				foreach($this->peliculas as $pelicula){
+					$idPelicula = $pelicula["id"];
+				?>
+					<tr>
+						<td><?php echo "<a href='index.php?option=com_peliculas&task=verDetalles&id=$idPelicula'>".$pelicula["titulo"]." (".$pelicula["tituloEspanol"].")"."</a>"; ?></td>
+						<td><?php echo $pelicula["anno"]; ?></td>
+					</tr>
+				<?php
+				}
+			}else{
+				echo "No se han encontrado películas";	
+			}?>
+			<tfoot>
+	            <tr>
+	                <td colspan="6">
+	                    <?php echo $this->pagination->getListFooter(); ?>
+	                </td>
+	            </tr>
+	        </tfoot>
+		</table>
+		<?php	
+		} ?>	
+	</div>
+</form>

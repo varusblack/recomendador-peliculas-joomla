@@ -48,22 +48,27 @@ class PeliculasController extends JController {
     }
 
     function vervotadas() {
+    	global $mainframe,$option;
+		
         $modeloVotaciones = $this->getModel('votacionesPelicula');
-        $modeloCategorias = $this->getModel('peliculasCategorias');
 
         $categoriasPeliculas = array();
         $user = & JFactory::getUser();
 
-        $peliculasVotadas = $modeloVotaciones->obtenerPeliculasVotadasPorUsuario($user->id);
-        foreach ($peliculasVotadas as $peli) {
-            $idPelicula = $peli["id"];
-            $categs = $modeloCategorias->obtenerCategoriasDePeliculas($idPelicula);
-            $categoriasPeliculas[$idPelicula] = $categs;
-        }
+        $peliculasVotadas = $modeloVotaciones->obtenerPeliculasVotadasPorUsuario($user->id,true);
+		$todasPeliculasVotadas = $modeloVotaciones->obtenerPeliculasVotadasPorUsuario($user->id);
+		
+		$pagination = $modelo->getPagination($todasPeliculasVotadas);
+		$filter_order=$mainframe->getUserStateFromRequest($option.'.peliculas.filter_order', 'filter_order', '', 'word' );
+        $filter_order_Dir=$mainframe->getUserStateFromRequest($option.'.peliculas.filter_order_Dir', 'filter_order_Dir', '', 'word' );
+        $filter_state=$mainframe->getUserStateFromRequest($option.'.peliculas.filter_state', 'filter_state', '', 'word' );
 
         $vista = $this->getView("films", "html");
-        $vista->assignRef("categoriasPeliculas", $categoriasPeliculas);
+		$vista->assignRef("pagination", $pagination);
         $vista->assignRef("peliculas", $peliculasVotadas);
+		$vista->assignRef("filter_order", $filter_order);
+        $vista->assignRef("filter_order_Dir", $filter_order_Dir);
+        $vista->assignRef("filter_state", $filter_state);
         $vista->vervotadas();
     }
 
@@ -185,8 +190,12 @@ class PeliculasController extends JController {
 	}
 
 	function ejecutarBusqueda($campos){
-		$peliculas = array();
+		global $mainframe,$option;	
 		
+		$peliculas = array();
+		$todasLasPeliculas = array();
+		
+		$modeloFilms = $this->getModel("films");
 		$modeloCategoria = $this->getModel("categorias");
 		
 		$categorias = $modeloCategoria->obtenerTodasLasCategorias();
@@ -195,19 +204,20 @@ class PeliculasController extends JController {
 		$vista->assignRef("categorias",$categorias);
 		
 		if(count($campos) > 0){
-			$modeloFilms = $this->getModel("films");
-			$identificadoresPeliculas = $modeloFilms->obtenerPeliculasPorCampos ($campos);
-			
-			if(count($identificadoresPeliculas) > 0){
-				foreach($identificadoresPeliculas as $ids){
-					foreach($ids as $id){
-						$pelicula = $modeloFilms->obtenerPeliculaPorId($id);
-						$peliculas[] = $pelicula;
-					}
-				}
-				
-			}
+			$peliculas = $modeloFilms->obtenerPeliculasPorCampos ($campos,true);
+			$todasLasPeliculas = $modeloFilms->obtenerPeliculasPorCampos ($campos);
 		}
+		
+        $pagination = $modeloFilms->getPagination($todasLasPeliculas);
+        $filter_order=$mainframe->getUserStateFromRequest($option.'.peliculas.filter_order', 'filter_order', '', 'word' );
+        $filter_order_Dir=$mainframe->getUserStateFromRequest($option.'.peliculas.filter_order_Dir', 'filter_order_Dir', '', 'word' );
+        $filter_state=$mainframe->getUserStateFromRequest($option.'.peliculas.filter_state', 'filter_state', '', 'word' );
+        $search=$mainframe->getUserStateFromRequest($option.'.peliculas.search', 'search', '', 'word' );
+        
+        $vista->assignRef("pagination", $pagination);
+        $vista->assignRef("filter_order", $filter_order);
+        $vista->assignRef("filter_order_Dir", $filter_order_Dir);
+        $vista->assignRef("filter_state", $filter_state);
 		$vista->assignRef("peliculas",$peliculas);
 		$vista->busquedaYResultados();
 	}
