@@ -10,19 +10,29 @@ defined('_JEXEC') or die('Restricted access');
                 <th width="20">
                     <input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count($this->usuarios); ?>);" />
                 </th>
+                
                 <th>Usuarios</th>
+                <th>Vector</th>
+                <th>Ver vecindario</th>
             </tr>
         </thead>
         <?php
         $i = 0;
         foreach ($this->usuarios as $usuario) {
             $link = JRoute::_('index.php?option=com_users&view=user&task=edit&cid[]=' . $usuario["id"]);
+            $linkVecindario = JRoute::_('index.php?option=com_peliculas&controller=usuarios&view=vecindario&task=edit&cid[]=' . $usuario["id"]);
             ?>
             <tr>
                 <td><?php echo $usuario["id"]; ?></td>
                 <td><?php echo JHtml::_('grid.id', $i, $usuario["id"]); ?></td>
                 <td>
                     <?php echo "<a href='$link'>{$usuario['name']}</a>"; ?> 
+                </td>
+                <td>
+                    <?php echo "<a href='$link'>{$usuario['vector']}</a>"; ?> 
+                </td>
+                <td>
+                    <?php echo "<a href='$linkVecindario'>Ver vecindario</a>"; ?> 
                 </td>
             </tr>
             <?php
