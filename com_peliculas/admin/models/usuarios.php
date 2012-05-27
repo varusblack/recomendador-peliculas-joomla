@@ -32,7 +32,7 @@ class PeliculasModelUsuarios extends JModel {
         $limit = $this->getState('limit');
 
         $db = &JFactory::getDbo();
-        $query = "SELECT * FROM #__users WHERE usertype='Registered' LIMIT $start,$limit";
+        $query = "SELECT * FROM #__users WHERE usertype='Registered' OR usertype='' LIMIT $start,$limit";
 
         $db->setQuery($query);
 

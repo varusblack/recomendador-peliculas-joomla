@@ -30,6 +30,23 @@ class PeliculasControllerUsuarios extends JController {
         $vista->display();
     }
 
+    function calculaVecindario() {
+        $cid = JRequest::getVar("cid", 0, "", "array");
+
+
+        foreach ($cid as $idUsuario) {
+            $this->calculaUnVecindario($idUsuario);
+        }
+    }
+
+    private function calculaUnVecindario($idUsuario) {
+        $modeloUsuarios = $this->getModel('usuarios');
+        $modeloVotos = $this->getModel('votacionesPelicula');
+
+        $usuarioACalcular = $modeloUsuarios->obtenerUsuarioPorId($idUsuario);
+        $votosUsuario = $modeloVotos->obtenerVotosUsuario($idUsuario);
+    }
+
 }
 
 ?>
