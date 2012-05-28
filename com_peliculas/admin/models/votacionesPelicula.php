@@ -122,6 +122,22 @@ class PeliculasModelVotacionesPelicula extends JModel {
         return $db->loadAssocList();
     }
 
+    function obtenerVotoPorUsuarioYPelicula($idUsuario, $idPelicula) {
+        $db = &JFactory::getDbo();
+        $query = "SELECT * FROM #__votos WHERE idUsuario='{$idUsuario}' and idPelicula=$idPelicula";
+
+        $db->setQuery($query);
+        return $db->loadAssoc()->voto;
+    }
+    function obtenerUsuariosQueHanVotadoUnaPelicula($idPelicula) {
+        $db = &JFactory::getDbo();
+
+        $query = "SELECT * FROM #__votos WHERE idPelicula='{$idPelicula}'";
+
+        $db->setQuery($query);
+        return $db->loadAssocList();
+    }
+
 }
 
 ?>
