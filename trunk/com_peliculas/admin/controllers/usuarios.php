@@ -43,8 +43,32 @@ class PeliculasControllerUsuarios extends JController {
         $modeloUsuarios = $this->getModel('usuarios');
         $modeloVotos = $this->getModel('votacionesPelicula');
 
-        $usuarioACalcular = $modeloUsuarios->obtenerUsuarioPorId($idUsuario);
+        $tablaUsuarios = array();
+
+        $usuarioACalcular = $modeloUsuarios->dameUsuario($idUsuario);
         $votosUsuario = $modeloVotos->obtenerVotosUsuario($idUsuario);
+
+        $usuarioAEstudiar = array();
+        foreach ($votosUsuario as $voto) {
+            $usuarios = $modeloVotos->obtenerUsuariosQueHanVotadoUnaPelicula($voto["idPelicula"]);
+            foreach ($usuarios as $idU => $usuario) {
+                if ($usuario["idUsuario"] != $idUsuario) {
+                    $usuarioAEstudiar[$idU][$voto["idPelicula"]] = $usuario["voto"];
+                }
+            }
+            $productoDeUnaPelicula = 1;
+
+            foreach ($usuarioAEstudiar as $idU => $usuario) {
+                print_r($usuario);
+                if (!isset($usuario[$voto["idPelicula"]])) {
+                    echo "<br>" . $usuario[$voto["idPelicula"]];
+                    $productoDeUnaPelicula = $productoDeUnaPelicula * $usuario[$voto["idPelicula"]];
+                }
+            }
+            echo "<br>" . $voto["idPelicula"] . " - $productoDeUnaPelicula";
+            $numerador = $numerador + $productoDeUnaPelicula;
+        }
+        echo "<br>Terminado " . microtime() . " usando " . memory_get_usage();
     }
 
 }
