@@ -2,22 +2,43 @@
 	
 	<div class="clear">
 		<label for="tituloEspanol">Título en español: </label>
-		<input type="text" id="tituloEspanol" name="tituloEspanol"/>
+		<?php 
+		$camposPrevios = $this->camposPrevios;
+		if(isset($camposPrevios["tituloEspanol"])){ ?>
+			<input type="text" id="tituloEspanol" name="tituloEspanol" value="<?php echo $camposPrevios["tituloEspanol"]; ?>"/>
+		<?php }else{ ?>
+			<input type="text" id="tituloEspanol" name="tituloEspanol"/>
+		<?php } ?>
 	</div>
 	
 	<div class="clear">
 		<label for="titulo">Título original: </label>
-		<input type="text" id="titulo" name="titulo"/>
+		<?php 
+		if(isset($camposPrevios["titulo"])){ ?>
+			<input type="text" id="titulo" name="titulo" value="<?php echo $camposPrevios["titulo"]; ?>"/>
+		<?php }else{ ?>
+			<input type="text" id="titulo" name="titulo"/>
+		<?php } ?>
 	</div>
 	
 	<div class="clear">
 		<label for="anno">Año: </label>
-		<input type="text" id="anno" name="anno"/>
+		<?php 
+		if(isset($camposPrevios["anno"])){ ?>
+			<input type="text" id="anno" name="anno" value="<?php echo $camposPrevios["anno"]; ?>"/>
+		<?php }else{ ?>
+			<input type="text" id="anno" name="anno"/>
+		<?php } ?>
 	</div>
 	
 	<div class="clear">
 		<label for="nombreDirector">Nombre del director: </label>
-		<input type="text" id="nombreDirector" name="nombreDirector"/>
+		<?php 
+		if(isset($camposPrevios["nombreDirector"])){ ?>
+			<input type="text" id="nombreDirector" name="nombreDirector" value="<?php echo $camposPrevios["nombreDirector"]; ?>"/>
+		<?php }else{ ?>
+			<input type="text" id="nombreDirector" name="nombreDirector"/>
+		<?php } ?>
 	</div>
 	
 	<div class="clear">
@@ -27,7 +48,11 @@
 		<?php
 			foreach($this->categorias as $categoria){
 				$idCategoria = $categoria["id"];
-				echo "<option value='$idCategoria'>".$categoria["categoria"]."</option>";
+				if(isset($camposPrevios["idCategoria"]) && $camposPrevios["idCategoria"]==$idCategoria) {
+					echo "<option value='$idCategoria' selected>".$categoria["categoria"]."</option>";
+				}else{
+					echo "<option value='$idCategoria'>".$categoria["categoria"]."</option>";
+				}
 			}
 		?>
 		</select>
@@ -35,17 +60,32 @@
 	
 	<div class="clear">
 		<label for="nombreActor1">Nombre actor: </label>
-		<input type="text" id="nombreActor1" name="nombreActor1"/>
+		<?php 
+		if(isset($camposPrevios["nombreActor1"])){ ?>
+			<input type="text" id="nombreActor1" name="nombreActor1" value="<?php echo $camposPrevios["nombreActor1"]; ?>"/>
+		<?php }else{ ?>
+			<input type="text" id="nombreActor1" name="nombreActor1"/>
+		<?php } ?>
 	</div>
 
 	<div class="clear">
 		<label for="nombreActor2">Nombre actor: </label>
-		<input type="text" id="nombreActor2" name="nombreActor2"/>
+		<?php 
+		if(isset($camposPrevios["nombreActor2"])){ ?>
+			<input type="text" id="nombreActor2" name="nombreActor2" value="<?php echo $camposPrevios["nombreActor2"]; ?>"/>
+		<?php }else{ ?>
+			<input type="text" id="nombreActor2" name="nombreActor2"/>
+		<?php } ?>
 	</div>	
 	
 	<div class="clear">
 		<label for="nombreActor3">Nombre actor: </label>
-		<input type="text" id="nombreActor3" name="nombreActor3"/>
+		<?php 
+		if(isset($camposPrevios["nombreActor3"])){ ?>
+			<input type="text" id="nombreActor3" name="nombreActor3" value="<?php echo $camposPrevios["nombreActor3"]; ?>"/>
+		<?php }else{ ?>
+			<input type="text" id="nombreActor3" name="nombreActor3"/>
+		<?php } ?>
 	</div>
 	
 	<div class="clear left">
@@ -55,6 +95,7 @@
 	
 	<input type="hidden" name="option" value="com_peliculas" />
     <input type="hidden" name="task" value="busquedaAvanzada" />	
+    <input type="hidden" name="camposPrevios" value="<?php echo base64_encode(serialize($this->camposPrevios)); ?>" />
 	
 </form>
 
@@ -69,12 +110,13 @@
 			<thead>
 				<tr>
 					<th class="title"><?php echo JHTML::_('grid.sort', 'Título (título en español)', 'titulo', $this->filter_order_Dir, $this->filter_order); ?></th>
-					<th class="title"><?php echo JHTML::_('grid.sort', 'Año (título en español)', 'anno', $this->filter_order_Dir, $this->filter_order); ?></th>
+					<th class="title"><?php echo JHTML::_('grid.sort', 'Año', 'anno', $this->filter_order_Dir, $this->filter_order); ?></th>
 				</tr>
 			</thead>
 			
 			
 			<?php
+			$paginacion = TRUE;
 			if(count($this->peliculas) > 0){
 				foreach($this->peliculas as $pelicula){
 					$idPelicula = $pelicula["id"];
@@ -86,6 +128,7 @@
 				<?php
 				}
 			}else{
+				$paginacion = FALSE;
 				echo "No se han encontrado películas";	
 			}?>
 			<tfoot>
@@ -99,4 +142,12 @@
 		<?php	
 		} ?>	
 	</div>
+	<input type="hidden" name="option" value="com_peliculas" />
+    <input type="hidden" name="controller" value="films" />
+    <input type="hidden" name="task" value="busquedaAvanzada" />
+    <input type="hidden" name="paginacion" value="<?php echo base64_encode(serialize($paginacion)); ?>" />
+    <input type="hidden" name="filter_order" value="<?php echo $this->filter_order; ?>" />
+    <input type="hidden" name="filter_order_Dir" value="" />
+    <input type="hidden" name="filter_state" value="<?php echo $this->filter_state; ?>" />
+    <input type="hidden" name="camposPrevios" value="<?php echo base64_encode(serialize($this->camposPrevios)); ?>" />
 </form>

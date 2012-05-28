@@ -120,19 +120,6 @@ class PeliculasController extends JController {
         $this->votar();
     }
 	
-
-    function busquedaRapida() {
-        $titulo = JRequest::getVar("tituloBuscado");
-		
-		$campos = array();
-		
-		if(strlen($titulo) > 1){
-			$campos["tituloEspanol"] = $titulo;
-		}
-		
-		$this->ejecutarBusqueda($campos);
-    }
-	
 	function prepararBusquedaAvanzada() {
 		$modeloCategoria = $this->getModel("categorias");
 		$categorias = $modeloCategoria->obtenerTodasLasCategorias();
@@ -143,6 +130,16 @@ class PeliculasController extends JController {
 	}
 
 	function busquedaAvanzada() {
+		global $mainframe,$option;	
+		
+		$peliculas = array();
+		$todasLasPeliculas = array();
+		$campos = array();
+		$camposPrevios = array();
+		
+		$modeloFilms = $this->getModel("films");
+		$modeloCategoria = $this->getModel("categorias");
+		
 		$titulo = JRequest::getVar("titulo");
 		$tituloEspanol = JRequest::getVar("tituloEspanol");
 		$anno = JRequest::getVar("anno");
@@ -151,69 +148,79 @@ class PeliculasController extends JController {
 		$nombreActor1 = JRequest::getVar("nombreActor1");
 		$nombreActor2 = JRequest::getVar("nombreActor2");
 		$nombreActor3 = JRequest::getVar("nombreActor3");
+		$paginacion = JRequest::getVar("paginacion");
 		
-		$campos = array();
-		
-		if(strlen($titulo) > 1){
-			$campos["titulo"] = $titulo;
+		if($paginacion == NULL){
+			
+			if(strlen($titulo) > 1){
+				$campos["titulo"] = $titulo;
+				$camposPrevios["titulo"] = $titulo;
+			}
+			
+			if(strlen($tituloEspanol) > 1){
+				$campos["tituloEspanol"] = $tituloEspanol;
+				$camposPrevios["tituloEspanol"] = $tituloEspanol;
+			}
+			
+			if(strlen($anno) > 1){
+				$campos["anno"] = $anno;
+				$camposPrevios["anno"] = $anno;
+			}
+			
+			if(strlen($nombreDirector) > 1){
+				$campos["nombreDirector"] = $nombreDirector;
+				$camposPrevios["nombreDirector"] = $nombreDirector;
+			}
+			
+			if($idCategoria != 0){
+				$campos["idCategoria"] = $idCategoria;
+				$camposPrevios["idCategoria"] = $idCategoria;
+			}
+			
+			if(strlen($nombreActor1) > 1){
+				$campos["nombreActor1"] = $nombreActor1;
+				$camposPrevios["nombreActor1"] = $nombreActor1;
+			}
+			
+			if(strlen($nombreActor2) > 1){
+				$campos["nombreActor2"] = $nombreActor2;
+				$camposPrevios["nombreActor2"] = $nombreActor2;
+			}
+			
+			if(strlen($nombreActor3) > 1){
+				$campos["nombreActor3"] = $nombreActor3;
+				$camposPrevios["nombreActor3"] = $nombreActor3;
+			}
+		}else{
+			$camposPrevios = JRequest::getVar("camposPrevios");
+			$camposPrevios = unserialize(base64_decode($camposPrevios));
 		}
 		
-		if(strlen($tituloEspanol) > 1){
-			$campos["tituloEspanol"] = $tituloEspanol;
-		}
-		
-		if(strlen($anno) > 1){
-			$campos["anno"] = $anno;
-		}
-		
-		if(strlen($nombreDirector) > 1){
-			$campos["nombreDirector"] = $nombreDirector;
-		}
-		
-		if($idCategoria != 0){
-			$campos["idCategoria"] = $idCategoria;
-		}
-		
-		if(strlen($nombreActor1) > 1){
-			$campos["nombreActor1"] = $nombreActor1;
-		}
-		
-		if(strlen($nombreActor2) > 1){
-			$campos["nombreActor2"] = $nombreActor2;
-		}
-		
-		if(strlen($nombreActor3) > 1){
-			$campos["nombreActor3"] = $nombreActor3;
-		}
-		
-		$this->ejecutarBusqueda($campos);
-	}
-
-	function ejecutarBusqueda($campos){
-		global $mainframe,$option;	
-		
-		$peliculas = array();
-		$todasLasPeliculas = array();
-		
-		$modeloFilms = $this->getModel("films");
-		$modeloCategoria = $this->getModel("categorias");
+			
 		
 		$categorias = $modeloCategoria->obtenerTodasLasCategorias();
 		
 		$vista = $this->getView('films','html');
 		$vista->assignRef("categorias",$categorias);
 		
-		if(count($campos) > 0){
-			$peliculas = $modeloFilms->obtenerPeliculasPorCampos ($campos,true);
-			$todasLasPeliculas = $modeloFilms->obtenerPeliculasPorCampos ($campos);
+		if($paginacion == NULL){
+			if(count($campos) > 0){
+				$peliculas = $modeloFilms->obtenerPeliculasPorCampos ($campos,true);
+				$todasLasPeliculas = $modeloFilms->obtenerPeliculasPorCampos ($campos);
+			}
+		}else{
+			$peliculas = $modeloFilms->obtenerPeliculasPorCampos ($camposPrevios,true);
+			$todasLasPeliculas = $modeloFilms->obtenerPeliculasPorCampos ($camposPrevios);
 		}
+			
 		
         $pagination = $modeloFilms->getPagination($todasLasPeliculas);
         $filter_order=$mainframe->getUserStateFromRequest($option.'.peliculas.filter_order', 'filter_order', '', 'word' );
         $filter_order_Dir=$mainframe->getUserStateFromRequest($option.'.peliculas.filter_order_Dir', 'filter_order_Dir', '', 'word' );
         $filter_state=$mainframe->getUserStateFromRequest($option.'.peliculas.filter_state', 'filter_state', '', 'word' );
         $search=$mainframe->getUserStateFromRequest($option.'.peliculas.search', 'search', '', 'word' );
-        
+		
+        $vista->assignRef("camposPrevios",$camposPrevios);
         $vista->assignRef("pagination", $pagination);
         $vista->assignRef("filter_order", $filter_order);
         $vista->assignRef("filter_order_Dir", $filter_order_Dir);
