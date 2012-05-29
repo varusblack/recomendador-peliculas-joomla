@@ -1,3 +1,8 @@
+<?php
+	$filename = 'table-ordering.js';
+	$path = '/media/system/js/';
+	JHTML::script($filename, $path);
+?>
 <form class="form-validate" name="userform" method="post" action="index.php">
 	
 	<div class="clear">
@@ -99,7 +104,7 @@
 	
 </form>
 
-<form name="userform" method="post" action="index.php">
+<form name="userForm" method="post" action="index.php">
 	<div class="clear">
 	
 		<?php 
