@@ -40,35 +40,54 @@ class PeliculasControllerUsuarios extends JController {
     }
 
     private function calculaUnVecindario($idUsuario) {
+        echo "Empezando ".microtime();
         $modeloUsuarios = $this->getModel('usuarios');
         $modeloVotos = $this->getModel('votacionesPelicula');
+		//$modeloVecindario=$this->getModel('vecindarios');
+		
+		//$modeloVecindario->borrarVecindarioPorUsuario($idUsuario);
 
         $tablaUsuarios = array();
 
         $usuarioACalcular = $modeloUsuarios->dameUsuario($idUsuario);
         $votosUsuario = $modeloVotos->obtenerVotosUsuario($idUsuario);
+		$votosPorPeliculas=array();
 
-        $usuarioAEstudiar = array();
+		$usuarioAEstudiar=array();
+
+		
         foreach ($votosUsuario as $voto) {
+			$votosPorPeliculas[$voto["idPelicula"]]=$voto["voto"];
             $usuarios = $modeloVotos->obtenerUsuariosQueHanVotadoUnaPelicula($voto["idPelicula"]);
-            foreach ($usuarios as $idU => $usuario) {
-                if ($usuario["idUsuario"] != $idUsuario) {
-                    $usuarioAEstudiar[$idU][$voto["idPelicula"]] = $usuario["voto"];
-                }
+            foreach ($usuarios as $idU=>$usuario) {
+				if($usuario["idUsuario"]!=$idUsuario){
+					$usuarioAEstudiar[$usuario["idUsuario"]][$voto["idPelicula"]] = $usuario["voto"];
+					
+				}
             }
-            $productoDeUnaPelicula = 1;
+			$i=0;
+	    }
+		foreach($usuarioAEstudiar as $idU=>$usuario){
+			$numerador=0;
+			$vector=0;
+			foreach($usuario as $idPelicula=>$voto){
+				$numerador+=$voto*$votosPorPeliculas[$idPelicula];
+				$vector+=$voto*$voto;
+			}
+			$vector=sqrt($vector);
+			$usuarioAEstudiar[$idU]["numerador"]=$numerador;
+			$usuarioAEstudiar[$idU]["denominador"]=$vector*$usuarioACalcular["vector"];
+			$usuarioAEstudiar[$idU]["coseno"]=$usuarioAEstudiar[$idU]["numerador"]/$usuarioAEstudiar[$idU]["denominador"];
+		}
+		
+		foreach($usuarioAEstudiar as $idU=>$usuario){
+			if($usuario["coseno"]>0.85){
+				echo "<br>".$idU."-".$usuario["coseno"];
+			}
+		}
+		
+		echo "<br>Terminado: ".microtime()." usando: ".memory_get_usage();
 
-            foreach ($usuarioAEstudiar as $idU => $usuario) {
-                print_r($usuario);
-                if (!isset($usuario[$voto["idPelicula"]])) {
-                    echo "<br>" . $usuario[$voto["idPelicula"]];
-                    $productoDeUnaPelicula = $productoDeUnaPelicula * $usuario[$voto["idPelicula"]];
-                }
-            }
-            echo "<br>" . $voto["idPelicula"] . " - $productoDeUnaPelicula";
-            $numerador = $numerador + $productoDeUnaPelicula;
-        }
-        echo "<br>Terminado " . microtime() . " usando " . memory_get_usage();
     }
 
 }
