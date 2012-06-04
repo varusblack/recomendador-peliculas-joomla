@@ -58,7 +58,7 @@ class PeliculasController extends JController {
         $peliculasVotadas = $modeloVotaciones->obtenerPeliculasVotadasPorUsuario($user->id,true);
 		$todasPeliculasVotadas = $modeloVotaciones->obtenerPeliculasVotadasPorUsuario($user->id);
 		
-		$pagination = $modelo->getPagination($todasPeliculasVotadas);
+		$pagination = $modeloVotaciones->getPagination($todasPeliculasVotadas);
 		$filter_order=$mainframe->getUserStateFromRequest($option.'.peliculas.filter_order', 'filter_order', '', 'word' );
         $filter_order_Dir=$mainframe->getUserStateFromRequest($option.'.peliculas.filter_order_Dir', 'filter_order_Dir', '', 'word' );
         $filter_state=$mainframe->getUserStateFromRequest($option.'.peliculas.filter_state', 'filter_state', '', 'word' );

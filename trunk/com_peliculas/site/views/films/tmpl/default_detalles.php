@@ -29,7 +29,11 @@ defined('_JEXEC') or die('Restricted access');
 		
 		<div class="clear">
 			<span class="modifydate">Director: </span>
-			<span><?php echo  $this->pelicula["director"]?></span>
+			<?php  
+			if(isset($this->otrosdatos)){
+			?>
+			<span><?php echo  $this->otrosdatos["director"]?></span>
+			<?php } ?>
 		</div>
 		
 		<div class="clear">
