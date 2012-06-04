@@ -26,9 +26,8 @@ class PeliculasModelVotacionesPelicula extends JModel {
         }
         return $this->_pagination;
     }
-	
-	
-	function _getOrderString() {
+
+    function _getOrderString() {
         global $mainframe, $option;
         $filter_order = $mainframe->getUserStateFromRequest($option . '.peliculas.filter_order', 'filter_order', '', 'word');
         $filter_order_Dir = $mainframe->getUserStateFromRequest($option . '.peliculas.filter_order_Dir', 'filter_order_Dir', '', 'word');
@@ -53,23 +52,20 @@ class PeliculasModelVotacionesPelicula extends JModel {
                 $where[] = 'g.published = 0';
             }
         }
-        $cadena='';
+        $cadena = '';
         if ($search) {
             $palabras = explode(" ", $search);
             $cadena = " WHERE ";
             foreach ($palabras as $palabra) {
                 if ($cadena != " WHERE ") {
                     $cadena.=" AND ";
-                } 
+                }
                 $cadena.=" (titulo like '%$palabra%' or tituloEspanol like '%$palabra%') ";
             }
         }
 
         return $cadena;
     }
-	
-	
-	
 
     function votarPelicula($idUsuario, $idPelicula, $puntuacion) {
         $timestamp = time();
@@ -186,6 +182,7 @@ class PeliculasModelVotacionesPelicula extends JModel {
         $db->setQuery($query);
         return $db->loadAssoc()->voto;
     }
+
     function obtenerUsuariosQueHanVotadoUnaPelicula($idPelicula) {
         $db = &JFactory::getDbo();
 
@@ -195,7 +192,24 @@ class PeliculasModelVotacionesPelicula extends JModel {
         return $db->loadAssocList();
     }
 
-	
+    function obtenerPeliculasNoVistasDelVecino($idUsuario, $idVecino) {
+        $db = &JFactory::getDbo();
+
+        $query = "select * from #__votos where idUsuario='{$idVecino}' and idPelicula not in (select idPelicula from #__votos where idUsuario='{$idUsuario}')";
+
+        $db->setQuery($query);
+        return $db->loadAssocList();
+    }
+
+    function calculaMedia($idUsuario) {
+        $db = &JFactory::getDbo();
+        $query = "SELECT avg(voto) as media FROM #__votos WHERE idUsuario='{$idUsuario}'";
+
+        $db->setQuery($query);
+        $res = $db->loadAssoc();
+        return $res["media"];
+    }
+
 }
 
 ?>
