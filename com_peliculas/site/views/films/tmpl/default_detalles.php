@@ -13,42 +13,38 @@ defined('_JEXEC') or die('Restricted access');
 		</div>
 		
 		<div class="clear">
-		<?php 
-        if(sizeof($this->categorias) > 0) {
-        	$contador = 1;
-			foreach ($this->categorias as $categoria){?>
-				<span class="modifydate"><?php echo "Categoría $contador: "; ?></span>
-				<span><?php echo $categoria["categoria"]; ?></span>
-				<br/>
-		<?php 
-				$contador = $contador + 1;
+		<span class="modifydate">Categorías: </span>
+			<span>
+			<?php
+			for ($i=0;$i<count($this->categorias);$i++){
+				if($i != (count($this->categorias) - 1)){
+					echo $this->categorias[$i]["categoria"].", ";
+				}else{
+					echo $this->categorias[$i]["categoria"];
+				}
 			}
-        }
-		?>
+			?>
+			</span>
 		</div>
 		
 		<div class="clear">
 			<span class="modifydate">Director: </span>
-			<?php  
-			if(isset($this->otrosdatos)){
-			?>
-			<span><?php echo  $this->otrosdatos["director"]?></span>
-			<?php } ?>
+			<span><?php echo  $this->director["nombre"]?></span>
 		</div>
 		
 		<div class="clear">
-		<?php
-		if(sizeof($this->actores) > 0){
-			$contador = 1;
-			foreach ($this->actores as $actor) {?>
-				<span class="modifydate"><?php echo "Actor $contador: "; ?></span>
-				<span><?php echo $actor["nombre"]; ?></span>
-				<br/>
-		<?php	
-				$contador = $contador + 1;
+			<span class="modifydate">Actores: </span>
+			<span>
+			<?php
+			for ($i=0;$i<count($this->actores);$i++){
+				if($i != (count($this->actores) - 1)){
+					echo $this->actores[$i]["nombre"].", ";
+				}else{
+					echo $this->actores[$i]["nombre"];
+				}
 			}
-		}
-		?>
+			?>
+			</span>
 		</div>
 	
 		<?php  
@@ -76,7 +72,9 @@ defined('_JEXEC') or die('Restricted access');
 		<?php 
 		}
 		?>
-	</div>
+		<div style="float: right;">
+			<?php echo "<img src='/proyecto/images/caratulas/2.jpg' border='0' width='10%' height='10%'>"; ?>
+		</div>
 	
     <input type="hidden" name="id" value="<?php echo $this->pelicula["id"]; ?>" />
 	<input type="hidden" name="option" value="com_peliculas" />
