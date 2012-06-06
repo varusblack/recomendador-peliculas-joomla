@@ -148,7 +148,6 @@
 		} ?>	
 	</div>
 	<input type="hidden" name="option" value="com_peliculas" />
-    <input type="hidden" name="controller" value="films" />
     <input type="hidden" name="task" value="busquedaAvanzada" />
     <input type="hidden" name="paginacion" value="<?php echo base64_encode(serialize($paginacion)); ?>" />
     <input type="hidden" name="filter_order" value="<?php echo $this->filter_order; ?>" />

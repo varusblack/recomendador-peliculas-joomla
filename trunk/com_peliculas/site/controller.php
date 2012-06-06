@@ -79,11 +79,13 @@ class PeliculasController extends JController {
         $modeloVotacionesPelicula = $this->getModel('votacionesPelicula');
         $modeloActoresPelicula = $this->getModel('actoresPelicula');
         $modeloPeliculasCategorias = $this->getModel('peliculasCategorias');
+		$modeloFamosos = $this->getModel('famosos');
 
 		$pelicula = $modeloPelicula->obtenerPeliculaPorId($idPelicula);
         $otrosDatosPelicula = $modeloVotacionesPelicula->obtenerUnicaPeliculaVotadaPorUsuario($user->id, $idPelicula);
         $actores = $modeloActoresPelicula->obtenerActoresDePelicula($pelicula["id"]);
         $categoriasPelicula = $modeloPeliculasCategorias->obtenerCategoriasDePeliculas($pelicula["id"]);
+		$director = $modeloFamosos->obtenerFamosoPorId($pelicula["idDirector"]);
 
         $vista = $this->getView('films', 'html');
         
@@ -93,6 +95,7 @@ class PeliculasController extends JController {
 		$vista->assignRef("pelicula", $pelicula);
         $vista->assignRef("actores", $actores);
         $vista->assignRef("categorias", $categoriasPelicula);
+		$vista->assignRef("director", $director);
 
         $vista->verDetalles();
     }
