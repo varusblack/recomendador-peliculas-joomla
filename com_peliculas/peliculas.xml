@@ -6,7 +6,7 @@
 	<creationDate>Abril 2012</creationDate>
 	<copyright>(C) Antonio y Tristan</copyright>
 	<license>GPL</license>
-	<version>0.88</version>
+	<version>0.9a</version>
 	<description>Componente de recomendación de peliculas</description>
 	
 	<files folder="site">
@@ -43,6 +43,7 @@
 	
 	<media destination="com_peliculas">
 		<filename>peliculas.css</filename>
+		<filename>ajaxVotacion.js</filename>
 		<filename>imagenes/1.jpg</filename>
 		<filename>imagenes/2.jpg</filename>
 		<filename>imagenes/3.jpg</filename>

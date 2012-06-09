@@ -12,6 +12,8 @@ class PeliculasController extends JController {
 
     function votarUnaPelicula() {
         $idUsuario = & JFactory::getUser()->id;
+	
+	$modeloVotaciones=$this->getModel('votacionesPelicula');
 
         $idPelicula = JRequest::getVar('pelicula');
 
@@ -287,9 +289,11 @@ class PeliculasController extends JController {
         foreach ($recomendadas as $idPelicula) {
             $peliculas[] = $modeloPeliculas->obtenerPeliculaPorId($idPelicula);
         }
+	
+	$texto=$this->mostrarPeliculas($peliculas);
 
-        $vista->assignRef("peliculas", $peliculas);
-        $vista->recomendadas();
+	$vista->assignRef("texto", $texto);
+	$vista->recomendadas();
     }
 function obtenerDatosPorId($idFilm) {
     $idUser = & JFactory::getUser()->id;
@@ -406,7 +410,7 @@ function obtenerDatosPorId($idFilm) {
 
     <?php if (isset($resultado["puntuacion"])) { ?>
                         <span class="indicador">Puntuación: </span>
-                        <select name="puntuacion" id="puntuacion" onchange="">
+                        <select name="puntuacion" id="puntuacion" onchange="votar(<?php echo $resultado["idPelicula"];?>,this.value)">
                         <?php
                         if(strcmp($resultado["puntuacion"], "no") == 0){ ?>
                                 <option selected="selected" value="no">No la he visto</option>
