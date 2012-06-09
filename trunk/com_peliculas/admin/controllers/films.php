@@ -112,11 +112,13 @@ class PeliculasControllerFilms extends JController {
         $modeloFilms = $this->getModel('films');
         $modeloPeliculasCategorias = $this->getModel('peliculasCategorias');
         $modeloActoresPelicula = $this->getModel('actoresPelicula');
+        $modeloVotos=$this->getModel('votacionesPelicula');
 
         foreach ($elementsToDelete as $element) {
             $modeloFilms->borrarPelicula($element["id"]);
             $modeloPeliculasCategorias->deleteByPelicula($element["id"]);
             $modeloActoresPelicula->borrarPorPelicula($element["id"]);
+            $modeloVotos->borrarVotosPorPelicula($element["id"]);
         }
         $correcto = true;
         if ($correcto) {
