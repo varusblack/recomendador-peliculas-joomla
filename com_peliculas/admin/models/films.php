@@ -172,7 +172,7 @@ class PeliculasModelFilms extends JModel {
 		$otraCondicion = false;
 		
 		$query = "SELECT DISTINCT #__peliculas.id AS id, #__peliculas.titulo AS titulo,
-					#__peliculas.tituloEspanol AS tituloEspanol, *,substring(#__peliculas.anno,-4)#__peliculas.anno AS anno,
+					#__peliculas.tituloEspanol AS tituloEspanol, #__peliculas.anno AS anno,
 					#__peliculas.idDirector AS idDirector FROM #__peliculas
 							INNER JOIN #__famosos f1 ON #__peliculas.idDirector=f1.id 
 							INNER JOIN #__categoriaspeliculas ON #__peliculas.id=#__categoriaspeliculas.idPelicula 
@@ -266,9 +266,16 @@ class PeliculasModelFilms extends JModel {
         	$limit = $this->getState('limit');
 			$query = $query." ".$this->_getWhereString() . " " . $this->_getOrderString() . " LIMIT $start,$limit";
 		}
-		$db->setQuery($query);
-        return $db->loadAssocList();
 		
+		$db->setQuery($query);
+        $resultado = $db->loadAssocList();
+		
+		
+		$identificadores = array();
+		foreach ($resultado as $res) {
+			$identificadores[]=$res["id"];
+		}
+		return $identificadores;
 		
 	}
 	

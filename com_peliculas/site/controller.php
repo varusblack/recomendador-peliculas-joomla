@@ -57,12 +57,7 @@ class PeliculasController extends JController {
             $idsPeliculas[] = $value["id"];
         }
 
-        $resultados = array();
-        foreach ($idsPeliculas as $id) {
-            $resultados[] = $this->obtenerDatosPorId($id, $idUsuario);
-        }
-
-        $texto = $this->mostrar($resultados);
+        $texto = $this->mostrarPeliculas($idsPeliculas,$idUsuario);
 
         $vista = $this->getView("films", "html");
         $vista->assignRef('texto', $texto);
@@ -109,13 +104,8 @@ class PeliculasController extends JController {
     }
 
     function busquedaAvanzada() {
-        global $mainframe, $option;
-
-        $peliculas = array();
-        $todasLasPeliculas = array();
         $campos = array();
-        $camposPrevios = array();
-
+		$idUser = $user->id;
         $modeloFilms = $this->getModel("films");
         $modeloCategoria = $this->getModel("categorias");
 
@@ -127,77 +117,54 @@ class PeliculasController extends JController {
         $nombreActor1 = JRequest::getVar("nombreActor1");
         $nombreActor2 = JRequest::getVar("nombreActor2");
         $nombreActor3 = JRequest::getVar("nombreActor3");
-        $paginacion = JRequest::getVar("paginacion");
+		$texto = '';
 
-        if ($paginacion == NULL) {
-
-            if (strlen($titulo) > 1) {
-                $campos["titulo"] = $titulo;
-                $camposPrevios["titulo"] = $titulo;
-            }
-
-            if (strlen($tituloEspanol) > 1) {
-                $campos["tituloEspanol"] = $tituloEspanol;
-                $camposPrevios["tituloEspanol"] = $tituloEspanol;
-            }
-
-            if (strlen($anno) > 1) {
-                $campos["anno"] = $anno;
-                $camposPrevios["anno"] = $anno;
-            }
-
-            if (strlen($nombreDirector) > 1) {
-                $campos["nombreDirector"] = $nombreDirector;
-                $camposPrevios["nombreDirector"] = $nombreDirector;
-            }
-
-            if ($idCategoria != 0) {
-                $campos["idCategoria"] = $idCategoria;
-                $camposPrevios["idCategoria"] = $idCategoria;
-            }
-
-            if (strlen($nombreActor1) > 1) {
-                $campos["nombreActor1"] = $nombreActor1;
-                $camposPrevios["nombreActor1"] = $nombreActor1;
-            }
-
-            if (strlen($nombreActor2) > 1) {
-                $campos["nombreActor2"] = $nombreActor2;
-                $camposPrevios["nombreActor2"] = $nombreActor2;
-            }
-
-            if (strlen($nombreActor3) > 1) {
-                $campos["nombreActor3"] = $nombreActor3;
-                $camposPrevios["nombreActor3"] = $nombreActor3;
-            }
-        } else {
-            $camposPrevios = JRequest::getVar("camposPrevios");
-            $camposPrevios = unserialize(base64_decode($camposPrevios));
+        if (strlen($titulo) > 1) {
+            $campos["titulo"] = $titulo;
         }
 
+        if (strlen($tituloEspanol) > 1) {
+            $campos["tituloEspanol"] = $tituloEspanol;
+        }
 
+        if (strlen($anno) > 1) {
+            $campos["anno"] = $anno;
+        }
+
+        if (strlen($nombreDirector) > 1) {
+            $campos["nombreDirector"] = $nombreDirector;
+        }
+
+        if ($idCategoria != 0) {
+            $campos["idCategoria"] = $idCategoria;
+        }
+
+        if (strlen($nombreActor1) > 1) {
+            $campos["nombreActor1"] = $nombreActor1;
+        }
+
+        if (strlen($nombreActor2) > 1) {
+            $campos["nombreActor2"] = $nombreActor2;
+        }
+
+        if (strlen($nombreActor3) > 1) {
+            $campos["nombreActor3"] = $nombreActor3;
+        }
 
         $categorias = $modeloCategoria->obtenerTodasLasCategorias();
 
         $vista = $this->getView('films', 'html');
         $vista->assignRef("categorias", $categorias);
+	
+		
 
-        if ($paginacion == NULL) {
-            if (count($campos) > 0) {
-                $peliculas = $modeloFilms->obtenerPeliculasPorCampos($campos, true);
-                $todasLasPeliculas = $modeloFilms->obtenerPeliculasPorCampos($campos);
-            }
-        } else {
-            $peliculas = $modeloFilms->obtenerPeliculasPorCampos($camposPrevios, true);
-            $todasLasPeliculas = $modeloFilms->obtenerPeliculasPorCampos($camposPrevios);
+        if (count($campos) > 0) {
+            $todasLasPeliculas = $modeloFilms->obtenerPeliculasPorCampos($campos);
+			$texto = $this->mostrarPeliculas($todasLasPeliculas,$idUsuario);
         }
 
-        $vista->assignRef("camposPrevios", $camposPrevios);
-        $vista->assignRef("pagination", $pagination);
-        $vista->assignRef("filter_order", $filter_order);
-        $vista->assignRef("filter_order_Dir", $filter_order_Dir);
-        $vista->assignRef("filter_state", $filter_state);
-        $vista->assignRef("peliculas", $peliculas);
+        $vista->assignRef("campos", $campos);
+        $vista->assignRef("texto", $texto);
         $vista->busquedaYResultados();
     }
 
@@ -306,7 +273,9 @@ class PeliculasController extends JController {
         $vista->assignRef("peliculas", $peliculas);
         $vista->recomendadas();
     }
-    function obtenerDatosPorId($idFilm, $idUser = NULL) {
+function obtenerDatosPorId($idFilm) {
+    $idUser = & JFactory::getUser()->id;
+		
     $modeloFilms = $this->getModel('films');
     $peliculaResultado = $modeloFilms->ObtenerPeliculaPorId($idFilm);
 
@@ -351,6 +320,9 @@ class PeliculasController extends JController {
         $modeloVotaciones = $this->getModel('votacionesPelicula');
         $peliculaVotadaResultado = $modeloVotaciones->obtenerUnicaPeliculaVotadaPorUsuario($idUser, $idPelicula);
         $puntuacion = $peliculaVotadaResultado["puntuacion"];
+		if($puntuacion == NULL){
+			$puntuacion = "no";
+		}
     }
     $resultado = array('idPelicula' => $idPelicula,
         'titulo' => $titulo,
@@ -418,17 +390,25 @@ function obtenerCadena($resultado) {
                         <span class="indicador">Puntuación: </span>
                         <select name="puntuacion" id="puntuacion" onchange="">
                         <?php
+                        if(strcmp($resultado["puntuacion"], "no") == 0){ ?>
+                        	<option selected="selected" value="no">No la he visto</option>
+                    	<?php
+						}else{ ?>
+                    		<option value="no">No la he visto</option>
+              		    <?php    
+						}
+                        
                         for ($i = 1; $i < 6; $i++) {
-                            if ($i . ".00" == $resultado["puntuacion"]) {
+                            if (strcmp($i . ".00", $resultado["puntuacion"])==0) {
                                 ?>
-                                    <option selected value="<?php echo $i . ".00"; ?>"><?php echo $i . ".00"; ?></option>
-                                    <?php } else {
-                                    ?>
-                                    <option value="<?php echo $i . ".00"; ?>"><?php echo $i . ".00"; ?></option>
-                                    <?php
-                                }
+                                <option selected="selected" value="<?php echo $i . ".00"; ?>"><?php echo $i . ".00"; ?></option>
+                                <?php } else {
+                                ?>
+                                <option value="<?php echo $i . ".00"; ?>"><?php echo $i . ".00"; ?></option>
+                                <?php
                             }
-                            ?>
+                        }
+                        ?>
                         </select>
                         <?php } ?>
 
@@ -438,6 +418,18 @@ function obtenerCadena($resultado) {
     </div>
     <?php
     return ob_get_clean();
+}
+
+function mostrarPeliculas($identificadores){
+	$vectorDatos = array();
+	
+	foreach($identificadores as $identificador){
+		$vectorDatos[] = $this->obtenerDatosPorId($identificador);
+	}
+	
+	$pagina = $this->mostrar($vectorDatos);
+	
+	return $pagina;
 }
 
 }
