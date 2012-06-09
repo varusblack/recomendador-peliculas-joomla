@@ -1,0 +1,16 @@
+.indicador{
+	font-family: Arial, Helvetica, Sans-Serif;
+  	font-size: 14px;
+  	font-style: normal;
+  	font-weight: bold;
+  	text-align: left;
+  	color: #5C6459;
+}
+
+/*General*/
+.clear-left{
+	clear: left;
+}
+.clear-right{
+	clear: right;
+}

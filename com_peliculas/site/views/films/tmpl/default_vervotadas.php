@@ -10,37 +10,10 @@ JHTML::stylesheet('peliculas.css', '/media/com_peliculas/');
 ?>
 <form name="userForm" method="post" action="index.php">
 
-	<table>
-		<thead>
-			<tr>
-				<th class="title"><?php echo JHTML::_('grid.sort', 'Título (título en español)', 'titulo', $this->filter_order_Dir, $this->filter_order); ?></th>
-				<th class="title"><?php echo JHTML::_('grid.sort', 'Año', 'anno', $this->filter_order_Dir, $this->filter_order); ?></th>
-				<th class="title"><?php echo JHTML::_('grid.sort', 'Puntuación', 'puntuacion', $this->filter_order_Dir, $this->filter_order); ?></th>
-			</tr>
-		</thead>
-		
-		
-		
-		<?php
-		foreach($this->peliculas as $pelicula){
-			$idPelicula = $pelicula["id"];
-		?>
-			<tr>
-				<td><?php echo "<a href='index.php?option=com_peliculas&task=verDetalles&id=$idPelicula'>".$pelicula["titulo"]." (".$pelicula["tituloEspanol"].")"."</a>"; ?></td>
-				<td><?php echo $pelicula["anno"]; ?></td>
-				<td><?php echo $pelicula["puntuacion"]; ?></td>
-			</tr>
-		<?php
-		}
-		?>
-		<tfoot>
-            <tr>
-                <td colspan="6">
-                    <?php echo $this->pagination->getListFooter(); ?>
-                </td>
-            </tr>
-        </tfoot>
-	</table>
+	<?php 
+		$pagina = $this->texto;
+		echo $pagina;
+	?>
 	
 	<input type="hidden" name="option" value="com_peliculas" />
     <input type="hidden" name="task" value="vervotadas" />
