@@ -29,7 +29,6 @@
                     <menu controller="categorias" view="categorias">Categorías</menu>
                     <menu controller="famosos" view="famosos">Famosos</menu>
                     <menu controller="films" view="peliculas">Peliculas</menu>
-                    <menu controller="usuarios" view="usuarios">Usuarios</menu>
                 </submenu>
 		<files folder="admin">
 			<filename>peliculas.php</filename>

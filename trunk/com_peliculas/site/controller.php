@@ -234,6 +234,8 @@ class PeliculasController extends JController {
     
     public function recomendar(){
         $modeloUsuarios = $this->getModel('usuarios');
+        $modeloUsuarios->calculaLongitudVector();
+        
         $modeloVotos = $this->getModel('votacionesPelicula');
 		$modeloPeliculas = $this->getModel('films');
 		$recomendadas=array();

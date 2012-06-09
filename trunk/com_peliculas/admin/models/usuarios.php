@@ -11,52 +11,7 @@ class PeliculasModelUsuarios extends JModel {
 
     function __construct() {
         parent::__construct();
-        global $mainframe, $option;
-        $mainframe = JFactory::getApplication();
-        $limit = $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
-        $limitstart = JRequest::getVar('limitstart', 0, '', 'int');
-        $this->setState('limit', $limit);
-        $this->setState('limitstart', $limitstart);
     }
-
-    function obtenerTodosLosUsuarios() {
-        $db = &JFactory::getDbo();
-        $query = "SELECT * FROM #__users WHERE usertype='Registered' OR usertype=''";
-        $db->setQuery($query);
-
-        return $db->loadAssocList();
-    }
-
-    function obtenerUsuariosLimites() {
-        $start = $this->getState('limitstart');
-        $limit = $this->getState('limit');
-
-        $db = &JFactory::getDbo();
-        $query = "SELECT * FROM #__users WHERE usertype='Registered' OR usertype='' LIMIT $start,$limit";
-
-        $db->setQuery($query);
-
-        return $db->loadAssocList();
-    }
-
-    function obtenerNumeroUsuarios() {
-        $db = &JFactory::getDbo();
-        $query = "SELECT count(*) as cuenta FROM #__users";
-        $db->setQuery($query);
-        $resultado = $db->loadAssocList();
-
-        return $resultado[0]["cuenta"];
-    }
-
-    function getPagination() {
-        // Load the content if it doesn't already exist
-        if (empty($this->_pagination)) {
-            jimport('joomla.html.pagination');
-            $this->_pagination = new JPagination($this->obtenerNumeroUsuarios(), $this->getState('limitstart'), $this->getState('limit'));
-        }
-        return $this->_pagination;
-    }
-
     function dameUsuario($id) {
         $db = &JFactory::getDbo();
         $query = "SELECT * FROM #__users WHERE id='$id'";
