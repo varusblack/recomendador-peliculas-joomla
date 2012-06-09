@@ -3,6 +3,9 @@ defined('_JEXEC') or die('Restricted access');
 
 ?>
 <form class="user" action="index.php" method="post" name="userform">
+	
+	
+	CAGANDOME EN EL COPON
 <?php
 	if(count($this->peliculas) == 0){
 		echo "No hay películas para votar.";
