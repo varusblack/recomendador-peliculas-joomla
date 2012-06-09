@@ -48,54 +48,31 @@ class PeliculasController extends JController {
     }
 
     function vervotadas() {
-        global $mainframe, $option;
-
-        $modeloVotaciones = $this->getModel('votacionesPelicula');
-
-        $categoriasPeliculas = array();
         $user = & JFactory::getUser();
-
-        $peliculasVotadas = $modeloVotaciones->obtenerPeliculasVotadasPorUsuario($user->id, true);
-        $todasPeliculasVotadas = $modeloVotaciones->obtenerPeliculasVotadasPorUsuario($user->id);
-
-        $pagination = $modeloVotaciones->getPagination($todasPeliculasVotadas);
-        $filter_order = $mainframe->getUserStateFromRequest($option . '.peliculas.filter_order', 'filter_order', '', 'word');
-        $filter_order_Dir = $mainframe->getUserStateFromRequest($option . '.peliculas.filter_order_Dir', 'filter_order_Dir', '', 'word');
-        $filter_state = $mainframe->getUserStateFromRequest($option . '.peliculas.filter_state', 'filter_state', '', 'word');
-
-        $vista = $this->getView("films", "html");
-        $vista->assignRef("pagination", $pagination);
-        $vista->assignRef("peliculas", $peliculasVotadas);
-        $vista->assignRef("filter_order", $filter_order);
-        $vista->assignRef("filter_order_Dir", $filter_order_Dir);
-        $vista->assignRef("filter_state", $filter_state);
+		$idUsuario = $user->id;
+		$modeloVotacion = $this->getModel('votacionesPelicula');
+		$peliculas = $modeloVotacion->obtenerPeliculasVotadasPorUsuario($idUsuario);
+		
+		$idsPeliculas = array();
+		foreach ($peliculas as $value) {
+			$idsPeliculas[] = $value["id"];
+		}
+		
+		$resultados = array();
+		foreach($idsPeliculas as $id){
+			$resultados[] = $this->obtenerDatosPorId($id,$idUsuario);
+		}
+		
+		$texto = $this->mostrar($resultados);
+		
+		$vista = $this->getView("films", "html");
+		$vista->assignRef('texto',$texto);
         $vista->vervotadas();
     }
 
     function verDetalles() {
         $user = & JFactory::getUser();
-        $idPelicula = JRequest::getVar('id');
-        $modeloPelicula = $this->getModel('films');
-        $modeloVotacionesPelicula = $this->getModel('votacionesPelicula');
-        $modeloActoresPelicula = $this->getModel('actoresPelicula');
-        $modeloPeliculasCategorias = $this->getModel('peliculasCategorias');
-        $modeloFamosos = $this->getModel('famosos');
-
-        $pelicula = $modeloPelicula->obtenerPeliculaPorId($idPelicula);
-        $otrosDatosPelicula = $modeloVotacionesPelicula->obtenerUnicaPeliculaVotadaPorUsuario($user->id, $idPelicula);
-        $actores = $modeloActoresPelicula->obtenerActoresDePelicula($pelicula["id"]);
-        $categoriasPelicula = $modeloPeliculasCategorias->obtenerCategoriasDePeliculas($pelicula["id"]);
-        $director = $modeloFamosos->obtenerFamosoPorId($pelicula["idDirector"]);
-
-        $vista = $this->getView('films', 'html');
-
-        if (count($otrosDatosPelicula) > 0) {
-            $vista->assignRef("otrosdatos", $otrosDatosPelicula);
-        }
-        $vista->assignRef("pelicula", $pelicula);
-        $vista->assignRef("actores", $actores);
-        $vista->assignRef("categorias", $categoriasPelicula);
-        $vista->assignRef("director", $director);
+        
 
         $vista->verDetalles();
     }
@@ -216,13 +193,6 @@ class PeliculasController extends JController {
             $todasLasPeliculas = $modeloFilms->obtenerPeliculasPorCampos($camposPrevios);
         }
 
-
-        $pagination = $modeloFilms->getPagination($todasLasPeliculas);
-        $filter_order = $mainframe->getUserStateFromRequest($option . '.peliculas.filter_order', 'filter_order', '', 'word');
-        $filter_order_Dir = $mainframe->getUserStateFromRequest($option . '.peliculas.filter_order_Dir', 'filter_order_Dir', '', 'word');
-        $filter_state = $mainframe->getUserStateFromRequest($option . '.peliculas.filter_state', 'filter_state', '', 'word');
-        $search = $mainframe->getUserStateFromRequest($option . '.peliculas.search', 'search', '', 'word');
-
         $vista->assignRef("camposPrevios", $camposPrevios);
         $vista->assignRef("pagination", $pagination);
         $vista->assignRef("filter_order", $filter_order);
@@ -342,4 +312,138 @@ class PeliculasController extends JController {
 
 }
 
+
+
+function obtenerDatosPorId($idFilm,$idUser=NULL){
+	$modeloFilms = $this->getModel('films');
+	$peliculaResultado = $modeloFilms->ObtenerPeliculaPorId($idFilm);
+	
+	$modeloFamosos = $this->getModel('famosos');
+	$directorResultado = $modeloFamosos->obtenerFamosoPorId($peliculaResultado["idDirector"]);
+	
+	$modeloCategorias = $this->getModel('peliculasCategorias');
+	$categoriasResultado = $modeloCategorias->obtenerCategoriasDePeliculas($peliculaResultado["id"]);
+	
+	$modeloActores = $this->getModel('actoresPelicula');
+	$actoresResultado = $modeloActores->obtenerActoresDePelicula($peliculaResultado["id"]);
+	
+	$idPelicula = $peliculaResultado["id"];
+	$titulo = $peliculaResultado["titulo"];
+	$tituloEspanol = $peliculaResultado["tituloEspanol"];
+	$anno = $peliculaResultado["anno"];
+	$director = $directorResultado["nombre"];
+	$categorias = '';
+	
+	for ($i=0;$i<count($categoriasResultado);$i++){
+		if($i != (count($categoriasResultado) - 1)){
+			$categorias = $categorias . $categoriasResultado[$i]["categoria"].", ";
+		}else{
+			$categorias = $categorias .  $categoriasResultado[$i]["categoria"];
+		}
+	}
+	
+	$actores = '';
+	
+	for ($i=0;$i<count($actoresResultado);$i++){
+		if($i != (count($actoresResultado) - 1)){
+			$actores = $actores . $actoresResultado[$i]["nombre"].", ";
+		}else{
+			$actores = $actores . $actoresResultado[$i]["nombre"];
+		}
+	}
+	
+	$cartel = "/media/com_peliculas/imagenes/$idPelicula.jpg";
+	$puntuacion = NULL;
+	
+	if($idUser != NULL){
+		$modeloVotaciones = $this->getModel('votacionesPelicula');
+		$peliculaVotadaResultado = $modeloVotaciones->obtenerUnicaPeliculaVotadaPorUsuario($idUser, $idPelicula);
+		$puntuacion = $peliculaVotadaResultado["puntuacion"];
+	}
+	$resultado = array('idPelicula' => $idPelicula , 
+						'titulo' => $titulo ,
+						'tituloEspanol' => $tituloEspanol ,
+						'anno' => $anno ,
+						'director' => $director ,
+						'categorias' => $categorias, 
+						'actores' => $actores, 
+						'cartel' => $cartel, 
+						'puntuacion' => $puntuacion);
+	
+	return $resultado;
+}
+
+// 	Devuelve un texto HTML para imprimir en pantalla
+function mostrar($resultados){
+						
+	$pagina = '';						
+	foreach($resultados as $resultado){
+		$pagina.= $this->obtenerCadenas($resultado);
+	}		
+	
+	return $pagina;
+}
+
+function obtenerCadena($resultado){ 
+	ob_start();	?>
+	<div class="Post">
+		<div class="Post-tl"></div>
+		<div class="Post-tr"></div>
+		<div class="Post-bl"></div>
+		<div class="Post-br"></div>
+		<div class="Post-tc"></div>
+		<div class="Post-bc"></div>
+		<div class="Post-cl"></div>
+		<div class="Post-cr"></div>
+		<div class="Post-cc"></div>
+		<div class="Post-body">
+			<div class="Post-inner">
+				<div class="PostContent">
+					<h3><?php echo $resultado["tituloEspanol"]." (".$resultado["titulo"].")" ?></h3>
+					
+					<div>
+						<span class="indicador">Año: </span>
+						<span><?php echo  $resultado["anno"]?></span>
+					</div>
+					
+					<div>
+						<span class="indicador">Categorías: </span>
+						<span><?php echo  $resultado["categorias"]?></span>
+					</div>
+					
+					<div>
+						<span class="indicador">Director: </span>
+						<span><?php echo  $resultado["director"]?></span>
+					</div>
+					
+					<div>
+						<span class="indicador">Actores: </span>
+						<span><?php echo  $resultado["actores"]?></span>
+					</div>
+					
+					<?php
+					if(isset($resultados["puntuacion"])){ ?>
+						<span class="indicador">Puntuación: </span>
+						<select name="puntuacion" id="puntuacion" onchange="">
+						<?php  
+						for($i=1;$i<6;$i++){ 
+							if($i.".00" == $resultados["puntuacion"]){ ?>
+								<option selected value="<?php echo $i.".00"; ?>"><?php echo $i.".00"; ?></option>
+						<?php
+							}else{ ?>
+								<option value="<?php echo $i.".00"; ?>"><?php echo $i.".00"; ?></option>
+						<?php
+							}
+						} ?>
+						</select>
+					<?php } ?>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+<?php	
+	return ob_get_clean();
+}
 ?>
+

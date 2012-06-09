@@ -42,6 +42,7 @@
 	</administration>
 	
 	<media destination="com_peliculas">
+		<filename>peliculas.css</filename>
 		<filename>imagenes/1.jpg</filename>
 		<filename>imagenes/2.jpg</filename>
 		<filename>imagenes/3.jpg</filename>
