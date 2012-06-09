@@ -1,4 +1,13 @@
+<?php
+defined('_JEXEC') or die('Restricted access');
 
+$filename = 'table-ordering.js';
+$path = '/media/system/js/';
+JHTML::script($filename, $path);
+$filename ='ajaxVotacion.js';
+JHTML::script($filename, $path);
+JHTML::stylesheet('peliculas.css', '/media/com_peliculas/');
+?>
 <form name="userForm" method="post" action="index.php">
     <div class="clear">
 
