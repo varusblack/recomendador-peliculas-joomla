@@ -6,7 +6,7 @@ $controller = '';
 
 
 
-if ($controller = JRequest::getVar('controller')) {
+if ($controller == JRequest::getVar('controller')) {
     require_once (JPATH_COMPONENT_ADMINISTRATOR . DS . 'controllers' . DS . $controller . '.php');
 } else{
     require_once( JPATH_COMPONENT_ADMINISTRATOR . DS . 'controller.php' );

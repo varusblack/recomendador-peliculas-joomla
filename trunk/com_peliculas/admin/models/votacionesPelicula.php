@@ -17,6 +17,8 @@ class PeliculasModelVotacionesPelicula extends JModel {
         $limitstart = JRequest::getVar('limitstart', 0, '', 'int');
         $this->setState('limit', $limit);
         $this->setState('limitstart', $limitstart);
+        
+        
     }
 
     function getPagination($resultados) {

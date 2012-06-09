@@ -1,6 +1,6 @@
 <?php
 	$filename = 'table-ordering.js';
-	$path = '/media/system/js/';
+	$path = '.';
 	JHTML::script($filename, $path);
 	JHTML::stylesheet('peliculas.css', '/media/com_peliculas/');
 ?>
