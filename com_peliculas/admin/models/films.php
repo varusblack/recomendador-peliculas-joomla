@@ -32,14 +32,14 @@ class PeliculasModelFilms extends JModel {
         $limit = $this->getState('limit');
 
         $db = &JFactory::getDbo();
-        $query = "SELECT * FROM #__peliculas " . $this->_getWhereString() . " " . $this->_getOrderString() . " LIMIT $start,$limit";
+        $query = "SELECT *,substring(anno,-4) FROM #__peliculas " . $this->_getWhereString() . " " . $this->_getOrderString() . " LIMIT $start,$limit";
         $db->setQuery($query);
         return $db->loadAssocList();
     }
 
     function obtenerTodasLasPeliculas($limites=NULL) {
         $db = &JFactory::getDbo();
-		$query = "SELECT * FROM #__peliculas";
+		$query = "SELECT *,substring(anno,-4) FROM #__peliculas";
 		
 		if($limites !=NULL){
 			$start = $this->getState('limitstart');
@@ -172,7 +172,7 @@ class PeliculasModelFilms extends JModel {
 		$otraCondicion = false;
 		
 		$query = "SELECT DISTINCT #__peliculas.id AS id, #__peliculas.titulo AS titulo,
-					#__peliculas.tituloEspanol AS tituloEspanol, #__peliculas.anno AS anno,
+					#__peliculas.tituloEspanol AS tituloEspanol, *,substring(#__peliculas.anno,-4)#__peliculas.anno AS anno,
 					#__peliculas.idDirector AS idDirector FROM #__peliculas
 							INNER JOIN #__famosos f1 ON #__peliculas.idDirector=f1.id 
 							INNER JOIN #__categoriaspeliculas ON #__peliculas.id=#__categoriaspeliculas.idPelicula 
