@@ -1,5 +1,4 @@
 <?php
-
 defined('_JEXEC') or die('Restricted access');
 
 jimport('joomla.application.component.controller');
@@ -49,30 +48,30 @@ class PeliculasController extends JController {
 
     function vervotadas() {
         $user = & JFactory::getUser();
-		$idUsuario = $user->id;
-		$modeloVotacion = $this->getModel('votacionesPelicula');
-		$peliculas = $modeloVotacion->obtenerPeliculasVotadasPorUsuario($idUsuario);
-		
-		$idsPeliculas = array();
-		foreach ($peliculas as $value) {
-			$idsPeliculas[] = $value["id"];
-		}
-		
-		$resultados = array();
-		foreach($idsPeliculas as $id){
-			$resultados[] = $this->obtenerDatosPorId($id,$idUsuario);
-		}
-		
-		$texto = $this->mostrar($resultados);
-		
-		$vista = $this->getView("films", "html");
-		$vista->assignRef('texto',$texto);
+        $idUsuario = $user->id;
+        $modeloVotacion = $this->getModel('votacionesPelicula');
+        $peliculas = $modeloVotacion->obtenerPeliculasVotadasPorUsuario($idUsuario);
+
+        $idsPeliculas = array();
+        foreach ($peliculas as $value) {
+            $idsPeliculas[] = $value["id"];
+        }
+
+        $resultados = array();
+        foreach ($idsPeliculas as $id) {
+            $resultados[] = $this->obtenerDatosPorId($id, $idUsuario);
+        }
+
+        $texto = $this->mostrar($resultados);
+
+        $vista = $this->getView("films", "html");
+        $vista->assignRef('texto', $texto);
         $vista->vervotadas();
     }
 
     function verDetalles() {
         $user = & JFactory::getUser();
-        
+
 
         $vista->verDetalles();
     }
@@ -201,18 +200,18 @@ class PeliculasController extends JController {
         $vista->assignRef("peliculas", $peliculas);
         $vista->busquedaYResultados();
     }
-    
-    public function recomendar(){
+
+    public function recomendar() {
         $modeloUsuarios = $this->getModel('usuarios');
         $modeloUsuarios->calculaLongitudVector();
-        
+
         $modeloVotos = $this->getModel('votacionesPelicula');
-		$modeloPeliculas = $this->getModel('films');
-		$recomendadas=array();
-        
-        
+        $modeloPeliculas = $this->getModel('films');
+        $recomendadas = array();
+
+
         $user = & JFactory::getUser();
-        $idUsuario=$user->id;
+        $idUsuario = $user->id;
 
         $usuarioACalcular = $modeloUsuarios->dameUsuario($idUsuario);
 
@@ -290,160 +289,159 @@ class PeliculasController extends JController {
             }
             $peliculasNoVistas[$idPelicula]["prediccion"] = ($numerador / $denominador) + $miMedia;
         }
-        
+
         foreach ($peliculasNoVistas as $idPelicula => $pelicula) {
-            
+
             if ($pelicula["prediccion"] > 4) {
-                $recomendadas[]=$idPelicula;
-                
+                $recomendadas[] = $idPelicula;
             }
         }
-        
+
         $vista = $this->getView('films', 'html');
-		$peliculas=array();
-		foreach($recomendadas as $idPelicula){
-			$peliculas[]=$modeloPeliculas->obtenerPeliculaPorId($idPelicula);
-		}
-		
+        $peliculas = array();
+        foreach ($recomendadas as $idPelicula) {
+            $peliculas[] = $modeloPeliculas->obtenerPeliculaPorId($idPelicula);
+        }
+
         $vista->assignRef("peliculas", $peliculas);
         $vista->recomendadas();
+    }
+    function obtenerDatosPorId($idFilm, $idUser = NULL) {
+    $modeloFilms = $this->getModel('films');
+    $peliculaResultado = $modeloFilms->ObtenerPeliculaPorId($idFilm);
 
+    $modeloFamosos = $this->getModel('famosos');
+    $directorResultado = $modeloFamosos->obtenerFamosoPorId($peliculaResultado["idDirector"]);
+
+    $modeloCategorias = $this->getModel('peliculasCategorias');
+    $categoriasResultado = $modeloCategorias->obtenerCategoriasDePeliculas($peliculaResultado["id"]);
+
+    $modeloActores = $this->getModel('actoresPelicula');
+    $actoresResultado = $modeloActores->obtenerActoresDePelicula($peliculaResultado["id"]);
+
+    $idPelicula = $peliculaResultado["id"];
+    $titulo = $peliculaResultado["titulo"];
+    $tituloEspanol = $peliculaResultado["tituloEspanol"];
+    $anno = $peliculaResultado["anno"];
+    $director = $directorResultado["nombre"];
+    $categorias = '';
+
+    for ($i = 0; $i < count($categoriasResultado); $i++) {
+        if ($i != (count($categoriasResultado) - 1)) {
+            $categorias = $categorias . $categoriasResultado[$i]["categoria"] . ", ";
+        } else {
+            $categorias = $categorias . $categoriasResultado[$i]["categoria"];
+        }
     }
 
-}
+    $actores = '';
 
+    for ($i = 0; $i < count($actoresResultado); $i++) {
+        if ($i != (count($actoresResultado) - 1)) {
+            $actores = $actores . $actoresResultado[$i]["nombre"] . ", ";
+        } else {
+            $actores = $actores . $actoresResultado[$i]["nombre"];
+        }
+    }
 
+    $cartel = "/media/com_peliculas/imagenes/$idPelicula.jpg";
+    $puntuacion = NULL;
 
-function obtenerDatosPorId($idFilm,$idUser=NULL){
-	$modeloFilms = $this->getModel('films');
-	$peliculaResultado = $modeloFilms->ObtenerPeliculaPorId($idFilm);
-	
-	$modeloFamosos = $this->getModel('famosos');
-	$directorResultado = $modeloFamosos->obtenerFamosoPorId($peliculaResultado["idDirector"]);
-	
-	$modeloCategorias = $this->getModel('peliculasCategorias');
-	$categoriasResultado = $modeloCategorias->obtenerCategoriasDePeliculas($peliculaResultado["id"]);
-	
-	$modeloActores = $this->getModel('actoresPelicula');
-	$actoresResultado = $modeloActores->obtenerActoresDePelicula($peliculaResultado["id"]);
-	
-	$idPelicula = $peliculaResultado["id"];
-	$titulo = $peliculaResultado["titulo"];
-	$tituloEspanol = $peliculaResultado["tituloEspanol"];
-	$anno = $peliculaResultado["anno"];
-	$director = $directorResultado["nombre"];
-	$categorias = '';
-	
-	for ($i=0;$i<count($categoriasResultado);$i++){
-		if($i != (count($categoriasResultado) - 1)){
-			$categorias = $categorias . $categoriasResultado[$i]["categoria"].", ";
-		}else{
-			$categorias = $categorias .  $categoriasResultado[$i]["categoria"];
-		}
-	}
-	
-	$actores = '';
-	
-	for ($i=0;$i<count($actoresResultado);$i++){
-		if($i != (count($actoresResultado) - 1)){
-			$actores = $actores . $actoresResultado[$i]["nombre"].", ";
-		}else{
-			$actores = $actores . $actoresResultado[$i]["nombre"];
-		}
-	}
-	
-	$cartel = "/media/com_peliculas/imagenes/$idPelicula.jpg";
-	$puntuacion = NULL;
-	
-	if($idUser != NULL){
-		$modeloVotaciones = $this->getModel('votacionesPelicula');
-		$peliculaVotadaResultado = $modeloVotaciones->obtenerUnicaPeliculaVotadaPorUsuario($idUser, $idPelicula);
-		$puntuacion = $peliculaVotadaResultado["puntuacion"];
-	}
-	$resultado = array('idPelicula' => $idPelicula , 
-						'titulo' => $titulo ,
-						'tituloEspanol' => $tituloEspanol ,
-						'anno' => $anno ,
-						'director' => $director ,
-						'categorias' => $categorias, 
-						'actores' => $actores, 
-						'cartel' => $cartel, 
-						'puntuacion' => $puntuacion);
-	
-	return $resultado;
+    if ($idUser != NULL) {
+        $modeloVotaciones = $this->getModel('votacionesPelicula');
+        $peliculaVotadaResultado = $modeloVotaciones->obtenerUnicaPeliculaVotadaPorUsuario($idUser, $idPelicula);
+        $puntuacion = $peliculaVotadaResultado["puntuacion"];
+    }
+    $resultado = array('idPelicula' => $idPelicula,
+        'titulo' => $titulo,
+        'tituloEspanol' => $tituloEspanol,
+        'anno' => $anno,
+        'director' => $director,
+        'categorias' => $categorias,
+        'actores' => $actores,
+        'cartel' => $cartel,
+        'puntuacion' => $puntuacion);
+
+    return $resultado;
 }
 
 // 	Devuelve un texto HTML para imprimir en pantalla
-function mostrar($resultados){
-						
-	$pagina = '';						
-	foreach($resultados as $resultado){
-		$pagina.= $this->obtenerCadenas($resultado);
-	}		
-	
-	return $pagina;
+function mostrar($resultados) {
+
+    $pagina = '';
+    foreach ($resultados as $resultado) {
+        $pagina.= $this->obtenerCadena($resultado);
+    }
+
+    return $pagina;
 }
 
-function obtenerCadena($resultado){ 
-	ob_start();	?>
-	<div class="Post">
-		<div class="Post-tl"></div>
-		<div class="Post-tr"></div>
-		<div class="Post-bl"></div>
-		<div class="Post-br"></div>
-		<div class="Post-tc"></div>
-		<div class="Post-bc"></div>
-		<div class="Post-cl"></div>
-		<div class="Post-cr"></div>
-		<div class="Post-cc"></div>
-		<div class="Post-body">
-			<div class="Post-inner">
-				<div class="PostContent">
-					<h3><?php echo $resultado["tituloEspanol"]." (".$resultado["titulo"].")" ?></h3>
-					
-					<div>
-						<span class="indicador">Año: </span>
-						<span><?php echo  $resultado["anno"]?></span>
-					</div>
-					
-					<div>
-						<span class="indicador">Categorías: </span>
-						<span><?php echo  $resultado["categorias"]?></span>
-					</div>
-					
-					<div>
-						<span class="indicador">Director: </span>
-						<span><?php echo  $resultado["director"]?></span>
-					</div>
-					
-					<div>
-						<span class="indicador">Actores: </span>
-						<span><?php echo  $resultado["actores"]?></span>
-					</div>
-					
-					<?php
-					if(isset($resultados["puntuacion"])){ ?>
-						<span class="indicador">Puntuación: </span>
-						<select name="puntuacion" id="puntuacion" onchange="">
-						<?php  
-						for($i=1;$i<6;$i++){ 
-							if($i.".00" == $resultados["puntuacion"]){ ?>
-								<option selected value="<?php echo $i.".00"; ?>"><?php echo $i.".00"; ?></option>
-						<?php
-							}else{ ?>
-								<option value="<?php echo $i.".00"; ?>"><?php echo $i.".00"; ?></option>
-						<?php
-							}
-						} ?>
-						</select>
-					<?php } ?>
-					
-				</div>
-			</div>
-		</div>
-	</div>
-<?php	
-	return ob_get_clean();
+function obtenerCadena($resultado) {
+    ob_start();
+    ?>
+    <div class="Post">
+        <div class="Post-tl"></div>
+        <div class="Post-tr"></div>
+        <div class="Post-bl"></div>
+        <div class="Post-br"></div>
+        <div class="Post-tc"></div>
+        <div class="Post-bc"></div>
+        <div class="Post-cl"></div>
+        <div class="Post-cr"></div>
+        <div class="Post-cc"></div>
+        <div class="Post-body">
+            <div class="Post-inner">
+                <div class="PostContent">
+                    <h3><?php echo $resultado["tituloEspanol"] . " (" . $resultado["titulo"] . ")" ?></h3>
+
+                    <div>
+                        <span class="indicador">Año: </span>
+                        <span><?php echo $resultado["anno"] ?></span>
+                    </div>
+
+                    <div>
+                        <span class="indicador">Categorías: </span>
+                        <span><?php echo $resultado["categorias"] ?></span>
+                    </div>
+
+                    <div>
+                        <span class="indicador">Director: </span>
+                        <span><?php echo $resultado["director"] ?></span>
+                    </div>
+
+                    <div>
+                        <span class="indicador">Actores: </span>
+                        <span><?php echo $resultado["actores"] ?></span>
+                    </div>
+
+    <?php if (isset($resultado["puntuacion"])) { ?>
+                        <span class="indicador">Puntuación: </span>
+                        <select name="puntuacion" id="puntuacion" onchange="">
+                        <?php
+                        for ($i = 1; $i < 6; $i++) {
+                            if ($i . ".00" == $resultado["puntuacion"]) {
+                                ?>
+                                    <option selected value="<?php echo $i . ".00"; ?>"><?php echo $i . ".00"; ?></option>
+                                    <?php } else {
+                                    ?>
+                                    <option value="<?php echo $i . ".00"; ?>"><?php echo $i . ".00"; ?></option>
+                                    <?php
+                                }
+                            }
+                            ?>
+                        </select>
+                        <?php } ?>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php
+    return ob_get_clean();
 }
+
+}
+
+
 ?>
 
