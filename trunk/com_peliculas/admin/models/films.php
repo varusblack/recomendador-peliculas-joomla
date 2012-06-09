@@ -260,28 +260,25 @@ class PeliculasModelFilms extends JModel {
 								SELECT idPelicula FROM #__actorespelicula 
 								INNER JOIN #__famosos ON #__actorespelicula.idFamoso=#__famosos.id 
 								WHERE #__famosos.nombre LIKE '%$actor3%'))";
-			}
-		}
-		
-		if($limites != NULL){
-			$start = $this->getState('limitstart');
-        	$limit = $this->getState('limit');
-			$query = $query." ".$this->_getWhereString() . " " . $this->_getOrderString() . " LIMIT $start,$limit";
-		}
-		
-		$db->setQuery($query);
-        $resultado = $db->loadAssocList();
-		
-		
-		$identificadores = array();
-		foreach ($resultado as $res) {
-			$identificadores[]=$res["id"];
-		}
-		return $identificadores;
-		
+	    }
 	}
+
+	if ($limites != NULL) {
+	    $start = $this->getState('limitstart');
+	    $limit = $this->getState('limit');
+	    $query = $query . " " . $this->_getWhereString() . " " . $this->_getOrderString() . " LIMIT $start,$limit";
+	}
+
 	$db->setQuery($query);
-	return $db->loadAssocList();
+	$resultado = $db->loadAssocList();
+
+
+	$identificadores = array();
+	foreach ($resultado as $res) {
+	    $identificadores[] = $res["id"];
+	}
+	return $identificadores;
+
     }
 
 }
