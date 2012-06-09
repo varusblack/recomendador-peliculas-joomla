@@ -17,10 +17,7 @@ JHTML::stylesheet('peliculas.css', '/media/com_peliculas/');
 
             <table>
                 <thead>
-                    <tr>
-                        <th class="title"><?php echo JHTML::_('grid.sort', 'Título (título en español)', 'titulo', $this->filter_order_Dir, $this->filter_order); ?></th>
-                        <th class="title"><?php echo JHTML::_('grid.sort', 'Año', 'anno', $this->filter_order_Dir, $this->filter_order); ?></th>
-                    </tr>
+                    
                 </thead>
 
 
