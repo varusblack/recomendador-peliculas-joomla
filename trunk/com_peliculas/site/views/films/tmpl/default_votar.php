@@ -1,16 +1,15 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
 
-
-$path = '/media/com_peliculas/';
+$filename = 'table-ordering.js';
+$path = '/media/system/js/';
+JHTML::script($filename, $path);
 $filename ='ajaxVotacion.js';
 JHTML::script($filename, $path);
 JHTML::stylesheet('peliculas.css', '/media/com_peliculas/');
 ?>
 <form class="user" action="index.php" method="post" name="userform">
 <?php
-	print_r($this);
-	echo "hola";
 	if(strlen($this->texto) == 0){
 		echo "No hay películas para votar.";
 	}else{ 
@@ -18,7 +17,7 @@ JHTML::stylesheet('peliculas.css', '/media/com_peliculas/');
 		?>
 		
 	<div align="center">
-		<button type="submit"title="Votar">Votar</button>
+		<button type="button" title="MasPeliculas" onclick="location.href='index.php?option=com_peliculas&task=votar'">Más películas</button>
 	</div>
 	<?php
 	}
