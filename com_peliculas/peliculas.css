@@ -7,6 +7,26 @@
   	color: #5C6459;
 }
 
+.separador{
+	padding-bottom: 5px;
+}
+
+.cartel-pelicula{
+	float: left;
+	padding-bottom: 8px;
+	padding-right: 20px;
+}
+
+.contenedor-pelicula{
+	font-family: Arial, Helvetica, Sans-Serif;
+  	font-size: 12px;
+  	font-style: normal;
+ 	font-weight: normal;
+ 	text-align: justify;
+ 	color: #484E46;
+ 	height: 200px;
+ 	padding-left: 20px;
+}
 /*General*/
 .clear-left{
 	clear: left;
