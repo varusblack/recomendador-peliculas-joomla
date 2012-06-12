@@ -379,58 +379,60 @@ function obtenerDatosPorId($idFilm) {
             <div class="Post-cc"></div>
             <div class="Post-body">
                 <div class="Post-inner">
-                    <div class="PostContent">
+                    <div class="contenedor-pelicula">
                         <h3><?php echo $resultado["tituloEspanol"] . " (" . $resultado["titulo"] . ")" ?></h3>
 
-                        <div>
+						<div class="cartel-pelicula">
+							<img src="index.php?option=com_peliculas&task=mostrarFoto&id=<?php echo $resultado["idPelicula"];?>&tam=200&format=raw">
+						</div>
+							
+                        <div class="separador">
                             <span class="indicador">Año: </span>
                             <span><?php echo $resultado["anno"] ?></span>
                         </div>
 
-                        <div>
+                        <div class="separador"">
                             <span class="indicador">Categorías: </span>
                             <span><?php echo $resultado["categorias"] ?></span>
                         </div>
 
-                        <div>
+                        <div class="separador">
                             <span class="indicador">Director: </span>
                             <span><?php echo $resultado["director"] ?></span>
                         </div>
 
-                        <div>
+                        <div class="separador">
                             <span class="indicador">Actores: </span>
                             <span><?php echo $resultado["actores"] ?></span>
                         </div>
-						<div>
-							<img src="index.php?option=com_peliculas&task=mostrarFoto&id=<?php echo $resultado["idPelicula"];?>&tam=300&format=raw">
+						
+						<div class="separador">
+	   						<?php if (isset($resultado["puntuacion"])) { ?>
+	                        <span class="indicador">Puntuación: </span>
+	                        <select name="puntuacion" id="puntuacion" onchange="votar(<?php echo $resultado["idPelicula"];?>,this.value)">
+	                        <?php
+	                        if(strcmp($resultado["puntuacion"], "no") == 0){ ?>
+	                                <option selected="selected" value="no">No la he visto</option>
+	                        <?php
+	                                                }else{ ?>
+	                                <option value="no">No la he visto</option>
+	                            <?php    
+	                                                }
+	                        
+	                        for ($i = 1; $i < 6; $i++) {
+	                            if (strcmp($i . ".00", $resultado["puntuacion"])==0) {
+	                                ?>
+	                                <option selected="selected" value="<?php echo $i . ".00"; ?>"><?php echo $i . ".00"; ?></option>
+	                                <?php } else {
+	                                ?>
+	                                <option value="<?php echo $i . ".00"; ?>"><?php echo $i . ".00"; ?></option>
+	                                <?php
+	                            }
+	                        }
+	                        ?>
+	                        </select>
+	                        <?php } ?>
 						</div>
-
-    <?php if (isset($resultado["puntuacion"])) { ?>
-                        <span class="indicador">Puntuación: </span>
-                        <select name="puntuacion" id="puntuacion" onchange="votar(<?php echo $resultado["idPelicula"];?>,this.value)">
-                        <?php
-                        if(strcmp($resultado["puntuacion"], "no") == 0){ ?>
-                                <option selected="selected" value="no">No la he visto</option>
-                        <?php
-                                                }else{ ?>
-                                <option value="no">No la he visto</option>
-                            <?php    
-                                                }
-                        
-                        for ($i = 1; $i < 6; $i++) {
-                            if (strcmp($i . ".00", $resultado["puntuacion"])==0) {
-                                ?>
-                                <option selected="selected" value="<?php echo $i . ".00"; ?>"><?php echo $i . ".00"; ?></option>
-                                <?php } else {
-                                ?>
-                                <option value="<?php echo $i . ".00"; ?>"><?php echo $i . ".00"; ?></option>
-                                <?php
-                            }
-                        }
-                        ?>
-                        </select>
-                        <?php } ?>
-
                     </div>
                 </div>
             </div>
