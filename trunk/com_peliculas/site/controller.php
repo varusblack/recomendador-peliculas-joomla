@@ -18,18 +18,12 @@ class PeliculasController extends JController {
         $idPelicula = JRequest::getVar('pelicula');
 
         $voto = JRequest::getVar('voto');
-        echo $idUsuario . "-" . $idPelicula . "-" . $voto;
-
 
         if ($modeloVotaciones->haVotado($idUsuario, $idPelicula)) {
-            echo "Ha votado";
             $modeloVotaciones->actualizarVoto($idUsuario, $idPelicula, $voto);
         } else {
-            echo "No ha votado";
             $modeloVotaciones->votarPelicula($idUsuario, $idPelicula, $voto);
         }
-
-        die();
     }
 	
   	function votar() {
@@ -407,6 +401,9 @@ function obtenerDatosPorId($idFilm) {
                             <span class="indicador">Actores: </span>
                             <span><?php echo $resultado["actores"] ?></span>
                         </div>
+						<div>
+							<img src="index.php?option=com_peliculas&task=mostrarFoto&id=<?php echo $resultado["idPelicula"];?>&tam=300&format=raw">
+						</div>
 
     <?php if (isset($resultado["puntuacion"])) { ?>
                         <span class="indicador">Puntuación: </span>
@@ -453,6 +450,43 @@ function mostrarPeliculas($identificadores){
         
         return $pagina;
 }
+function mostrarFoto() {
+
+	$id = JRequest::getVar("id");
+	$tam = JRequest::getVar("tam");
+
+	$nombre = "C:\\xampp\\htdocs\\proyecto\\media\\com_peliculas\\imagenes\\$id.jpg";
+
+	$datos = getimagesize($nombre);
+
+	$anchura = $tam;
+	$hmax = intval($tam * 3 / 4);
+
+	if ($datos != null) {
+	    if ($datos[2] == 1) {
+		$img = @imagecreatefromgif($nombre);
+	    }
+	    if ($datos[2] == 2) {
+		$img = imagecreatefromjpeg($nombre);
+	    }
+	    if ($datos[2] == 3) {
+		$img = @imagecreatefrompng($nombre);
+	    }
+
+	    $ratio = $datos[0] / $anchura;
+	    $altura = intval(($datos[1] / $ratio));
+	    if ($altura > $hmax) {
+		$anchura2 = intval($hmax * $anchura / $altura);
+		$altura = $hmax;
+		$anchura = $anchura2;
+	    }
+	    $thumb = imagecreatetruecolor($anchura, $altura);
+		imagecopyresampled($thumb, $img, 0, 0, 0, 0, $anchura, $altura, $datos[0], $datos[1]);
+	    $vista = $this->getView("films", "img");
+	    $vista->assignRef("imagen", $thumb);
+	    $vista->mostrar();
+	}
+    }
 
 }
 
