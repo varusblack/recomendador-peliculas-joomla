@@ -29,6 +29,9 @@ class PeliculasViewFilms extends JView {
         function recomendadas(){
             parent::display('recomendadas');
         }
+	function verPelicula(){
+	    parent::display('verPelicula');
+	}
 
 }
 
