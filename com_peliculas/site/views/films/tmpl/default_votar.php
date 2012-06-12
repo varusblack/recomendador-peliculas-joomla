@@ -1,9 +1,8 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
 
-$filename = 'table-ordering.js';
-$path = '/media/system/js/';
-JHTML::script($filename, $path);
+
+$path = '/media/com_peliculas/';
 $filename ='ajaxVotacion.js';
 JHTML::script($filename, $path);
 JHTML::stylesheet('peliculas.css', '/media/com_peliculas/');
@@ -17,7 +16,7 @@ JHTML::stylesheet('peliculas.css', '/media/com_peliculas/');
 		?>
 		
 	<div align="center">
-		<button type="button" title="MasPeliculas" onclick="location.href='index.php?option=com_peliculas&task=votar'">Más películas</button>
+		<button type="submit" title="Votar">Votar</button>
 	</div>
 	<?php
 	}
