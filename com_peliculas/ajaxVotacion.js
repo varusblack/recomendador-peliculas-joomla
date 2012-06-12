@@ -21,11 +21,10 @@ function votar(idPelicula,voto){
 
     ajax=objetoAjax();
     url="index.php?option=com_peliculas&task=votarUnaPelicula&pelicula="+idPelicula+"&voto="+voto;
-	alert(url);
     ajax.open("GET",url,true) ;
     ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     ajax.setRequestHeader("encoding", "ISO-8859-1");
-	ajax.onreadystatechange=stateChangedVoto;
+    //ajax.onreadystatechange=stateChangedVoto;
     ajax.send();
 	
 	
