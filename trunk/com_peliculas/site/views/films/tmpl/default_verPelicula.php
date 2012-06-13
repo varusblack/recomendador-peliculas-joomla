@@ -15,7 +15,7 @@ defined('_JEXEC') or die('Restricted access');
 	<div class="Post-inner">
 	    <div class="PostContent">
 		<div class="cartel">
-		    <img src="index.php?option=com_peliculas&task=mostrarFoto&id=<?php echo $this->resultado["idPelicula"];?>&tam=300&format=raw">
+		    <img src="index.php?option=com_peliculas&task=mostrarFoto&id=<?php echo $this->resultado["idPelicula"];?>&tam=200&format=raw">
 		</div>
 		<h3><?php echo $this->resultado["tituloEspanol"] . " (" . $this->resultado["titulo"] . ")" ?></h3>
 
