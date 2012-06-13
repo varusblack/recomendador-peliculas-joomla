@@ -24,7 +24,7 @@
 	</uninstall>
 	
 	<administration>
-		<menu link="option=com_peliculas">Peliculas</menu>
+		<menu controller="default" view="default">Peliculas</menu>
                 <submenu>
                     <menu controller="categorias" view="categorias">Categorías</menu>
                     <menu controller="famosos" view="famosos">Famosos</menu>
