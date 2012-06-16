@@ -42,6 +42,13 @@
 	</administration>
 	
 	<media destination="com_peliculas">
+		<filename>iconos/famosos.png</filename>
+		<filename>iconos/peliculas.png</filename>
+		<filename>iconos/categorias.png</filename>
+		<filename>iconos/borrar.png</filename>
+		<filename>iconos/director.png</filename>
+		<filename>iconos/categoria.png</filename>
+		<filename>iconos/famoso.png</filename>
 		<filename>peliculas.css</filename>
 		<filename>ajaxVotacion.js</filename>
 		<filename>imagenes/1.jpg</filename>

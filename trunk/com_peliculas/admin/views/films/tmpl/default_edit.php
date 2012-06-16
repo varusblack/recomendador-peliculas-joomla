@@ -35,7 +35,7 @@ defined('_JEXEC') or die('Restricted access');
 		        	<td width="100" align="right" class="key"><?php echo "Categoría $contador:"; ?></td>
 		        	<td><?php echo $categoria["categoria"]; ?></td>
 		        	<td><a href="<?php echo "index.php?option=com_peliculas&controller=films&task=borrarCategoria&cid[]=".$this->film["id"]."&idObj=".$categoria["id"]; ?>">
-						<img src="/proyecto/images/borrar.png" alt="borrar"/></a></td>
+						<img src="/proyecto/media/com_peliculas/iconos/borrar.png" alt="borrar"/></a></td>
 		        </tr>
 			<?php 
 				$contador = $contador + 1;
@@ -48,7 +48,7 @@ defined('_JEXEC') or die('Restricted access');
         	<td width="100" align="right" class="key">Director:</td>
         	<td><?php echo $this->director["nombre"]; ?></td>
         	<td><a href="<?php echo "index.php?option=com_peliculas&controller=films&task=borrarDirector&cid[]=".$this->film["id"]; ?>">
-				<img src="/proyecto/images/borrar.png" alt="borrar"/></a></td>
+				<img src="/proyecto/media/com_peliculas/iconos/borrar.png" alt="borrar"/></a></td>
         </tr>
 		<?php
         }
@@ -61,7 +61,7 @@ defined('_JEXEC') or die('Restricted access');
 		        	<td width="100" align="right" class="key"><?php echo "Actor $contador:"; ?></td>
 		        	<td><?php echo $actor["nombre"]; ?></td>
 		        	<td><a href="<?php echo "index.php?option=com_peliculas&controller=films&task=borrarActor&cid[]=".$this->film["id"]."&idObj=".$actor["id"]; ?>">
-						<img src="/proyecto/images/borrar.png" alt="borrar"/></a></td>
+						<img src="/proyecto/media/com_peliculas/iconos/borrar.png" alt="borrar"/></a></td>
 		        </tr>
 				<?php
 				$contador = $contador + 1;
