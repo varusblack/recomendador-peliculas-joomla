@@ -16,10 +16,12 @@ class PeliculasViewFilms extends JView {
     }
 
     function edit() {
+		JHTML::stylesheet('peliculas.css', '/media/com_peliculas/');
+		
         JToolBarHelper::title('Editar datos de la película');
-		JToolBarHelper::custom('insertarDirector','','','Insertar director',false,false);
-		JToolBarHelper::custom('insertarActor','','','Insertar actor',false,false);
-		JToolBarHelper::custom('insertarCategoria','','','Insertar categoria',false,false);
+		JToolBarHelper::custom('insertarDirector','directorIcono','directorIcono','Insertar director',false,false);
+		JToolBarHelper::custom('insertarActor','famosoIcono','famosoIcono','Insertar actor',false,false);
+		JToolBarHelper::custom('insertarCategoria','categoriaIcono','categoriaIcono','Insertar categoria',false,false);
         JToolBarHelper::save();
         JToolBarHelper::cancel();
 
