@@ -77,8 +77,9 @@ JHTML::stylesheet('peliculas.css', '/media/com_peliculas/');
         </div>
 
 
-    <div class="cleared">
+    <div class="centrado">
         <button type="submit" value="Buscar">Buscar</button>
+        <button type="reset" value="Limpiar valores">Limpiar valores</button>
     </div>
 
 
