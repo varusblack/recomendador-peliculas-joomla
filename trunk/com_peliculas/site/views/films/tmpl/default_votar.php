@@ -15,8 +15,8 @@ JHTML::stylesheet('peliculas.css', '/media/com_peliculas/');
 			echo $this->texto;
 		?>
 		
-	<div align="center">
-		<button type="submit" title="Votar">Votar</button>
+	<div class="centrado">
+		<button type="button" title="Mas Peliculas" onclick="location='index.php?option=com_peliculas&task=votar'">Más películas</button>
 	</div>
 	<?php
 	}

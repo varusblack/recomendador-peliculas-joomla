@@ -34,6 +34,9 @@
   	color: #5C6459;
 	height:400px;
 }
+.centrado{
+	text-align: center;
+}
 /*General*/
 .clear-left{
 	clear: left;
