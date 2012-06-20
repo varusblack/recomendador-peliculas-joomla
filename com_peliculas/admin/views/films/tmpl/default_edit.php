@@ -1,9 +1,10 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
+$editor = &JFactory::getEditor();
 ?>
 <form action="index.php" method="post" name="adminForm">
     <table class="admintable">
-		<tr>
+	<tr>
             <td width="100" align="right" class="key">
                 <label for="titulo">Título:</label>
             </td>
@@ -12,62 +13,71 @@ defined('_JEXEC') or die('Restricted access');
             </td>
         </tr>
         <tr>
-        	<td width="100" align="right" class="key">
-        		<label for="anno">Año:</label>
-        	</td>
-        	<td>
-        		<input type="text" width="100" name="anno" id="anno" maxlength="300" value="<?php echo $this->film["anno"]; ?>"/>
-        	</td>
+	    <td width="100" align="right" class="key">
+		<label for="anno">Año:</label>
+	    </td>
+	    <td>
+		<input type="text" width="100" name="anno" id="anno" maxlength="300" value="<?php echo $this->film["anno"]; ?>"/>
+	    </td>
         </tr>
         <tr>
-        	<td width="100" align="right" class="key">
-        		<label for="tituloEsp">Título en español:</label>
-        	</td>
-        	<td>
-        		<input type="text" width="200" name="tituloEsp" id="tituloEsp" maxlength="300" value="<?php echo $this->film["tituloEspanol"]; ?>"/>
-        	</td>
+	    <td width="100" align="right" class="key">
+		<label for="tituloEsp">Título en español:</label>
+	    </td>
+	    <td>
+		<input type="text" width="200" name="tituloEsp" id="tituloEsp" maxlength="300" value="<?php echo $this->film["tituloEspanol"]; ?>"/>
+	    </td>
         </tr>
-        <?php 
-        if(sizeof($this->categorias) > 0) {
-        	$contador = 1;
-			foreach ($this->categorias as $categoria){?>
-				<tr>
-		        	<td width="100" align="right" class="key"><?php echo "Categoría $contador:"; ?></td>
-		        	<td><?php echo $categoria["categoria"]; ?></td>
-		        	<td><a href="<?php echo "index.php?option=com_peliculas&controller=films&task=borrarCategoria&cid[]=".$this->film["id"]."&idObj=".$categoria["id"]; ?>">
-						<img src="/proyecto/media/com_peliculas/iconos/borrar.png" alt="borrar"/></a></td>
-		        </tr>
-			<?php 
-				$contador = $contador + 1;
-			}
-        }
-        
-        if(sizeof($this->director) == 2){
+	<tr>
+	    <td width="100" align="right" class="key">
+		<label for="tituloEsp">Sinopsis:</label>
+	    </td>
+	    <td>
+		<?php echo $editor->display("sinopsis", $this->film["resumenEspa"], '70%', '250', '40', '5'); ?>
+	    </td>
+        </tr>
+	<?php
+	if (sizeof($this->categorias) > 0) {
+	    $contador = 1;
+	    foreach ($this->categorias as $categoria) {
 		?>
 		<tr>
-        	<td width="100" align="right" class="key">Director:</td>
-        	<td><?php echo $this->director["nombre"]; ?></td>
-        	<td><a href="<?php echo "index.php?option=com_peliculas&controller=films&task=borrarDirector&cid[]=".$this->film["id"]; ?>">
-				<img src="/proyecto/media/com_peliculas/iconos/borrar.png" alt="borrar"/></a></td>
-        </tr>
+		    <td width="100" align="right" class="key"><?php echo "Categoría $contador:"; ?></td>
+		    <td><?php echo $categoria["categoria"]; ?></td>
+		    <td><a href="<?php echo "index.php?option=com_peliculas&controller=films&task=borrarCategoria&cid[]=" . $this->film["id"] . "&idObj=" . $categoria["id"]; ?>">
+			    <img src="/proyecto/media/com_peliculas/iconos/borrar.png" alt="borrar"/></a></td>
+		</tr>
 		<?php
-        }
-		
-		if(sizeof($this->actores) > 0){
-			$contador = 1;
-			foreach ($this->actores as $actor) {
-				?>
-				<tr>
-		        	<td width="100" align="right" class="key"><?php echo "Actor $contador:"; ?></td>
-		        	<td><?php echo $actor["nombre"]; ?></td>
-		        	<td><a href="<?php echo "index.php?option=com_peliculas&controller=films&task=borrarActor&cid[]=".$this->film["id"]."&idObj=".$actor["id"]; ?>">
-						<img src="/proyecto/media/com_peliculas/iconos/borrar.png" alt="borrar"/></a></td>
-		        </tr>
-				<?php
-				$contador = $contador + 1;
-			}
-		}
+		$contador = $contador + 1;
+	    }
+	}
+
+	if (sizeof($this->director) == 2) {
+	    ?>
+    	<tr>
+    	    <td width="100" align="right" class="key">Director:</td>
+    	    <td><?php echo $this->director["nombre"]; ?></td>
+    	    <td><a href="<?php echo "index.php?option=com_peliculas&controller=films&task=borrarDirector&cid[]=" . $this->film["id"]; ?>">
+    		    <img src="/proyecto/media/com_peliculas/iconos/borrar.png" alt="borrar"/></a></td>
+            </tr>
+	    <?php
+	}
+
+	if (sizeof($this->actores) > 0) {
+	    $contador = 1;
+	    foreach ($this->actores as $actor) {
 		?>
+		<tr>
+		    <td width="100" align="right" class="key"><?php echo "Actor $contador:"; ?></td>
+		    <td><?php echo $actor["nombre"]; ?></td>
+		    <td><a href="<?php echo "index.php?option=com_peliculas&controller=films&task=borrarActor&cid[]=" . $this->film["id"] . "&idObj=" . $actor["id"]; ?>">
+			    <img src="/proyecto/media/com_peliculas/iconos/borrar.png" alt="borrar"/></a></td>
+		</tr>
+		<?php
+		$contador = $contador + 1;
+	    }
+	}
+	?>
 
     </table>
     <input type="hidden" name="option" value="com_peliculas" />
