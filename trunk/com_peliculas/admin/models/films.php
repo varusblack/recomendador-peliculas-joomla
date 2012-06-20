@@ -60,9 +60,9 @@ class PeliculasModelFilms extends JModel {
 	return $db->loadAssoc();
     }
 
-    function insertarPelicula($titulo, $anno, $tituloEsp) {
+    function insertarPelicula($titulo, $anno, $tituloEsp, $sinopsis) {
 	$db = &JFactory::getDbo();
-	$query = "INSERT INTO #__peliculas SET titulo='{$titulo}',anno='{$anno}',tituloEspanol='{$tituloEsp}'";
+	$query = "INSERT INTO #__peliculas SET titulo='{$titulo}',anno='{$anno}',tituloEspanol='{$tituloEsp}',resumenEspa='{$sinopsis}'";
 	$db->setQuery($query);
 	$db->query();
 	$resultado = array();
@@ -73,9 +73,9 @@ class PeliculasModelFilms extends JModel {
 	}
     }
 
-    function actualizarPelicula($idPelicula, $titulo, $anno, $tituloEsp) {
+    function actualizarPelicula($idPelicula, $titulo, $anno, $tituloEsp, $sinopsis) {
 	$db = &JFactory::getDbo();
-	$query = "UPDATE #__peliculas SET titulo='{$titulo}',anno='{$anno}',tituloEspanol='{$tituloEsp}' WHERE id='{$idPelicula}'";
+	$query = "UPDATE #__peliculas SET titulo='{$titulo}',anno='{$anno}',tituloEspanol='{$tituloEsp}',resumenEspa='{$sinopsis}' WHERE id='{$idPelicula}'";
 	$db->setQuery($query);
 	$db->query();
 	if ($db->getErrorNum()) {
@@ -176,10 +176,10 @@ class PeliculasModelFilms extends JModel {
 	$query = "SELECT DISTINCT #__peliculas.id AS id, #__peliculas.titulo AS titulo,
 					#__peliculas.tituloEspanol AS tituloEspanol, #__peliculas.anno AS anno,
 					#__peliculas.idDirector AS idDirector FROM #__peliculas
-							INNER JOIN #__famosos f1 ON #__peliculas.idDirector=f1.id 
-							INNER JOIN #__categoriaspeliculas ON #__peliculas.id=#__categoriaspeliculas.idPelicula 
-							INNER JOIN #__actorespelicula ON #__peliculas.id=#__actorespelicula.idPelicula 
-							INNER JOIN #__famosos f2 ON #__actorespelicula.idFamoso=f2.id WHERE ";
+							LEFT JOIN #__famosos f1 ON #__peliculas.idDirector=f1.id 
+							LEFT JOIN #__categoriaspeliculas ON #__peliculas.id=#__categoriaspeliculas.idPelicula 
+							LEFT JOIN #__actorespelicula ON #__peliculas.id=#__actorespelicula.idPelicula 
+							LEFT JOIN #__famosos f2 ON #__actorespelicula.idFamoso=f2.id WHERE ";
 
 	if (isset($campos["titulo"])) {
 	    $titulo = $campos["titulo"];
@@ -278,7 +278,6 @@ class PeliculasModelFilms extends JModel {
 	    $identificadores[] = $res["id"];
 	}
 	return $identificadores;
-
     }
 
 }
