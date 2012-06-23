@@ -51,3 +51,6 @@
 .datosPelicula{
 	float:left;
 }
+.pelicula{
+    min-height: 250px;
+}

@@ -379,7 +379,7 @@ class PeliculasController extends JController {
 	ob_start();
 
 	$vista->verPelicula();
-	return utf8_encode(ob_get_clean());
+	return ob_get_clean();
     }
 
     function mostrarPeliculas($identificadores) {
