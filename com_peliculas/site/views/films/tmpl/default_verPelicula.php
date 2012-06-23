@@ -36,6 +36,11 @@ defined('_JEXEC') or die('Restricted access');
 		    </div>
 
 		    <div>
+			<span class="indicador">Actores: </span>
+			<span><?php echo $this->resultado["actores"] ?></span>
+		    </div>
+
+		    <div>
 			<span class="indicador">Resumen: </span>
 			<span><?php echo $this->resultado["resumenEspa"] ?></span>
 		    </div>
