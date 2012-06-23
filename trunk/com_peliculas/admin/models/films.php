@@ -274,10 +274,15 @@ class PeliculasModelFilms extends JModel {
 
 
 	$identificadores = array();
-	foreach ($resultado as $res) {
-	    $identificadores[] = $res["id"];
+	if (isset($resultado)) {
+	    foreach ($resultado as $res) {
+		$identificadores[] = $res["id"];
+	    }
+
+	    return $identificadores;
+	} else {
+	    return array();
 	}
-	return $identificadores;
     }
 
 }
