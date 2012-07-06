@@ -59,11 +59,14 @@ class PeliculasControllerCategorias extends JController {
         $id = JRequest::getVar('id');
         $modelo = $this->getModel('categorias');
         $nombre = JRequest::getVar('nombreCategoria');
+		
         if ($id != '') {
-
-
-
-            $correcto = $modelo->updateCategoria($nombre, $id);
+        	
+        	if($nombre == ""){
+				$correcto = false;
+			}else{			
+				$correcto = $modelo->updateCategoria($nombre, $id);
+			}
 
             if ($correcto) {
                 $aviso = "Se actualizó la categoría correctamente";
@@ -71,7 +74,12 @@ class PeliculasControllerCategorias extends JController {
                 $aviso = "Se ha producido un error al actualizar la categoría";
             }
         } else {
-            $correcto = $modelo->addCategoria($nombre);
+        	
+            if($nombre == ""){
+				$correcto = false;
+			}else{			
+				$correcto = $modelo->addCategoria($nombre);
+			}
 
             if ($correcto) {
                 $aviso = "La categoría se insertó correctamente";

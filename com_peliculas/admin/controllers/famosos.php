@@ -64,14 +64,26 @@ class PeliculasControllerFamosos extends JController {
         $nombre = JRequest::getVar("nombre");
 
         if ($id != "") {
-            $correcto = $modelo->actualizarFamoso($id, $nombre);
+        	
+        	if($nombre == ""){
+				$correcto = false;
+			}else{			
+				$correcto = $modelo->actualizarFamoso($id, $nombre);
+			}
+            
             if ($correcto) {
                 $aviso = "La actualización se ha realizado con exito";
             } else {
                 $aviso = "Error en la actualizacion";
             }
         } else {
-            $correcto = $modelo->insertarFamoso($nombre);
+        	
+			if($nombre == ""){
+				$correcto = false;
+			}else{			
+				$correcto = $modelo->insertarFamoso($nombre);
+			}
+            
             if ($correcto) {
                 $aviso = "La insercion se ha realizado con exito";
             } else {

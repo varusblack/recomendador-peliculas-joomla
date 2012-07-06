@@ -65,9 +65,15 @@ class PeliculasControllerFilms extends JController {
 	$modelo = $this->getModel("films");
 
 	$enlace;
+	
 
 	if ($id != "") {
-	    $correcto = $modelo->actualizarPelicula($id, $titulo, $anno, $tituloEsp, $sinopsis);
+		if($titulo == ""){
+			$correcto = false;
+		}else{			
+			$correcto = $modelo->actualizarPelicula($id, $titulo, $anno, $tituloEsp, $sinopsis);
+		}
+	    
 	    $enlace = 'index.php?option=com_peliculas&controller=films&task=edit&cid[]=' . $id;
 
 	    if ($correcto) {
@@ -76,7 +82,12 @@ class PeliculasControllerFilms extends JController {
 		$aviso = "Error en la actualizacion ";
 	    }
 	} else {
-	    $correcto = $modelo->insertarPelicula($titulo, $anno, $tituloEsp, $sinopsis);
+		if($titulo == ""){
+			$correcto = false;
+		}else{			
+			$correcto = $modelo->insertarPelicula($titulo, $anno, $tituloEsp, $sinopsis);
+		}
+	    
 	    $enlace = 'index.php?option=com_peliculas&controller=films';
 	    if ($correcto) {
 		$aviso = "La insercion se ha realizado con exito";
