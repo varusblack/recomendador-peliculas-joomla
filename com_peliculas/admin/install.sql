@@ -1,8 +1,19 @@
+CREATE TABLE IF NOT EXISTS `#__actorespelicula` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idFamoso` int(11) NOT NULL,
+  `idPelicula` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `famosoPelicula` (`idFamoso`,`idPelicula`),
+  KEY `idFamoso` (`idFamoso`),
+  KEY `idPelicula` (`idPelicula`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
 CREATE TABLE IF NOT EXISTS `#__categorias` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `categoria` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
-  PRIMARY KEY (`id`)
-);
+  `categoria` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `Categoria unica` (`categoria`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `#__famosos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -19,17 +30,18 @@ CREATE TABLE IF NOT EXISTS `#__peliculas` (
   `idDirector` int(11) DEFAULT NULL,
   `resumenEspa` text NOT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `Pelicula de fecha unica` (`titulo`,`anno`),
   KEY `idDirector` (`idDirector`)
-);
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `#__categoriaspeliculas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `idPelicula` int(11) NOT NULL,
   `idCategoria` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `idPelicula` (`idPelicula`,`idCategoria`),
+  UNIQUE KEY `idPelicula` (`idPelicula`,`idCategoria`),
   KEY `idCategoria` (`idCategoria`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=7453 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 ALTER TABLE  `#__users` ADD  `vector` FLOAT NOT NULL;
 
