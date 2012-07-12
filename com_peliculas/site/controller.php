@@ -184,6 +184,7 @@ class PeliculasController extends JController {
     }
 
     public function recomendar() {
+    ini_set('max_execution_time', 300);
 	$modeloUsuarios = $this->getModel('usuarios');
 	$modeloUsuarios->calculaLongitudVector();
 
