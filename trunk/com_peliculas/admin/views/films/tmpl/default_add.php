@@ -36,6 +36,14 @@ $editor = &JFactory::getEditor();
 		<?php echo $editor->display("sinopsis", "", '70%', '250', '40', '5'); ?>
 	    </td>
         </tr>
+	<tr>
+	    <td width="100" align="right" class="key">
+		<label for="tituloEsp">Archivo con el cartel (.jpg):</label>
+	    </td>
+	    <td>
+		<input type="file" name="cartel" id="cartel" />
+	    </td>
+        </tr>
 
 
     </table>

@@ -184,7 +184,7 @@ class PeliculasController extends JController {
     }
 
     public function recomendar() {
-    ini_set('max_execution_time', 300);
+	ini_set('max_execution_time', 300);
 	$modeloUsuarios = $this->getModel('usuarios');
 	$modeloUsuarios->calculaLongitudVector();
 
@@ -400,7 +400,12 @@ class PeliculasController extends JController {
 	$id = JRequest::getVar("id");
 	$tam = JRequest::getVar("tam");
 
-	$nombre = "C:\\xampp\\htdocs\\proyecto\\media\\com_peliculas\\imagenes\\$id.jpg";
+	if (file_exists(JPATH_BASE . DS . "MEDIA" . DS . "com_peliculas" . DS . "imagenes" . DS . $id . ".jpg")) {
+
+	    $nombre = JPATH_BASE . DS . "MEDIA" . DS . "com_peliculas" . DS . "imagenes" . DS . $id . ".jpg";
+	} else {
+	    $nombre = JPATH_BASE . DS . "MEDIA" . DS . "com_peliculas" . DS . "imagenes" . DS . "nodisponible.jpg";
+	}
 
 	$datos = getimagesize($nombre);
 
