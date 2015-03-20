@@ -1,0 +1,1 @@
+Creación de un componente de recomendación de peliculas para Joomla! 1.5
